@@ -1,0 +1,6 @@
+<project name="IJA Project" xmlns:fx="javafx:com.sun.javafx.tools.ant">
+    <target name="compile" resource="com/sun/javafx/tools/ant/antlib.xml">
+        <mkdir dir="build"/>
+        <javac srcdir="src" destdir="build" includeantruntime="false"/>
+    </target>
+</project>
