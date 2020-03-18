@@ -1,0 +1,19 @@
+.background{
+    -fx-background-color: #2e3440;
+}
+.root * {
+    -fx-text-fill: #d8dee9;
+}
+
+.statusbar {
+    -fx-background-color: #3b4252;
+}
+
+.button {
+    -fx-background-color: #434c5e;
+}
+
+Line, Polyline {
+    -fx-stroke: #d8dee9;
+    -fx-stroke-width: 4;
+}
