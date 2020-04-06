@@ -60,4 +60,12 @@ public class Controller {
         MapTransform.setScaleX(new_zoom);
         MapTransform.setScaleY(new_zoom);
     }
+
+    public void resetView(ActionEvent actionEvent) {
+        MapTransform.setTranslateX(640);
+        MapTransform.setTranslateY(360);
+        MapTransform.setScaleX(1);
+        MapTransform.setScaleY(1);
+
+    }
 }
