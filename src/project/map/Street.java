@@ -45,4 +45,13 @@ public class Street {
             }
         }
     }
+
+    public List<Node> listNodes() {
+        List<Node> list = new ArrayList<>();
+        list.add(currentStart);
+        for (Edge e: edges) {
+            list.add(e.end);
+        }
+        return list;
+    }
 }

@@ -2,21 +2,38 @@ package project;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
-import project.map.Node;
+import javafx.scene.shape.Polyline;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import project.map.*;
 
 public class Controller {
-    public Button MainButton;
     public Label TextLabel;
     public Pane MapPane;
     public Group MapTransform;
 
-    private Node<Double> DragStart = new Node<>(0.0, 0.0);
-    private Node<Double> OrigTransform = new Node<>(0.0, 0.0);
+    public Map map = new Map();
+
+    private Node DragStart = new Node(0.0, 0.0);
+    private Node OrigTransform = new Node(0.0, 0.0);
+
+    public void initialize() {
+        MapTransform.setTranslateX(640);
+        MapTransform.setTranslateY(360);
+        map = Map.placeholderData();
+        for (Street s: map.streets) {
+            List<Double> nodes = s.listNodes().stream().flatMap(n -> Stream.of(n.x, n.y)).collect(Collectors.toList());
+            Polyline pl = new Polyline();
+            pl.getPoints().addAll(nodes);
+            MapTransform.getChildren().add(pl);
+        }
+    }
 
     public void onButtonClick(ActionEvent actionEvent) {
         TextLabel.setText("Congratulations!");

@@ -1,10 +1,10 @@
 package project.map;
 
-public class Node<T> {
-    public T x;
-    public T y;
+public class Node {
+    public double x;
+    public double y;
 
-    public Node(T x, T y) {
+    public Node(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -14,7 +14,7 @@ public class Node<T> {
         if (!(o instanceof Node)) {
             return false;
         }
-        Node<?> other = (Node<?>)o;
+        Node other = (Node)o;
         return x == other.x && y == other.y;
     }
 }

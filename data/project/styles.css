@@ -16,4 +16,7 @@
 Line, Polyline {
     -fx-stroke: #d8dee9;
     -fx-stroke-width: 4;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+    -fx-stroke-type: centered;
 }
