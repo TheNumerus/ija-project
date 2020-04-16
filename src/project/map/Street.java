@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Street {
-    private List<Edge> edges;
-    private Node currentStart;
-    private Node currentEnd;
     public String name;
     public double costMultiplier;
+    private Node currentStart;
+    private Node currentEnd;
+    private List<Edge> edges;
+
 
     public Street(@NotNull Edge e, @NotNull String name) {
         edges = new ArrayList<>();
