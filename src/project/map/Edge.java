@@ -7,6 +7,7 @@ public class Edge {
     public Node end;
     public int cost;
     public boolean oneWay;
+    public boolean closed;
 
     public Edge(@NotNull Node start, @NotNull Node end, int cost, boolean oneWay) {
         if (start.equals(end)) {
@@ -16,5 +17,6 @@ public class Edge {
         this.end = end;
         this.cost = cost;
         this.oneWay = oneWay;
+        closed = false;
     }
 }

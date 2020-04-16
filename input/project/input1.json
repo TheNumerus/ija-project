@@ -22,7 +22,8 @@
             "y" : 100.0
           },
           "cost" : 1,
-          "oneWay" : "False"
+          "oneWay" : "False",
+          "closed" : "False"
         },
         {
           "start" : {
@@ -34,7 +35,8 @@
             "y" : 100.0
           },
           "cost" : 1,
-          "oneWay" : "False"
+          "oneWay" : "False",
+          "closed" : "False"
         }
       ]
     }

@@ -6,10 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Polyline;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import project.map.*;
 
@@ -24,14 +20,18 @@ public class Controller {
     private Node OrigTransform = new Node(0.0, 0.0);
 
     public void initialize() {
-        MapTransform.setTranslateX(640);
-        MapTransform.setTranslateY(360);
-        map = Map.placeholderData();
+        // TODO replace by reset only, map will be loaded from elsewhere
+        loadMap(Map.placeholderData());
+    }
+
+    private void loadMap(Map map) {
+        resetView(null);
         for (Street s: map.streets) {
-            List<Double> nodes = s.listNodes().stream().flatMap(n -> Stream.of(n.x, n.y)).collect(Collectors.toList());
-            Polyline pl = new Polyline();
-            pl.getPoints().addAll(nodes);
-            MapTransform.getChildren().add(pl);
+            // TODO check for duplicate edges already on map
+            for (Edge e: s.getEdges()) {
+                EdgeLine el = new EdgeLine(e);
+                MapTransform.getChildren().add(el);
+            }
         }
     }
 

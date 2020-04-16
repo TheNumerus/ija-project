@@ -13,10 +13,22 @@
     -fx-background-color: #434c5e;
 }
 
-Line, Polyline {
+Line, Polyline, EdgeLine {
     -fx-stroke: #d8dee9;
     -fx-stroke-width: 4;
     -fx-stroke-line-cap: round;
     -fx-stroke-line-join: round;
     -fx-stroke-type: centered;
+}
+
+.edgeline_hover {
+    -fx-stroke: #88c0d0;
+}
+
+.edgeline_closed {
+    -fx-stroke: #bf616a;
+}
+
+.edgeline_closedhover {
+    -fx-stroke: #d08770;
 }

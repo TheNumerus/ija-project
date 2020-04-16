@@ -55,4 +55,8 @@ public class Street {
         }
         return list;
     }
+
+    public List<Edge> getEdges() {
+        return edges;
+    }
 }
