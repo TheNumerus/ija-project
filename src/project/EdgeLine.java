@@ -1,47 +1,93 @@
 package project;
 
+import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 import project.map.Edge;
+import javafx.fxml.FXMLLoader;
+import project.map.Street;
 
-public class EdgeLine extends Line {
+import java.io.IOException;
+
+public class EdgeLine extends Group {
     private Edge edge;
     private boolean hover;
 
-    public EdgeLine(Edge e) {
+    @FXML
+    private Line line;
+
+    @FXML
+    private Label name;
+
+    public EdgeLine(Edge e, Street s) {
+        // load ui elements
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                "EdgeLine.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setControllerFactory(theClass -> this);
+
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+
         edge = e;
         hover = false;
 
         // line coordinates
-        setStartX(e.start.x);
-        setStartY(e.start.y);
-        setEndX(e.end.x);
-        setEndY(e.end.y);
+        line.setStartX(e.start.x);
+        line.setStartY(e.start.y);
+        line.setEndX(e.end.x);
+        line.setEndY(e.end.y);
+
+        // rotate text
+        double delta_x = (e.end.x - e.start.x);
+        double delta_y = (e.end.y - e.start.y);
+        double delta_ratio = delta_y / delta_x;
+        double delta_length = Math.sqrt(delta_x * delta_x + delta_y * delta_y);
+
+        // TODO add offset
+        name.translateXProperty().bind(name.widthProperty().divide(2).negate().add((e.start.x + e.end.x) / 2.0 - delta_y / delta_length * 10.0));
+        name.translateYProperty().bind(name.heightProperty().divide(2).negate().add((e.start.y + e.end.y) / 2.0 + delta_x / delta_length * 10.0));
+
+        double angle = Math.toDegrees(Math.atan(delta_ratio));
+        name.setRotate(angle);
+
+        // hide text on small segments
+        if (delta_length < 50.0) {
+            name.setVisible(false);
+        }
+
+        // street name
+        name.setText(s.name);
 
         // mouse events
-        addEventHandler(MouseEvent.MOUSE_ENTERED, mouseEvent -> {
+        line.addEventHandler(MouseEvent.MOUSE_ENTERED, mouseEvent -> {
             hover = true;
-            getStyleClass().clear();
+            line.getStyleClass().clear();
             if (edge.closed) {
-                getStyleClass().add("edgeline_closedhover");
+                line.getStyleClass().add("edgeline_closedhover");
             } else {
-                getStyleClass().add("edgeline_hover");
+                line.getStyleClass().add("edgeline_hover");
             }
         });
-        addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            getStyleClass().clear();
+        line.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            line.getStyleClass().clear();
             if (edge.closed) {
-                getStyleClass().add("edgeline_hover");
+                line.getStyleClass().add("edgeline_hover");
             } else {
-                getStyleClass().add("edgeline_closedhover");
+                line.getStyleClass().add("edgeline_closedhover");
             }
             edge.closed = !edge.closed;
         });
-        addEventHandler(MouseEvent.MOUSE_EXITED, mouseEvent -> {
-            getStyleClass().clear();
+        line.addEventHandler(MouseEvent.MOUSE_EXITED, mouseEvent -> {
+            line.getStyleClass().clear();
             hover = false;
             if (edge.closed) {
-                getStyleClass().add("edgeline_closed");
+                line.getStyleClass().add("edgeline_closed");
             }
         });
     }

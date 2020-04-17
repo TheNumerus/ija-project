@@ -37,6 +37,32 @@
           "cost" : 1,
           "oneWay" : "False",
           "closed" : "False"
+        },
+        {
+          "start" : {
+            "x" : 200.0,
+            "y" : 100.0
+          },
+          "end" : {
+            "x" : 210.0,
+            "y" : 90.0
+          },
+          "cost" : 1,
+          "oneWay" : "False",
+          "closed" : "False"
+        },
+        {
+          "start" : {
+            "x" : 210.0,
+            "y" : 90.0
+          },
+          "end" : {
+            "x" : 210.0,
+            "y" : 0.0
+          },
+          "cost" : 1,
+          "oneWay" : "False",
+          "closed" : "False"
         }
       ]
     }

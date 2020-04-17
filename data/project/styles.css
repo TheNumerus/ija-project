@@ -5,6 +5,10 @@
     -fx-text-fill: #d8dee9;
 }
 
+Text {
+    -fx-fill: #d8dee9;
+}
+
 .statusbar {
     -fx-background-color: #3b4252;
 }

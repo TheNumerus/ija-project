@@ -29,7 +29,7 @@ public class Controller {
         for (Street s: map.streets) {
             // TODO check for duplicate edges already on map
             for (Edge e: s.getEdges()) {
-                EdgeLine el = new EdgeLine(e);
+                EdgeLine el = new EdgeLine(e, s);
                 MapTransform.getChildren().add(el);
             }
         }
