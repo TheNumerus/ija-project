@@ -35,6 +35,7 @@ public class Controller {
     }
 
     private void loadMap(Map map) {
+        MapTransform.getChildren().clear();
         resetView(null);
         MapTransform.getChildren().clear();
         for (Street s: map.streets) {
