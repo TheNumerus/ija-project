@@ -32,6 +32,7 @@ public class Controller {
     }
 
     private void loadMap(Map map) {
+        MapTransform.getChildren().clear();
         resetView(null);
         for (Street s: map.streets) {
             // TODO check for duplicate edges already on map
