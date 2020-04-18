@@ -15,10 +15,10 @@ public class Map {
         streets = new ArrayList<>();
     }
 
-    public static Map placeholderData() {
+    /*public static Map placeholderData() {
 
         Map map = new Map();
-        /*
+
         Node n1 = new Node(0.0, 0.0);
         Node n2 = new Node(100.0, 100.0);
         Node n3 = new Node(200.0, 100.0);
@@ -27,7 +27,7 @@ public class Map {
         Street s = new Street(e1, "ULICE");
         s.addEdge(e2);
         map.streets.add(s);
-        */
+
 
         File file = new File("./input/project/input1.json");
         String jsonString = "";
@@ -46,5 +46,5 @@ public class Map {
         Gson gson = builder.create();
         map = gson.fromJson(jsonString, Map.class);
         return map;
-    }
+    }*/
 }

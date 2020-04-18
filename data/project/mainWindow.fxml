@@ -21,8 +21,7 @@
    <BorderPane styleClass="statusbar" GridPane.rowIndex="1">
       <left>
          <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="10.0">
-            <Label fx:id="TextLabel" alignment="CENTER" contentDisplay="CENTER" text="DAVIDE!" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" onAction="#onButtonClick" text="KLIKNI" textAlignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#loadDataButtonClick" text="LOAD DATA" textAlignment="CENTER" />
          </HBox>
       </left>
       <right>

@@ -1,13 +1,20 @@
 package project;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 
 import project.map.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Controller {
     public Label TextLabel;
@@ -21,7 +28,7 @@ public class Controller {
 
     public void initialize() {
         // TODO replace by reset only, map will be loaded from elsewhere
-        loadMap(Map.placeholderData());
+        //loadMap(Map.placeholderData());
     }
 
     private void loadMap(Map map) {
@@ -35,8 +42,32 @@ public class Controller {
         }
     }
 
-    public void onButtonClick(ActionEvent actionEvent) {
-        TextLabel.setText("Congratulations!");
+    public void loadDataButtonClick(ActionEvent actionEvent) {
+        final FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open resource file");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Map file", "*.json")
+        );
+
+        Map map = new Map();
+
+        File file = fileChooser.showOpenDialog(null);
+        String jsonString = "";
+        try {
+            Scanner scanner = new Scanner(file);
+            while(scanner.hasNextLine()){
+                jsonString += scanner.nextLine();
+            }
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+
+        Gson gson = builder.create();
+        map = gson.fromJson(jsonString, Map.class);
+        loadMap(map);
     }
 
     public void onMousePressed(MouseEvent event) {
