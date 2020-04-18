@@ -9,6 +9,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import project.map.*;
 
@@ -22,9 +24,10 @@ public class Controller {
     public Group MapTransform;
 
     public Map map = new Map();
+    public Image busStopIcon = new Image(Controller.class.getResourceAsStream("busStop.png"));
 
-    private Node DragStart = new Node(0.0, 0.0);
-    private Node OrigTransform = new Node(0.0, 0.0);
+    private Node DragStart = new Node(0.0, 0.0, null);
+    private Node OrigTransform = new Node(0.0, 0.0, null);
 
     public void initialize() {
         // TODO replace by reset only, map will be loaded from elsewhere
@@ -33,11 +36,33 @@ public class Controller {
 
     private void loadMap(Map map) {
         resetView(null);
+        MapTransform.getChildren().clear();
         for (Street s: map.streets) {
             // TODO check for duplicate edges already on map
             for (Edge e: s.getEdges()) {
                 EdgeLine el = new EdgeLine(e, s);
                 MapTransform.getChildren().add(el);
+
+                if(e.start.stop != null){
+                    /*ImageView busStop = new ImageView(busStopIcon);
+                    busStop.setFitHeight(20);
+                    busStop.setFitWidth(20);
+
+                    busStop.setX(e.start.x - 10);
+                    busStop.setY(e.start.y - 10);*/
+                    StopImg busStop = new StopImg(e, true);
+                    MapTransform.getChildren().add(busStop);
+                }
+                if(e.end.stop != null){
+                    /*ImageView busStop = new ImageView(busStopIcon);
+                    busStop.setFitHeight(20);
+                    busStop.setFitWidth(20);
+
+                    busStop.setTranslateX(e.end.x - 10);
+                    busStop.setTranslateY(e.end.y - 10);*/
+                    StopImg busStop = new StopImg(e, false);
+                    MapTransform.getChildren().add(busStop);
+                }
             }
         }
     }

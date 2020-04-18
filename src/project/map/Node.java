@@ -3,10 +3,12 @@ package project.map;
 public class Node {
     public double x;
     public double y;
+    public Stop stop;
 
-    public Node(double x, double y) {
+    public Node(double x, double y, Stop stop) {
         this.x = x;
         this.y = y;
+        this.stop = stop;
     }
 
     @Override
