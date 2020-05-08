@@ -10,9 +10,9 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import project.map.*;
+import project.Loader;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,22 +45,10 @@ public class Controller {
                 MapTransform.getChildren().add(el);
 
                 if(e.start.stop != null){
-                    /*ImageView busStop = new ImageView(busStopIcon);
-                    busStop.setFitHeight(20);
-                    busStop.setFitWidth(20);
-
-                    busStop.setX(e.start.x - 10);
-                    busStop.setY(e.start.y - 10);*/
                     StopImg busStop = new StopImg(e, true);
                     MapTransform.getChildren().add(busStop);
                 }
                 if(e.end.stop != null){
-                    /*ImageView busStop = new ImageView(busStopIcon);
-                    busStop.setFitHeight(20);
-                    busStop.setFitWidth(20);
-
-                    busStop.setTranslateX(e.end.x - 10);
-                    busStop.setTranslateY(e.end.y - 10);*/
                     StopImg busStop = new StopImg(e, false);
                     MapTransform.getChildren().add(busStop);
                 }
@@ -75,25 +63,11 @@ public class Controller {
                 new FileChooser.ExtensionFilter("Map file", "*.json")
         );
 
-        Map map = new Map();
-
         File file = fileChooser.showOpenDialog(null);
-        String jsonString = "";
-        try {
-            Scanner scanner = new Scanner(file);
-            while(scanner.hasNextLine()){
-                jsonString += scanner.nextLine();
-            }
+        if (file != null) {
+            // TODO check for null
+            loadMap(Loader.LoadMap(file));
         }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-        GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
-
-        Gson gson = builder.create();
-        map = gson.fromJson(jsonString, Map.class);
-        loadMap(map);
     }
 
     public void onMousePressed(MouseEvent event) {

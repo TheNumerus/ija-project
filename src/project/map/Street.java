@@ -8,48 +8,23 @@ import java.util.List;
 public class Street {
     public String name;
     public double costMultiplier;
-    private Node currentStart;
-    private Node currentEnd;
     private List<Edge> edges;
+    private boolean oneWay;
 
 
-    public Street(@NotNull Edge e, @NotNull String name) {
+    public Street(@NotNull String name, List<Node> nodes) {
         edges = new ArrayList<>();
-        edges.add(e);
-        currentStart = e.start;
-        currentEnd = e.end;
+        for(int i = 0; i < nodes.size() - 1; i++) {
+            edges.add(new Edge(nodes.get(i), nodes.get(i + 1)));
+        }
         this.name = name;
         costMultiplier = 1.0;
-    }
-
-    public void addEdge(@NotNull Edge e) {
-        if (edges.contains(e)) {
-            return;
-        }
-        if (currentEnd.equals(e.start)) {
-            currentEnd = e.end;
-            edges.add(e);
-        } else if (currentStart.equals(e.end)) {
-            currentStart = e.start;
-            edges.add(0, e);
-        } else {
-            if (e.oneWay) {
-                throw new IllegalArgumentException();
-            } else if (currentEnd.equals(e.end)) {
-                currentEnd = e.end;
-                edges.add(e);
-            } else if (currentStart.equals(e.start)) {
-                currentStart = e.start;
-                edges.add(0, e);
-            } else {
-                throw new IllegalArgumentException();
-            }
-        }
+        oneWay = false;
     }
 
     public List<Node> listNodes() {
         List<Node> list = new ArrayList<>();
-        list.add(currentStart);
+        list.add(edges.get(0).start);
         for (Edge e: edges) {
             list.add(e.end);
         }
@@ -59,4 +34,8 @@ public class Street {
     public List<Edge> getEdges() {
         return edges;
     }
+
+    public boolean getOneWay() { return oneWay; }
+
+    public void setOneWay(boolean oneWay) { this.oneWay = oneWay; }
 }

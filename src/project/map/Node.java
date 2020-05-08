@@ -5,6 +5,12 @@ public class Node {
     public double y;
     public Stop stop;
 
+    public Node(double x, double y) {
+        this.x = x;
+        this.y = y;
+        stop = null;
+    }
+
     public Node(double x, double y, Stop stop) {
         this.x = x;
         this.y = y;
