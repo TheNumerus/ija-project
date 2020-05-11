@@ -2,11 +2,15 @@
 
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 
 <fx:root type="Group" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.StopImg">
     <ImageView fx:id="image" fitHeight="20.0" fitWidth="20.0">
          <Image url="@busStop.png" />
       </ImageView>
-    <Label fx:id="name" textAlignment="CENTER" />
+    <Label fx:id="name" layoutY="-20" mouseTransparent="true" textAlignment="CENTER">
+      <effect>
+         <DropShadow spread="0.5"/>
+      </effect></Label>
 </fx:root>

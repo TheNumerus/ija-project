@@ -10,8 +10,12 @@ import com.google.gson.GsonBuilder;
 
 public class Map {
     public List<Street> streets;
+    public List<Stop> stops;
+    public List<Line> lines;
 
     public Map() {
         streets = new ArrayList<>();
+        stops = new ArrayList<>();
+        lines = new ArrayList<>();
     }
 }

@@ -1,9 +1,9 @@
 package project;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -37,20 +37,15 @@ public class Controller {
     private void loadMap(Map map) {
         MapTransform.getChildren().clear();
         resetView(null);
-        MapTransform.getChildren().clear();
         for (Street s: map.streets) {
-            // TODO check for duplicate edges already on map
             for (Edge e: s.getEdges()) {
                 EdgeLine el = new EdgeLine(e, s);
                 MapTransform.getChildren().add(el);
 
                 if(e.start.stop != null){
-                    StopImg busStop = new StopImg(e, true);
+                    StopImg busStop = new StopImg(e.start);
                     MapTransform.getChildren().add(busStop);
-                }
-                if(e.end.stop != null){
-                    StopImg busStop = new StopImg(e, false);
-                    MapTransform.getChildren().add(busStop);
+                    busStop.setPos();
                 }
             }
         }
@@ -63,10 +58,17 @@ public class Controller {
                 new FileChooser.ExtensionFilter("Map file", "*.json")
         );
 
-        File file = fileChooser.showOpenDialog(null);
+        File file = fileChooser.showOpenDialog(((Button)actionEvent.getTarget()).getScene().getWindow());
         if (file != null) {
-            // TODO check for null
-            loadMap(Loader.LoadMap(file));
+            Map map = Loader.LoadMap(file);
+            if (map == null) {
+                // show popup or something
+                Alert a = new Alert(Alert.AlertType.ERROR, "File contents not valid map.");
+                a.showAndWait();
+                return;
+            }
+
+            loadMap(map);
         }
     }
 

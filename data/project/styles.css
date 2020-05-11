@@ -1,6 +1,18 @@
 .background{
     -fx-background-color: #2e3440;
 }
+
+.backgroundUI{
+    -fx-background-color: #3b4252;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+   -fx-background-color: transparent;
+}
+.split-pane:vertical > .split-pane-divider {
+   -fx-background-color: transparent;
+}
+
 .root * {
     -fx-text-fill: #d8dee9;
 }
@@ -15,6 +27,10 @@ Text {
 
 .button {
     -fx-background-color: #434c5e;
+}
+
+.button:hover {
+    -fx-background-color: #4c566a;
 }
 
 Line, Polyline, EdgeLine {

@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXMLLoader;
-import project.map.Edge;
+import project.map.Node;
 
 import java.io.IOException;
 
@@ -21,7 +21,11 @@ public class StopImg extends Group {
     @FXML
     private Label name;
 
-    public StopImg(Edge edge, boolean start){
+    private Node node;
+
+    public StopImg(Node node){
+        this.node = node;
+
         // load ui elements
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "StopImg.fxml"));
@@ -36,29 +40,7 @@ public class StopImg extends Group {
 
         name.setVisible(false);
 
-
-        if(start){
-            ImageView busStop = new ImageView(busStopIcon);
-            name.setText(edge.start.stop.name);
-
-            busStop.setFitHeight(20);
-            busStop.setFitWidth(20);
-
-            busStop.setX(edge.start.x - 10);
-            busStop.setY(edge.start.y - 10);
-        }
-        else {
-            ImageView busStop = new ImageView(busStopIcon);
-            name.setText(edge.end.stop.name);
-
-            busStop.setFitHeight(20);
-            busStop.setFitWidth(20);
-
-            busStop.setTranslateX(edge.end.x - 10);
-            busStop.setTranslateY(edge.end.y - 10);
-        }
-
-
+        name.setText(node.stop.name);
 
         image.addEventHandler(MouseEvent.MOUSE_ENTERED, mouseEvent ->{
             name.setVisible(true);
@@ -67,7 +49,10 @@ public class StopImg extends Group {
         image.addEventHandler(MouseEvent.MOUSE_EXITED, mouseEvent ->{
             name.setVisible(false);
         });
+    }
 
-
+    public void setPos() {
+        setTranslateX(node.x - 10);
+        setTranslateY(node.y - 10);
     }
 }

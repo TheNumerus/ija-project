@@ -1,15 +1,15 @@
 package project;
 
 import com.google.gson.*;
-import project.map.Map;
-import project.map.Node;
-import project.map.Street;
+import project.map.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Loader {
     public static Map LoadMap(File file) {
@@ -29,17 +29,21 @@ public class Loader {
         Map map = new Map();
 
         Gson gson = builder.create();
-        //TODO catch syntax error
         try {
             JsonObject e = gson.fromJson(jsonString, JsonObject.class);
             JsonArray streets = e.getAsJsonArray("streets");
             for (JsonElement jsonElement : streets) {
                 JsonObject street = jsonElement.getAsJsonObject();
                 JsonArray nodes = street.get("nodes").getAsJsonArray();
-                ArrayList<Node> nodesArr = new ArrayList<Node>();
+                ArrayList<Node> nodesArr = new ArrayList<>();
 
                 for (JsonElement node : nodes) {
                     Node n = new Node(node.getAsJsonObject().get("x").getAsDouble(), node.getAsJsonObject().get("y").getAsDouble());
+                    if (node.getAsJsonObject().has("stop")) {
+                        Stop stop = new Stop(node.getAsJsonObject().get("stop").getAsJsonObject().get("name").getAsString());
+                        map.stops.add(stop);
+                        n.stop = stop;
+                    }
                     nodesArr.add(n);
                 }
 
@@ -55,7 +59,27 @@ public class Loader {
 
                 map.streets.add(s);
             }
-        } catch (JsonSyntaxException e) {
+
+            JsonArray lines = e.getAsJsonArray("lines");
+            for (JsonElement ll: lines) {
+                JsonObject l = ll.getAsJsonObject();
+                int num = l.get("number").getAsInt();
+                double delay = l.get("delay").getAsDouble();
+
+                List<Stop> stopList = new ArrayList<>();
+                JsonArray stops = l.get("stops").getAsJsonArray();
+                for(JsonElement s: stops) {
+                    String stopname = s.getAsString();
+                    if (map.stops.stream().anyMatch(stop -> stop.name.equals(stopname))) {
+                        List<Stop> filtered = map.stops.stream().filter(stop -> stop.name.equals(stopname)).collect(Collectors.toList());
+                        stopList.add(filtered.get(0));
+                    } else {
+                        return null;
+                    }
+                }
+                map.lines.add(new Line(num, delay, stopList));
+            }
+        } catch (JsonSyntaxException | NullPointerException e) {
             return null;
         }
 

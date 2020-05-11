@@ -3,6 +3,7 @@ package project;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 import project.map.Edge;
@@ -57,9 +58,12 @@ public class EdgeLine extends Group {
         name.setRotate(angle);
 
         // hide text on small segments
-        if (delta_length < 50.0) {
+        if (delta_length < 100.0) {
             name.setVisible(false);
         }
+
+        Tooltip tooltip = new Tooltip(s.name);
+        Tooltip.install(line, tooltip);
 
         // street name
         name.setText(s.name);
@@ -68,7 +72,7 @@ public class EdgeLine extends Group {
         line.addEventHandler(MouseEvent.MOUSE_ENTERED, mouseEvent -> {
             hover = true;
             line.getStyleClass().clear();
-            if (edge.closed) {
+            if (edge.start.closed) {
                 line.getStyleClass().add("edgeline_closedhover");
             } else {
                 line.getStyleClass().add("edgeline_hover");
@@ -76,17 +80,17 @@ public class EdgeLine extends Group {
         });
         line.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             line.getStyleClass().clear();
-            if (edge.closed) {
+            if (edge.start.closed) {
                 line.getStyleClass().add("edgeline_hover");
             } else {
                 line.getStyleClass().add("edgeline_closedhover");
             }
-            edge.closed = !edge.closed;
+            edge.start.closed = !edge.start.closed;
         });
         line.addEventHandler(MouseEvent.MOUSE_EXITED, mouseEvent -> {
             line.getStyleClass().clear();
             hover = false;
-            if (edge.closed) {
+            if (edge.start.closed) {
                 line.getStyleClass().add("edgeline_closed");
             }
         });
