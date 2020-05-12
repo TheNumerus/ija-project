@@ -1,5 +1,6 @@
 package project.map;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Line {
@@ -15,5 +16,10 @@ public class Line {
 
     public List<Stop> getStops() {
         return stops;
+    }
+
+    public List<Node> findRoute() {
+        //TODO
+        return new ArrayList<>();
     }
 }

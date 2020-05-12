@@ -29,6 +29,7 @@ public class Controller {
     public Map map = new Map();
     public Image busStopIcon = new Image(Controller.class.getResourceAsStream("busStop.png"));
 
+    // TODO replace by something else than node
     private Node DragStart = new Node(0.0, 0.0, null);
     private Node OrigTransform = new Node(0.0, 0.0, null);
 
@@ -56,12 +57,7 @@ public class Controller {
                 }
             }
         }
-        Node node1 = new Node(0.0, 10.0);
-        Node node2 = new Node(70.0, 100.0);
-        List<Node> nodes = new ArrayList<Node>();
-        nodes.add(node1);
-        nodes.add(node2);
-        showRoute(nodes);
+        showRoute(map.getRoute(map.streets.get(0).listNodes().get(2), map.streets.get(2).listNodes().get(6)));
     }
 
     private void showRoute(List<Node> nodes){
