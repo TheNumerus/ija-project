@@ -16,7 +16,10 @@ import project.Loader;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Controller {
     public Label TextLabel;
@@ -28,6 +31,9 @@ public class Controller {
 
     private Node DragStart = new Node(0.0, 0.0, null);
     private Node OrigTransform = new Node(0.0, 0.0, null);
+
+    private List<EdgeRoute> routeEdges = new ArrayList<EdgeRoute>();
+    private List<StopImg> stops = new ArrayList<StopImg>();
 
     public void initialize() {
         // TODO replace by reset only, map will be loaded from elsewhere
@@ -46,8 +52,48 @@ public class Controller {
                     StopImg busStop = new StopImg(e.start);
                     MapTransform.getChildren().add(busStop);
                     busStop.setPos();
+                    this.stops.add(busStop);
                 }
             }
+        }
+        Node node1 = new Node(0.0, 10.0);
+        Node node2 = new Node(70.0, 100.0);
+        List<Node> nodes = new ArrayList<Node>();
+        nodes.add(node1);
+        nodes.add(node2);
+        showRoute(nodes);
+    }
+
+    private void showRoute(List<Node> nodes){
+        //clearing
+        for (EdgeRoute routeEdge : this.routeEdges) {
+            if(MapTransform.getChildren().contains(routeEdge)){
+                MapTransform.getChildren().remove(routeEdge);
+            }
+        }
+        this.routeEdges.clear();
+
+        if(nodes.isEmpty()){
+            return;
+        }
+
+        //deleting stops
+        for(StopImg stop : this.stops){
+            if(MapTransform.getChildren().contains(stop)){
+                MapTransform.getChildren().remove(stop);
+            }
+        }
+
+        //adding route
+        for (int i = 1; i < nodes.size(); i++){
+            EdgeRoute e = new EdgeRoute(nodes.get(i - 1), nodes.get(i));
+            MapTransform.getChildren().add(e);
+            this.routeEdges.add(e);
+        }
+
+        //adding stops back
+        for(StopImg stop : this.stops){
+            MapTransform.getChildren().add(stop);
         }
     }
 

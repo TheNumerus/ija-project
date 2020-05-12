@@ -41,6 +41,11 @@ Line, Polyline, EdgeLine {
     -fx-stroke-type: centered;
 }
 
+.edgeroute {
+    -fx-stroke: #ffd503;
+    -fx-stroke-width: 2;
+}
+
 .edgeline_hover {
     -fx-stroke: #88c0d0;
 }
