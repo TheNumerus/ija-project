@@ -21,7 +21,7 @@
       <BorderPane styleClass="backgroundUI" GridPane.vgrow="ALWAYS">
          <bottom>
             <VBox alignment="TOP_CENTER">
-               <Label text="DEATH TO JAVA FX">
+               <Label text="00:00:00" fx:id="time">
                   <font>
                      <Font size="18.0" />
                   </font>

@@ -1,6 +1,7 @@
 package project;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -20,8 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.awt.Color;
 
 public class Controller {
+    @FXML
+    private Label time;
     public Label TextLabel;
     public Pane MapPane;
     public Group MapTransform;
@@ -63,14 +67,27 @@ public class Controller {
         //showRoute(map.getRoute(map.streets.get(0).listNodes().get(2), map.streets.get(2).listNodes().get(6)));
     }
 
-    private void showRoute(List<Node> nodes){
-        //clearing
+    private void clearRoute(){
         for (EdgeRoute routeEdge : this.routeEdges) {
             if(MapTransform.getChildren().contains(routeEdge)){
                 MapTransform.getChildren().remove(routeEdge);
             }
         }
         this.routeEdges.clear();
+    }
+
+    private void showRoute(List<Node> nodes){
+        Color defaultColor = new Color(255, 213, 3);
+        showRoute(nodes, defaultColor);
+    }
+
+    private void showRoute(List<Node> nodes, Color color){
+        // generating hex string
+        String hexColor = Integer.toHexString(color.getRGB() & 0xffffff);
+        if(hexColor.length() < 6){
+            hexColor = "0" + hexColor;
+        }
+        hexColor = "#" + hexColor;
 
         if(nodes.isEmpty()){
             return;
@@ -85,7 +102,7 @@ public class Controller {
 
         //adding route
         for (int i = 1; i < nodes.size(); i++){
-            EdgeRoute e = new EdgeRoute(nodes.get(i - 1), nodes.get(i));
+            EdgeRoute e = new EdgeRoute(nodes.get(i - 1), nodes.get(i), hexColor);
             MapTransform.getChildren().add(e);
             this.routeEdges.add(e);
         }

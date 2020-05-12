@@ -2,15 +2,9 @@ package project;
 
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
-import project.map.Edge;
 import javafx.fxml.FXMLLoader;
 import project.map.Node;
-import project.map.Street;
-
 import java.io.IOException;
 
 public class EdgeRoute extends Group {
@@ -18,7 +12,7 @@ public class EdgeRoute extends Group {
     private Line line;
 
 
-    public EdgeRoute(Node node1, Node node2){
+    public EdgeRoute(Node node1, Node node2, String hexColor){
         // load ui elements
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "EdgeRoute.fxml"));
@@ -36,6 +30,7 @@ public class EdgeRoute extends Group {
         line.setStartY(node1.y);
         line.setEndX(node2.x);
         line.setEndY(node2.y);
+        line.setStyle("-fx-stroke: " + hexColor + ";");
     }
 
 }

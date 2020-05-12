@@ -42,7 +42,6 @@ Line, Polyline, EdgeLine {
 }
 
 .edgeroute {
-    -fx-stroke: #ffd503;
     -fx-stroke-width: 2;
 }
 
