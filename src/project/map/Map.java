@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Map {
     public List<Street> streets;
-    public List<Stop> stops;
+    public List<Node> stops;
     public List<Line> lines;
 
     public Map() {
@@ -49,7 +49,8 @@ public class Map {
         }
         route.add(start);
 
-        System.out.println(cameFrom);
+        Collections.reverse(route);
+
         return route;
     }
 }

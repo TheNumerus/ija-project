@@ -57,7 +57,10 @@ public class Controller {
                 }
             }
         }
-        showRoute(map.getRoute(map.streets.get(0).listNodes().get(2), map.streets.get(2).listNodes().get(6)));
+        for(Line l: map.lines) {
+            showRoute(l.findRoute(map));
+        }
+        //showRoute(map.getRoute(map.streets.get(0).listNodes().get(2), map.streets.get(2).listNodes().get(6)));
     }
 
     private void showRoute(List<Node> nodes){

@@ -40,9 +40,8 @@ public class Loader {
                 for (JsonElement node : nodes) {
                     Node n = new Node(node.getAsJsonObject().get("x").getAsDouble(), node.getAsJsonObject().get("y").getAsDouble());
                     if (node.getAsJsonObject().has("stop")) {
-                        Stop stop = new Stop(node.getAsJsonObject().get("stop").getAsJsonObject().get("name").getAsString());
-                        map.stops.add(stop);
-                        n.stop = stop;
+                        n.stop = new Stop(node.getAsJsonObject().get("stop").getAsJsonObject().get("name").getAsString());
+                        map.stops.add(n);
                     }
                     nodesArr.add(n);
                 }
@@ -66,12 +65,12 @@ public class Loader {
                 int num = l.get("number").getAsInt();
                 double delay = l.get("delay").getAsDouble();
 
-                List<Stop> stopList = new ArrayList<>();
+                List<Node> stopList = new ArrayList<>();
                 JsonArray stops = l.get("stops").getAsJsonArray();
                 for(JsonElement s: stops) {
                     String stopname = s.getAsString();
-                    if (map.stops.stream().anyMatch(stop -> stop.name.equals(stopname))) {
-                        List<Stop> filtered = map.stops.stream().filter(stop -> stop.name.equals(stopname)).collect(Collectors.toList());
+                    if (map.stops.stream().anyMatch(stop -> stop.stop.name.equals(stopname))) {
+                        List<Node> filtered = map.stops.stream().filter(stop -> stop.stop.name.equals(stopname)).collect(Collectors.toList());
                         stopList.add(filtered.get(0));
                     } else {
                         return null;
