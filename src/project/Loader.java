@@ -39,6 +39,16 @@ public class Loader {
 
                 for (JsonElement node : nodes) {
                     Node n = new Node(node.getAsJsonObject().get("x").getAsDouble(), node.getAsJsonObject().get("y").getAsDouble());
+
+                    //deduplicate
+                    for(Street s: map.streets) {
+                        for(Node nod: s.listNodes()) {
+                            if (nod.equals(n)) {
+                                n = nod;
+                            }
+                        }
+                    }
+
                     if (node.getAsJsonObject().has("stop")) {
                         n.stop = new Stop(node.getAsJsonObject().get("stop").getAsJsonObject().get("name").getAsString());
                         map.stops.add(n);
@@ -76,7 +86,7 @@ public class Loader {
                         return null;
                     }
                 }
-                map.lines.add(new Line(num, delay, stopList));
+                map.lines.add(new Line(num, delay, stopList, map));
             }
         } catch (JsonSyntaxException | NullPointerException e) {
             return null;

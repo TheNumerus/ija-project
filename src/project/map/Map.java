@@ -8,11 +8,13 @@ public class Map {
     public List<Street> streets;
     public List<Node> stops;
     public List<Line> lines;
+    public List<Pair<Node, Node>> closures;
 
     public Map() {
         streets = new ArrayList<>();
         stops = new ArrayList<>();
         lines = new ArrayList<>();
+        closures = new ArrayList<>();
     }
 
     public List<Node> getRoute(Node start, Node finish) {
@@ -46,11 +48,29 @@ public class Map {
         while(from != start) {
             route.add(from);
             from = cameFrom.get(from);
+            if (from == null) {
+                return null;
+            }
         }
         route.add(start);
 
         Collections.reverse(route);
 
         return route;
+    }
+
+    public void recomputeRoutes() {
+        for (Line l: lines) {
+            l.findRoute(this);
+        }
+    }
+
+    public boolean isEdgeClosed(Node n, Node n1) {
+        for(Pair<Node, Node> closure: closures) {
+            if (closure.getX().equals(n) && closure.getY().equals(n1) || closure.getX().equals(n1) && closure.getY().equals(n)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
