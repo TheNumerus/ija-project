@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Line {
     public int number;
     public double delay;
-    private List<Node> stops;
+    private final List<Node> stops;
     private List<Node> currentRoute;
 
     public Line(int number, double delay, List<Node> stops, Map m) {
@@ -19,6 +19,10 @@ public class Line {
 
     public List<Stop> getStops() {
         return stops.stream().map(s -> s.stop).collect(Collectors.toList());
+    }
+
+    public List<Node> getNodes() {
+        return stops;
     }
 
     public List<Node> findRoute(Map m) {

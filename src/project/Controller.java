@@ -51,6 +51,7 @@ public class Controller {
 
     public void tick(Duration time, Duration delta) {
         setTime(time);
+        map.onTick(delta);
     }
 
     private void loadMap() {

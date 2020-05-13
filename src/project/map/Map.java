@@ -2,6 +2,7 @@ package project.map;
 
 import project.Pair;
 
+import java.time.Duration;
 import java.util.*;
 
 public class Map {
@@ -9,6 +10,7 @@ public class Map {
     public List<Node> stops;
     public List<Line> lines;
     public List<Pair<Node, Node>> closures;
+    public List<Vehicle> vehicles;
 
     public Map() {
         streets = new ArrayList<>();
@@ -63,6 +65,9 @@ public class Map {
         for (Line l: lines) {
             l.findRoute(this);
         }
+        for (Vehicle v: vehicles) {
+            v.recomputeRoute();
+        }
     }
 
     public boolean isEdgeClosed(Node n, Node n1) {
@@ -72,5 +77,11 @@ public class Map {
             }
         }
         return false;
+    }
+
+    public void onTick(Duration delta) {
+        for (Vehicle v: vehicles) {
+            v.move(delta);
+        }
     }
 }
