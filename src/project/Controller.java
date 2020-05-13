@@ -29,6 +29,9 @@ public class Controller {
     private Label time;
     public Pane MapPane;
     public Group MapTransform;
+    public Button speedUp_button;
+    public Button slowDown_button;
+    public Label speed;
 
     public Map map;
 
@@ -169,6 +172,35 @@ public class Controller {
 
     public void resetTime(){
         this.time.setText("00:00:00");
+    }
+
+    public void speedUp(ActionEvent actionEvent){
+        clock.speedUp();
+
+        double currentSpeed = clock.getSpeed();
+        slowDown_button.setDisable(false);
+        if(currentSpeed == 10.0){
+            speedUp_button.setDisable(true);
+        }
+        speed.setText(currentSpeed + "x");
+    }
+
+    public void slowDown(ActionEvent actionEvent){
+        clock.speedDown();
+
+        double currentSpeed = clock.getSpeed();
+        speedUp_button.setDisable(false);
+        if(currentSpeed == 0.1){
+            slowDown_button.setDisable(true);
+        }
+        speed.setText(currentSpeed + "x");
+    }
+
+    public void resetSpeed(ActionEvent actionEvent){
+        clock.resetSpeed();
+        speedUp_button.setDisable(false);
+        slowDown_button.setDisable(false);
+        speed.setText("1.0x");
     }
 
     public void onMousePressed(MouseEvent event) {
