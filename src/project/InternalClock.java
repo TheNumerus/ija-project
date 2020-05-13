@@ -89,7 +89,7 @@ public class InternalClock {
     }
 
     /**
-     * Speeds internal clock up
+     * Speeds up internal clock
      * @return new speed
      */
     public double speedUp() {

@@ -30,7 +30,7 @@ public class Controller {
     public Pane MapPane;
     public Group MapTransform;
 
-    public Map map = new Map();
+    public Map map;
 
     private final Pair<Double, Double> DragStart = new Pair<>(0.0, 0.0);
     private final Pair<Double, Double> OrigTransform = new Pair<>(0.0, 0.0);
@@ -42,6 +42,7 @@ public class Controller {
 
     public void initialize() {
         clock = new InternalClock(this::tick);
+        clock.setPaused(true);
     }
 
     public void close() {
@@ -78,6 +79,7 @@ public class Controller {
             }
         }
         renderLines();
+        clock.setPaused(false);
     }
 
     private void renderLines() {
