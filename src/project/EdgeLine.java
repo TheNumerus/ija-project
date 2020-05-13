@@ -11,10 +11,18 @@ import javafx.fxml.FXMLLoader;
 import project.map.Street;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class EdgeLine extends Group {
     private Edge edge;
     private boolean hover;
+    private boolean closed;
+
+    public void setOnClose(Consumer<Boolean> onClose) {
+        this.onClose = onClose;
+    }
+
+    private Consumer<Boolean> onClose;
 
     @FXML
     private Line line;
@@ -37,6 +45,7 @@ public class EdgeLine extends Group {
 
         edge = e;
         hover = false;
+        closed = false;
 
         // line coordinates
         line.setStartX(e.start.x);
@@ -72,7 +81,7 @@ public class EdgeLine extends Group {
         line.addEventHandler(MouseEvent.MOUSE_ENTERED, mouseEvent -> {
             hover = true;
             line.getStyleClass().clear();
-            if (edge.start.closed) {
+            if (closed) {
                 line.getStyleClass().add("edgeline_closedhover");
             } else {
                 line.getStyleClass().add("edgeline_hover");
@@ -80,17 +89,18 @@ public class EdgeLine extends Group {
         });
         line.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             line.getStyleClass().clear();
-            if (edge.start.closed) {
+            if (closed) {
                 line.getStyleClass().add("edgeline_hover");
             } else {
                 line.getStyleClass().add("edgeline_closedhover");
             }
-            edge.start.closed = !edge.start.closed;
+            closed = !closed;
+            onClose.accept(closed);
         });
         line.addEventHandler(MouseEvent.MOUSE_EXITED, mouseEvent -> {
             line.getStyleClass().clear();
             hover = false;
-            if (edge.start.closed) {
+            if (closed) {
                 line.getStyleClass().add("edgeline_closed");
             }
         });

@@ -7,20 +7,17 @@ public class Node {
     public double x;
     public double y;
     public Stop stop;
-    public boolean closed;
 
     public Node(double x, double y) {
         this.x = x;
         this.y = y;
         stop = null;
-        closed = false;
     }
 
     public Node(double x, double y, Stop stop) {
         this.x = x;
         this.y = y;
         this.stop = stop;
-        closed = false;
     }
 
     @Override
@@ -38,10 +35,10 @@ public class Node {
             List<Node> nodes = s.listNodes();
             if (nodes.contains(this)) {
                 int i = nodes.indexOf(this);
-                if (i != 0) {
+                if (i != 0 && !m.isEdgeClosed(this, nodes.get(i - 1))) {
                     neighbours.add(nodes.get(i - 1));
                 }
-                if (i != nodes.size() - 1) {
+                if (i != nodes.size() - 1 && !m.isEdgeClosed(this, nodes.get(i + 1))) {
                     neighbours.add(nodes.get(i + 1));
                 }
             }

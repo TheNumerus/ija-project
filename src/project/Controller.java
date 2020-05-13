@@ -45,12 +45,21 @@ public class Controller {
         //loadMap(Map.placeholderData());
     }
 
-    private void loadMap(Map map) {
+    private void loadMap() {
         MapTransform.getChildren().clear();
         resetView(null);
         for (Street s: map.streets) {
             for (Edge e: s.getEdges()) {
                 EdgeLine el = new EdgeLine(e, s);
+                el.setOnClose((closed) -> {
+                    if (closed) {
+                        map.closures.add(new Pair<>(e.start, e.end));
+                    } else {
+                        map.closures.remove(new Pair<>(e.start, e.end));
+                    }
+                    map.recomputeRoutes();
+                    renderLines();
+                });
                 MapTransform.getChildren().add(el);
 
                 if(e.start.stop != null){
@@ -61,10 +70,15 @@ public class Controller {
                 }
             }
         }
+        renderLines();
+    }
+
+    private void renderLines() {
+        clearRoute();
         for(Line l: map.lines) {
-            showRoute(l.findRoute(map));
+            Color clr = new Color((l.number * 47) % 255, (l.number * 7) % 255, (l.number * 11) % 255);
+            showRoute(l.findRoute(map), clr);
         }
-        //showRoute(map.getRoute(map.streets.get(0).listNodes().get(2), map.streets.get(2).listNodes().get(6)));
     }
 
     private void clearRoute(){
@@ -122,7 +136,7 @@ public class Controller {
 
         File file = fileChooser.showOpenDialog(((Button)actionEvent.getTarget()).getScene().getWindow());
         if (file != null) {
-            Map map = Loader.LoadMap(file);
+            map = Loader.LoadMap(file);
             if (map == null) {
                 // show popup or something
                 Alert a = new Alert(Alert.AlertType.ERROR, "File contents not valid map.");
@@ -130,7 +144,7 @@ public class Controller {
                 return;
             }
 
-            loadMap(map);
+            loadMap();
         }
     }
 

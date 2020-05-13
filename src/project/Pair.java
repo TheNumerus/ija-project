@@ -1,5 +1,7 @@
 package project;
 
+import java.util.Objects;
+
 public class Pair<T, R> {
     private T x;
     private R y;
@@ -23,5 +25,18 @@ public class Pair<T, R> {
 
     public void setY(R y) {
         this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pair<?, ?> pair = (Pair<?, ?>) o;
+        return x.equals(pair.x) && y.equals(pair.y);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }
