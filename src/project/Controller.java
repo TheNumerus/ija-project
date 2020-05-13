@@ -27,18 +27,16 @@ import java.awt.Color;
 public class Controller {
     @FXML
     private Label time;
-    public Label TextLabel;
     public Pane MapPane;
     public Group MapTransform;
 
     public Map map = new Map();
-    public Image busStopIcon = new Image(Controller.class.getResourceAsStream("busStop.png"));
 
-    private Pair<Double, Double> DragStart = new Pair<>(0.0, 0.0);
-    private Pair<Double, Double> OrigTransform = new Pair<>(0.0, 0.0);
+    private final Pair<Double, Double> DragStart = new Pair<>(0.0, 0.0);
+    private final Pair<Double, Double> OrigTransform = new Pair<>(0.0, 0.0);
 
-    private List<EdgeRoute> routeEdges = new ArrayList<EdgeRoute>();
-    private List<StopImg> stops = new ArrayList<StopImg>();
+    private final List<EdgeRoute> routeEdges = new ArrayList<>();
+    private final List<StopImg> stops = new ArrayList<>();
 
     private InternalClock clock;
 
@@ -116,9 +114,7 @@ public class Controller {
 
         //deleting stops
         for(StopImg stop : this.stops){
-            if(MapTransform.getChildren().contains(stop)){
-                MapTransform.getChildren().remove(stop);
-            }
+            MapTransform.getChildren().remove(stop);
         }
 
         //adding route
