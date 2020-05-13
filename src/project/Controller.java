@@ -58,8 +58,7 @@ public class Controller {
         resetView(null);
         for (Street s: map.streets) {
             for (Edge e: s.getEdges()) {
-                EdgeLine el = new EdgeLine(e, s);
-                el.setOnClose((closed) -> {
+                EdgeLine el = new EdgeLine(e, s, (closed) -> {
                     if (closed) {
                         map.closures.add(new Pair<>(e.start, e.end));
                     } else {

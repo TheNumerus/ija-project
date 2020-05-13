@@ -13,16 +13,15 @@ import project.map.Street;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+/**
+ * Class for interacting with map
+ *
+ * Renders clickable line, which is line between two nodes in street.
+ * Lines are closed this way
+ */
 public class EdgeLine extends Group {
-    private Edge edge;
-    private boolean hover;
     private boolean closed;
-
-    public void setOnClose(Consumer<Boolean> onClose) {
-        this.onClose = onClose;
-    }
-
-    private Consumer<Boolean> onClose;
+    private final Consumer<Boolean> onClose;
 
     @FXML
     private Line line;
@@ -30,7 +29,7 @@ public class EdgeLine extends Group {
     @FXML
     private Label name;
 
-    public EdgeLine(Edge e, Street s) {
+    public EdgeLine(Edge e, Street s, Consumer<Boolean> onClose) {
         // load ui elements
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "EdgeLine.fxml"));
@@ -43,9 +42,8 @@ public class EdgeLine extends Group {
             throw new RuntimeException(exception);
         }
 
-        edge = e;
-        hover = false;
         closed = false;
+        this.onClose = onClose;
 
         // line coordinates
         line.setStartX(e.start.x);
@@ -59,7 +57,6 @@ public class EdgeLine extends Group {
         double delta_ratio = delta_y / delta_x;
         double delta_length = Math.sqrt(delta_x * delta_x + delta_y * delta_y);
 
-        // TODO add offset
         name.translateXProperty().bind(name.widthProperty().divide(2).negate().add((e.start.x + e.end.x) / 2.0 - delta_y / delta_length * 10.0));
         name.translateYProperty().bind(name.heightProperty().divide(2).negate().add((e.start.y + e.end.y) / 2.0 + delta_x / delta_length * 10.0));
 
@@ -78,31 +75,35 @@ public class EdgeLine extends Group {
         name.setText(s.name);
 
         // mouse events
-        line.addEventHandler(MouseEvent.MOUSE_ENTERED, mouseEvent -> {
-            hover = true;
-            line.getStyleClass().clear();
-            if (closed) {
-                line.getStyleClass().add("edgeline_closedhover");
-            } else {
-                line.getStyleClass().add("edgeline_hover");
-            }
-        });
-        line.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            line.getStyleClass().clear();
-            if (closed) {
-                line.getStyleClass().add("edgeline_hover");
-            } else {
-                line.getStyleClass().add("edgeline_closedhover");
-            }
-            closed = !closed;
-            onClose.accept(closed);
-        });
-        line.addEventHandler(MouseEvent.MOUSE_EXITED, mouseEvent -> {
-            line.getStyleClass().clear();
-            hover = false;
-            if (closed) {
-                line.getStyleClass().add("edgeline_closed");
-            }
-        });
+        line.addEventHandler(MouseEvent.MOUSE_ENTERED, this::mouseEntered);
+        line.addEventHandler(MouseEvent.MOUSE_CLICKED, this::mouseClicked);
+        line.addEventHandler(MouseEvent.MOUSE_EXITED, this::mouseExited);
+    }
+
+    private void mouseEntered(MouseEvent mouseEvent) {
+        line.getStyleClass().clear();
+        if (closed) {
+            line.getStyleClass().add("edgeline_closedhover");
+        } else {
+            line.getStyleClass().add("edgeline_hover");
+        }
+    }
+
+    private void mouseClicked(MouseEvent mouseEvent) {
+        line.getStyleClass().clear();
+        if (closed) {
+            line.getStyleClass().add("edgeline_hover");
+        } else {
+            line.getStyleClass().add("edgeline_closedhover");
+        }
+        closed = !closed;
+        onClose.accept(closed);
+    }
+
+    private void mouseExited(MouseEvent mouseEvent) {
+        line.getStyleClass().clear();
+        if (closed) {
+            line.getStyleClass().add("edgeline_closed");
+        }
     }
 }

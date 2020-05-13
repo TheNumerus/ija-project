@@ -10,7 +10,17 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * Helper class for loading data
+ */
 public class Loader {
+    /**
+     * Loads map from file
+     *
+     * Might return null if map is invalid
+     * @param file input file
+     * @return map
+     */
     public static Map LoadMap(File file) {
         StringBuilder jsonString = new StringBuilder();
         try {
