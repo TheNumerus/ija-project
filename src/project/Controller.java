@@ -103,6 +103,7 @@ public class Controller {
         //adding route
         for (int i = 1; i < nodes.size(); i++){
             EdgeRoute e = new EdgeRoute(nodes.get(i - 1), nodes.get(i), hexColor);
+            e.mouseTransparentProperty().setValue(true);
             MapTransform.getChildren().add(e);
             this.routeEdges.add(e);
         }
@@ -132,6 +133,10 @@ public class Controller {
 
             loadMap(map);
         }
+    }
+
+    public void setTime(String hours, String minutes, String seconds){
+        this.time.setText(hours + ":" + minutes + ":" + seconds);
     }
 
     public void onMousePressed(MouseEvent event) {
