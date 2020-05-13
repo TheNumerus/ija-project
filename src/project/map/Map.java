@@ -17,6 +17,7 @@ public class Map {
         stops = new ArrayList<>();
         lines = new ArrayList<>();
         closures = new ArrayList<>();
+        vehicles = new ArrayList<>();
     }
 
     public List<Node> getRoute(Node start, Node finish) {

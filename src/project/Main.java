@@ -12,8 +12,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainWindow.fxml"));
-        Controller c = loader.getController();
         Parent root = loader.load();
+        Controller c = loader.getController();
         Scene scene = new Scene(root, 1280, 720);
 
         // window settings
@@ -22,9 +22,7 @@ public class Main extends Application {
         primaryStage.setMinWidth(640);
         primaryStage.setMinHeight(360);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
-        primaryStage.setOnHidden(e -> {
-            c.close();
-        });
+        primaryStage.setOnHidden(e -> c.close());
         primaryStage.show();
     }
 

@@ -175,9 +175,7 @@ public class Controller {
     }
 
     public void speedUp(ActionEvent actionEvent){
-        clock.speedUp();
-
-        double currentSpeed = clock.getSpeed();
+        double currentSpeed = clock.speedUp();
         slowDown_button.setDisable(false);
         if(currentSpeed == 10.0){
             speedUp_button.setDisable(true);
@@ -186,9 +184,7 @@ public class Controller {
     }
 
     public void slowDown(ActionEvent actionEvent){
-        clock.speedDown();
-
-        double currentSpeed = clock.getSpeed();
+        double currentSpeed = clock.speedDown();
         speedUp_button.setDisable(false);
         if(currentSpeed == 0.1){
             slowDown_button.setDisable(true);

@@ -62,7 +62,8 @@ public class InternalClock {
      * Resets sim speed
      */
     public void resetSpeed() {
-        speed = 1.0;
+        speedIndex = 3;
+        speed = speeds[speedIndex];
     }
 
     /**
@@ -94,8 +95,8 @@ public class InternalClock {
      */
     public double speedUp() {
         if (speedIndex + 1 <= speeds.length) {
-            speed = speeds[speedIndex + 1];
             speedIndex++;
+            speed = speeds[speedIndex];
         }
         return speed;
     }
@@ -105,9 +106,9 @@ public class InternalClock {
      * @return new speed
      */
     public double speedDown() {
-        if (speedIndex + 1 <= speeds.length) {
-            speed = speeds[speedIndex + 1];
+        if (speedIndex != 0) {
             speedIndex--;
+            speed = speeds[speedIndex];
         }
         return speed;
     }
