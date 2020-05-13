@@ -17,6 +17,7 @@ import project.Loader;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -135,8 +136,21 @@ public class Controller {
         }
     }
 
-    public void setTime(String hours, String minutes, String seconds){
+    public void setTime(Duration time){
+        long totalSecs = time.getSeconds();
+        String hours = Integer.toString((int)totalSecs / 3600);
+        String minutes = Integer.toString((int)(totalSecs % 3600) / 60);
+        String seconds = Integer.toString((int)totalSecs % 60);
+
+        if(hours.length() == 1) hours = "0" + hours;
+        if(minutes.length() == 1) minutes = "0" + minutes;
+        if(seconds.length() == 1) seconds = "0" + seconds;
+
         this.time.setText(hours + ":" + minutes + ":" + seconds);
+    }
+
+    public void resetTime(){
+        this.time.setText("00:00:00");
     }
 
     public void onMousePressed(MouseEvent event) {
