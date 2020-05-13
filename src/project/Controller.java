@@ -13,7 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.scene.image.Image;
 
 import project.map.*;
-import project.Loader;
+import project.map.Map;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,16 +34,24 @@ public class Controller {
     public Map map = new Map();
     public Image busStopIcon = new Image(Controller.class.getResourceAsStream("busStop.png"));
 
-    // TODO replace by something else than node
-    private Node DragStart = new Node(0.0, 0.0, null);
-    private Node OrigTransform = new Node(0.0, 0.0, null);
+    private Pair<Double, Double> DragStart = new Pair<>(0.0, 0.0);
+    private Pair<Double, Double> OrigTransform = new Pair<>(0.0, 0.0);
 
     private List<EdgeRoute> routeEdges = new ArrayList<EdgeRoute>();
     private List<StopImg> stops = new ArrayList<StopImg>();
 
+    private InternalClock clock;
+
     public void initialize() {
-        // TODO replace by reset only, map will be loaded from elsewhere
-        //loadMap(Map.placeholderData());
+        clock = new InternalClock(this::tick);
+    }
+
+    public void close() {
+        clock.cancel();
+    }
+
+    public void tick(Duration time, Duration delta) {
+        setTime(time);
     }
 
     private void loadMap() {
@@ -84,9 +92,7 @@ public class Controller {
 
     private void clearRoute(){
         for (EdgeRoute routeEdge : this.routeEdges) {
-            if(MapTransform.getChildren().contains(routeEdge)){
-                MapTransform.getChildren().remove(routeEdge);
-            }
+            MapTransform.getChildren().remove(routeEdge);
         }
         this.routeEdges.clear();
     }
@@ -168,17 +174,17 @@ public class Controller {
     }
 
     public void onMousePressed(MouseEvent event) {
-        DragStart.x = event.getSceneX();
-        DragStart.y = event.getSceneY();
-        OrigTransform.x = MapTransform.getTranslateX();
-        OrigTransform.y = MapTransform.getTranslateY();
+        DragStart.setX(event.getSceneX());
+        DragStart.setY(event.getSceneY());
+        OrigTransform.setX(MapTransform.getTranslateX());
+        OrigTransform.setY(MapTransform.getTranslateY());
     }
 
     public void onMouseDragged(MouseEvent event) {
-        double delta_x = event.getSceneX() - DragStart.x;
-        double delta_y = event.getSceneY() - DragStart.y;
-        MapTransform.setTranslateX(delta_x + OrigTransform.x);
-        MapTransform.setTranslateY(delta_y + OrigTransform.y);
+        double delta_x = event.getSceneX() - DragStart.getX();
+        double delta_y = event.getSceneY() - DragStart.getY();
+        MapTransform.setTranslateX(delta_x + OrigTransform.getX());
+        MapTransform.setTranslateY(delta_y + OrigTransform.getY());
         event.consume();
     }
 

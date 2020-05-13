@@ -6,18 +6,17 @@ import project.map.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Loader {
     public static Map LoadMap(File file) {
-        String jsonString = "";
+        StringBuilder jsonString = new StringBuilder();
         try {
             Scanner scanner = new Scanner(file);
             while(scanner.hasNextLine()){
-                jsonString += scanner.nextLine();
+                jsonString.append(scanner.nextLine());
             }
         }
         catch (IOException e){
@@ -30,7 +29,7 @@ public class Loader {
 
         Gson gson = builder.create();
         try {
-            JsonObject e = gson.fromJson(jsonString, JsonObject.class);
+            JsonObject e = gson.fromJson(jsonString.toString(), JsonObject.class);
             JsonArray streets = e.getAsJsonArray("streets");
             for (JsonElement jsonElement : streets) {
                 JsonObject street = jsonElement.getAsJsonObject();
