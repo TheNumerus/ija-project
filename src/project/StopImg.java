@@ -3,21 +3,18 @@ package project;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXMLLoader;
+import project.gui.MapPane;
 import project.map.Line;
+import project.map.Map;
 import project.map.Node;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class StopImg extends Group {
-
-    public Image busStopIcon = new Image(Controller.class.getResourceAsStream("busStop.png"));
 
     @FXML
     private ImageView image;
@@ -25,16 +22,10 @@ public class StopImg extends Group {
     @FXML
     private Label name;
 
-    private Node node;
-    private boolean clicked;
+    private final Node node;
 
-    private Controller controller;
-    private List<EdgeRoute> routes = new ArrayList<EdgeRoute>();
-
-    public StopImg(Node node, Controller cntrl){
+    public StopImg(Node node, Map map, MapPane pane){
         this.node = node;
-        this.controller = cntrl;
-
         // load ui elements
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "StopImg.fxml"));
@@ -48,7 +39,6 @@ public class StopImg extends Group {
         }
 
         name.setVisible(false);
-        clicked = false;
 
         name.setText(node.stop.name);
 
@@ -61,17 +51,10 @@ public class StopImg extends Group {
         });
 
         image.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent ->{
-            if(clicked){
-                clicked = false;
-                controller.clearRoute(this.routes);
-            }
-            else{
-                clicked = true;
-                for(Line line : controller.map.lines){
-                    if(line.stops.contains(this.node)){
-                        Color color = new Color((line.number * 47) % 255, (line.number * 7) % 255, (line.number * 11) % 255);
-                        this.routes = controller.showRoute(line.getCurrentRoute(), color);
-                    }
+            for(Line line : map.lines) {
+                if(line.stops.contains(this.node)){
+                    Color color = new Color((line.number * 47) % 255, (line.number * 7) % 255, (line.number * 11) % 255);
+                    pane.showRoute(line.getCurrentRoute(), color);
                 }
             }
         });

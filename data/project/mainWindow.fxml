@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
+<?import project.gui.MapPane?>
 
 <GridPane prefHeight="360" prefWidth="800.0" styleClass="background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.Controller">
    <columnConstraints>
@@ -15,9 +16,7 @@
       <RowConstraints />
    </rowConstraints>
    <GridPane styleClass="background" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-      <Pane fx:id="MapPane" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onScroll="#onScroll" onMouseClicked="#onMouseClicked" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.vgrow="ALWAYS">
-         <Group fx:id="MapTransform" />
-      </Pane>
+      <MapPane fx:id="MapPane" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.vgrow="ALWAYS"/>
       <BorderPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" styleClass="backgroundUI" GridPane.vgrow="ALWAYS">
          <bottom>
             <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" spacing="10.0">
