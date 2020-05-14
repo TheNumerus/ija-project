@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class Line {
     public int number;
     public double delay;
-    private final List<Node> stops;
+    public final List<Node> stops;
     private List<Node> currentRoute;
     private int lastVehicleSend = 0;
     private int vehicleCount = 0;

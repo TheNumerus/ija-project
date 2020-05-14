@@ -7,9 +7,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXMLLoader;
+import project.map.Line;
 import project.map.Node;
 
+import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StopImg extends Group {
 
@@ -22,9 +26,14 @@ public class StopImg extends Group {
     private Label name;
 
     private Node node;
+    private boolean clicked;
 
-    public StopImg(Node node){
+    private Controller controller;
+    private List<EdgeRoute> routes = new ArrayList<EdgeRoute>();
+
+    public StopImg(Node node, Controller cntrl){
         this.node = node;
+        this.controller = cntrl;
 
         // load ui elements
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -39,6 +48,7 @@ public class StopImg extends Group {
         }
 
         name.setVisible(false);
+        clicked = false;
 
         name.setText(node.stop.name);
 
@@ -48,6 +58,22 @@ public class StopImg extends Group {
 
         image.addEventHandler(MouseEvent.MOUSE_EXITED, mouseEvent ->{
             name.setVisible(false);
+        });
+
+        image.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent ->{
+            if(clicked){
+                clicked = false;
+                controller.clearRoute(this.routes);
+            }
+            else{
+                clicked = true;
+                for(Line line : controller.map.lines){
+                    if(line.stops.contains(this.node)){
+                        Color color = new Color((line.number * 47) % 255, (line.number * 7) % 255, (line.number * 11) % 255);
+                        this.routes = controller.showRoute(line.getCurrentRoute(), color);
+                    }
+                }
+            }
         });
     }
 

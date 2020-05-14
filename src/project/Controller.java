@@ -34,6 +34,7 @@ public class Controller {
     public Group MapTransform;
     public Button speedUp_button;
     public Button slowDown_button;
+    public Button playPause_button;
     public Label speed;
 
     public Map map;
@@ -88,20 +89,21 @@ public class Controller {
                         map.closures.remove(new Pair<>(e.start, e.end));
                     }
                     map.recomputeRoutes();
-                    renderLines();
+                    //renderLines();
                 });
                 MapTransform.getChildren().add(el);
 
                 if(e.start.stop != null){
-                    StopImg busStop = new StopImg(e.start);
+                    StopImg busStop = new StopImg(e.start, this);
                     MapTransform.getChildren().add(busStop);
                     busStop.setPos();
                     this.stops.add(busStop);
                 }
             }
         }
-        renderLines();
+        //renderLines();
         clock.setPaused(false);
+        playPause_button.setDisable(false);
     }
 
     private void renderLines() {
@@ -112,21 +114,35 @@ public class Controller {
         }
     }
 
-    private void clearRoute(){
+    public void clearRoute(){
         for (EdgeRoute routeEdge : this.routeEdges) {
             MapTransform.getChildren().remove(routeEdge);
         }
         this.routeEdges.clear();
     }
 
-    private void showRoute(List<Node> nodes){
-        Color defaultColor = new Color(255, 213, 3);
-        showRoute(nodes, defaultColor);
+    public void clearRoute(List<EdgeRoute> routes){
+        for(EdgeRoute line : routes){
+            /*if(MapTransform.getChildren().contains(route)){
+                MapTransform.getChildren().remove(route);
+            }*/
+            if(MapTransform.getChildren().contains(line)){
+                MapTransform.getChildren().remove(line);
+            }
+
+
+        }
     }
 
-    private void showRoute(List<Node> nodes, Color color){
+    public List<EdgeRoute> showRoute(List<Node> nodes){
+        Color defaultColor = new Color(255, 213, 3);
+        List<EdgeRoute> routes = showRoute(nodes, defaultColor);
+        return routes;
+    }
+
+    public List<EdgeRoute> showRoute(List<Node> nodes, Color color){
         if (nodes == null) {
-            return;
+            return null;
         }
         // generating hex string
         String hexColor = Integer.toHexString(color.getRGB() & 0xffffff);
@@ -136,8 +152,10 @@ public class Controller {
         hexColor = "#" + hexColor;
 
         if(nodes.isEmpty()){
-            return;
+            return null;
         }
+
+        List<EdgeRoute> routes = new ArrayList<EdgeRoute>();
 
         //deleting stops
         for(StopImg stop : this.stops){
@@ -150,12 +168,14 @@ public class Controller {
             e.mouseTransparentProperty().setValue(true);
             MapTransform.getChildren().add(e);
             this.routeEdges.add(e);
+            routes.add(e);
         }
 
         //adding stops back
         for(StopImg stop : this.stops){
             MapTransform.getChildren().add(stop);
         }
+        return routes;
     }
 
     public void loadDataButtonClick(ActionEvent actionEvent) {
@@ -221,6 +241,17 @@ public class Controller {
         speed.setText("1.0x");
     }
 
+    public void playPause(ActionEvent actionEvent){
+        if(clock.isPaused()){
+            clock.setPaused(false);
+            playPause_button.setText("Pause");
+        }
+        else{
+            clock.setPaused(true);
+            playPause_button.setText("Play");
+        }
+    }
+
     public void onMousePressed(MouseEvent event) {
         DragStart.setX(event.getSceneX());
         DragStart.setY(event.getSceneY());
@@ -241,6 +272,12 @@ public class Controller {
         double new_zoom = Double.max(MapTransform.getScaleX() + val, 0.1);
         MapTransform.setScaleX(new_zoom);
         MapTransform.setScaleY(new_zoom);
+    }
+
+    public void onMouseClicked(MouseEvent event){
+        if(event.getTarget().equals(this.MapPane)) {
+            clearRoute();
+        }
     }
 
     public void resetView(ActionEvent actionEvent) {

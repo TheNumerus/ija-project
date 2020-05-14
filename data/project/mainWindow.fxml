@@ -15,7 +15,7 @@
       <RowConstraints />
    </rowConstraints>
    <GridPane styleClass="background" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-      <Pane fx:id="MapPane" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onScroll="#onScroll" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.vgrow="ALWAYS">
+      <Pane fx:id="MapPane" onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onScroll="#onScroll" onMouseClicked="#onMouseClicked" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.vgrow="ALWAYS">
          <Group fx:id="MapTransform" />
       </Pane>
       <BorderPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" styleClass="backgroundUI" GridPane.vgrow="ALWAYS">
@@ -44,9 +44,9 @@
                      <Button fx:id="slowDown_button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#slowDown" text="Slow Down" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#resetSpeed" text="Reset Speed" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                      <Button fx:id="speedUp_button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#speedUp" text="Speed Up" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
-                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Jump Back" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
-                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Play" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
-                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Jump Forward" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Jump Back" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" disable="true"/>
+                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Pause" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" onAction="#playPause" fx:id="playPause_button" disable="true"/>
+                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Jump Forward" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" disable="true"/>
                   </children>
                </GridPane>
                <BorderPane.margin>

@@ -11,6 +11,9 @@ public class EdgeRoute extends Group {
     @FXML
     private Line line;
 
+    public Node node1;
+    public Node node2;
+
 
     public EdgeRoute(Node node1, Node node2, String hexColor){
         // load ui elements
@@ -31,6 +34,9 @@ public class EdgeRoute extends Group {
         line.setEndX(node2.x);
         line.setEndY(node2.y);
         line.setStyle("-fx-stroke: " + hexColor + ";");
+
+        this.node1 = node1;
+        this.node2 = node2;
     }
 
 }
