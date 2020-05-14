@@ -701,7 +701,7 @@
 	"lines": [
 		{
 			"number": 5,
-			"delay": 5,
+			"delay": 15,
 			"stops": [
 				"Kasárny",
 				"Přístavní",
@@ -711,7 +711,7 @@
 		},
 		{
 			"number": 8,
-			"delay": 10,
+			"delay": 15,
 			"stops": [
 				"Elihalova",
 				"Chameleon",
@@ -721,7 +721,7 @@
 		},
 		{
 			"number": 11,
-			"delay": 10,
+			"delay": 15,
 			"stops":[
 				"Zlatý Jeseter",
 				"Řezníkovo Divadlo",
@@ -731,7 +731,7 @@
 		},
 		{
 			"number": 22,
-			"delay": 5,
+			"delay": 15,
 			"stops":[
 				"U Chrámu",
 				"Mostní",

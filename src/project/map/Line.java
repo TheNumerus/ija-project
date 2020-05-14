@@ -1,5 +1,7 @@
 package project.map;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,6 +11,8 @@ public class Line {
     public double delay;
     private final List<Node> stops;
     private List<Node> currentRoute;
+    private int lastVehicleSend = 0;
+    private int vehicleCount = 0;
 
     public Line(int number, double delay, List<Node> stops, Map m) {
         this.delay = delay;
@@ -26,16 +30,60 @@ public class Line {
     }
 
     public List<Node> findRoute(Map m) {
+        Node start = stops.get(0);
+        Node end = stops.get(1);
+
         List<Node> route = new ArrayList<>();
-        for (int i = 0; i < stops.size() - 1; i++) {
-            List<Node> part = m.getRoute(stops.get(i), stops.get(i + 1));
-            // TODO
+        while(!start.equals(stops.get(stops.size() - 1))) {
+            List<Node> part = m.getRoute(start, end);
             if (part == null) {
-                return null;
+                // is last
+                if (end.equals(stops.get(stops.size() - 1))) {
+                    return null;
+                }
+                end = stops.get(stops.indexOf(end) + 1);
+            } else {
+                // is last
+                if (end.equals(stops.get(stops.size() - 1))) {
+                    route.addAll(part);
+                    return route;
+                } else {
+                    start = end;
+                    end = stops.get(stops.indexOf(end) + 1);
+                    route.addAll(part.subList(0, part.size() - 1));
+                }
             }
-            route.addAll(part.subList(0, part.size() - 1));
         }
-        route.add(stops.get(stops.size() - 1));
+
+        return route;
+    }
+
+    public List<Node> anyRoute(Map m, Node current, Node lastStop) {
+        Node start = current;
+        Node end = stops.get(stops.indexOf(lastStop) + 1);
+
+        List<Node> route = new ArrayList<>();
+        while(!start.equals(stops.get(stops.size() - 1))) {
+            List<Node> part = m.getRoute(start, end);
+            if (part == null) {
+                // is last
+                if (end.equals(stops.get(stops.size() - 1))) {
+                    return null;
+                }
+                end = stops.get(stops.indexOf(end) + 1);
+            } else {
+                // is last
+                if (end.equals(stops.get(stops.size() - 1))) {
+                    route.addAll(part);
+                    return route;
+                } else {
+                    start = end;
+                    end = stops.get(stops.indexOf(end) + 1);
+                    route.addAll(part.subList(0, part.size() - 1));
+                }
+            }
+        }
+
         return route;
     }
 
@@ -43,4 +91,20 @@ public class Line {
         return currentRoute;
     }
 
+    public boolean isNextStop(Node current, Node next) {
+        return stops.indexOf(next) - stops.indexOf(current) == 1;
+    }
+
+    public void tick(Duration delta, Map m) {
+        if (vehicleCount >= 10) {
+            return;
+        }
+        if (lastVehicleSend > (delay * 1000)) {
+            new Vehicle(this, m);
+            lastVehicleSend = 0;
+            vehicleCount++;
+        } else {
+            lastVehicleSend += delta.getNano() / 1000000;
+        }
+    }
 }

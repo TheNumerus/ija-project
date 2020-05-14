@@ -67,7 +67,7 @@ public class Map {
             l.findRoute(this);
         }
         for (Vehicle v: vehicles) {
-            v.recomputeRoute();
+            //v.recomputeRoute(false);
         }
     }
 
@@ -81,6 +81,9 @@ public class Map {
     }
 
     public void onTick(Duration delta) {
+        for (Line l: lines) {
+            l.tick(delta, this);
+        }
         for (Vehicle v: vehicles) {
             v.move(delta);
         }

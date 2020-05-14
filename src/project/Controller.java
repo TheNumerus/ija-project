@@ -19,10 +19,13 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.awt.Color;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Controller {
     @FXML
@@ -40,6 +43,7 @@ public class Controller {
 
     private final List<EdgeRoute> routeEdges = new ArrayList<>();
     private final List<StopImg> stops = new ArrayList<>();
+    private final List<VehicleUI> vehicles = new ArrayList<>();
 
     private InternalClock clock;
 
@@ -55,6 +59,21 @@ public class Controller {
     public void tick(Duration time, Duration delta) {
         setTime(time);
         map.onTick(delta);
+        renderVehicles();
+    }
+
+    private void renderVehicles() {
+        for (Vehicle v: map.vehicles) {
+            List<VehicleUI> filtered = vehicles.stream().filter((vui) -> vui.getVehicle().equals(v)).collect(Collectors.toList());
+            if (filtered.size() > 0) {
+                filtered.get(0).newPos();
+            } else {
+                VehicleUI vui = new VehicleUI(v);
+                MapTransform.getChildren().add(vui);
+                vehicles.add(vui);
+                vui.newPos();
+            }
+        }
     }
 
     private void loadMap() {
@@ -106,6 +125,9 @@ public class Controller {
     }
 
     private void showRoute(List<Node> nodes, Color color){
+        if (nodes == null) {
+            return;
+        }
         // generating hex string
         String hexColor = Integer.toHexString(color.getRGB() & 0xffffff);
         if(hexColor.length() < 6){
