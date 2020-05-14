@@ -43,7 +43,6 @@ Line, Polyline, EdgeLine {
 
 .edgeroute {
     -fx-stroke-width: 2;
-
 }
 
 .edgeline_hover {

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Line {
     public int number;
     public double delay;
-    private final List<Node> stops;
+    public final List<Node> stops;
     private List<Node> currentRoute;
 
     public Line(int number, double delay, List<Node> stops, Map m) {
