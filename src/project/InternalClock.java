@@ -28,13 +28,12 @@ public class InternalClock {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                if (paused) {
-                    return;
+                if (!paused) {
+                    long mili = (long) (20.0 * speed);
+                    Duration delta = Duration.ofMillis(mili);
+                    time = time.plus(delta);
+                    Platform.runLater(() -> c.accept(time, delta));
                 }
-                long mili = (long)(20.0 * speed);
-                Duration delta = Duration.ofMillis(mili);
-                time = time.plus(delta);
-                Platform.runLater(() ->c.accept(time, delta));
             }
         };
         t = new Timer();

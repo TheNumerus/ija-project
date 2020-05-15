@@ -154,6 +154,10 @@ public class MapPane extends Pane {
     //endregion
     //region public methods
 
+    /**
+     * Renderers map base such as streets, stops
+     * @param map map data
+     */
     public void renderMapBase(Map map) {
         for (Street s: map.streets) {
             for (Edge e: s.getEdges()) {
@@ -176,6 +180,10 @@ public class MapPane extends Pane {
         }
     }
 
+    /**
+     * Creates new vehicles and updates position on existing vehicles
+     * @param m map with vehicle data
+     */
     public void renderVehicles(Map m) {
         for (Vehicle v: m.vehicles) {
             List<VehicleUI> filtered = vehicles.stream().filter((vui) -> vui.getVehicle().equals(v)).collect(Collectors.toList());
