@@ -195,6 +195,7 @@ public class MapPane extends Pane {
                     }
                     map.recomputeRoutes();
                 }, controller);
+                s.addEdgeLine(el);
                 addNode(el);
 
                 if(e.start.stop != null){

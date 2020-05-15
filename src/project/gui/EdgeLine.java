@@ -22,7 +22,9 @@ import java.util.function.Consumer;
  */
 public class EdgeLine extends Group {
     private boolean closed;
+    public boolean selected;
     private final Consumer<Boolean> onClose;
+    private Street onStreet;
 
     @FXML
     private Line line;
@@ -47,7 +49,9 @@ public class EdgeLine extends Group {
 
         this.controller = controller;
         closed = false;
+        selected = false;
         this.onClose = onClose;
+        this.onStreet = s;
 
         // line coordinates
         line.setStartX(e.start.x);
@@ -85,11 +89,26 @@ public class EdgeLine extends Group {
     }
 
     private void mouseEntered(MouseEvent mouseEvent) {
-        line.getStyleClass().clear();
-        if (closed) {
-            line.getStyleClass().add("edgeline_closedhover");
-        } else {
-            line.getStyleClass().add("edgeline_hover");
+        if(controller.currentMode == Controller.EditMode.CLOSURES){
+            line.getStyleClass().clear();
+            if (closed) {
+                line.getStyleClass().add("edgeline_closedhover");
+            }
+            else {
+                line.getStyleClass().add("edgeline_hover");
+            }
+        }
+
+        if(controller.currentMode == Controller.EditMode.SPEEDADJUSTMENTS){
+            for(EdgeLine el : this.onStreet.getEdgeLines()){
+                el.getStyleClass().clear();
+                if(el.selected){
+                    el.getStyleClass().add("edgeline_selectedhover");
+                }
+                else{
+                    el.getStyleClass().add("edgeline_hover");
+                }
+            }
         }
     }
 
@@ -104,12 +123,30 @@ public class EdgeLine extends Group {
             closed = !closed;
             onClose.accept(closed);
         }
+        else if(controller.currentMode == Controller.EditMode.SPEEDADJUSTMENTS){
+            for(EdgeLine el : this.onStreet.getEdgeLines()){
+                el.getStyleClass().clear();
+                if(selected){
+                    el.getStyleClass().add("edgeline_hover");
+                }
+                else{
+                    el.getStyleClass().add("edgeline_selectedhover");
+                }
+                el.selected = !el.selected;
+            }
+        }
     }
 
     private void mouseExited(MouseEvent mouseEvent) {
         line.getStyleClass().clear();
-        if (closed) {
+        if (closed && controller.currentMode == Controller.EditMode.CLOSURES) {
             line.getStyleClass().add("edgeline_closed");
+        }
+        if(selected && controller.currentMode == Controller.EditMode.SPEEDADJUSTMENTS){
+            for(EdgeLine el : this.onStreet.getEdgeLines()) {
+                el.getStyleClass().clear();
+                el.getStyleClass().add("edgeline_selected");
+            }
         }
     }
 }

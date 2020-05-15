@@ -57,6 +57,14 @@ Line, Polyline, EdgeLine {
     -fx-stroke: #d08770;
 }
 
+.edgeline_selected {
+    -fx-stroke: #000000;
+}
+
+.edgeline_selectedhover{
+    -fx-stroke: #2d2d2d;
+}
+
 Spinner, Spinner .increment-arrow-button, Spinner .decrement-arrow-button {
     -fx-body-color: #434c5e;
     -fx-border: none;

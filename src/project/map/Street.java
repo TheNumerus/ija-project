@@ -1,6 +1,7 @@
 package project.map;
 
 import com.sun.istack.internal.NotNull;
+import project.gui.EdgeLine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 public class Street {
     public String name;
     public double costMultiplier;
+    private List<EdgeLine> edgeLines;
     private List<Node> nodes;
     private boolean oneWay;
 
@@ -17,6 +19,15 @@ public class Street {
         this.name = name;
         costMultiplier = 1.0;
         oneWay = false;
+        edgeLines = new ArrayList<EdgeLine>();
+    }
+
+    public void addEdgeLine(EdgeLine el){
+        this.edgeLines.add(el);
+    }
+
+    public List<EdgeLine> getEdgeLines(){
+        return this.edgeLines;
     }
 
     public List<Node> listNodes() {
