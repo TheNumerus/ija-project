@@ -4,8 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
-<?import project.gui.MapPane?>
+<?import project.gui.*?>
 
 <GridPane prefHeight="360" prefWidth="800.0" styleClass="background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.Controller">
    <columnConstraints>
@@ -16,7 +15,7 @@
       <RowConstraints />
    </rowConstraints>
    <GridPane styleClass="background" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-      <MapPane fx:id="MapPane" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.vgrow="ALWAYS"/>
+      <MapPane fx:id="MapPane" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.vgrow="ALWAYS" />
       <BorderPane maxWidth="1.7976931348623157E308" minWidth="-Infinity" styleClass="backgroundUI" GridPane.vgrow="ALWAYS">
          <bottom>
             <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" minWidth="-Infinity" spacing="10.0">
@@ -28,7 +27,7 @@
                      <Insets bottom="20.0" />
                   </VBox.margin>
                </Label>
-               <Label text="1.0x" fx:id="speed"/>
+               <Label fx:id="speed" text="1.0x" />
                <GridPane hgap="10.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" vgap="10.0" VBox.vgrow="ALWAYS">
                  <columnConstraints>
                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
@@ -43,16 +42,36 @@
                      <Button fx:id="slowDown_button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#slowDown" text="Slow Down" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#resetSpeed" text="Reset Speed" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                      <Button fx:id="speedUp_button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#speedUp" text="Speed Up" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
-                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Jump Back" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" disable="true"/>
-                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Pause" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" onAction="#playPause" fx:id="playPause_button" disable="true"/>
-                     <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Jump Forward" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" disable="true"/>
+                     <Button disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Jump Back" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+                     <Button fx:id="playPause_button" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#playPause" text="Pause" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
+                     <Button disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Jump Forward" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS" />
                   </children>
                </GridPane>
                <BorderPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </BorderPane.margin>
             </VBox>
-         </bottom></BorderPane>
+         </bottom>
+         <top>
+            <GridPane hgap="10.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" vgap="10.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Closures" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" disable="true" fx:id="closures_button" onAction="#closuresButtonClick"/>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Speed Adjustments" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" fx:id="speedAdjustments_button" onAction="#speedAdjustmentsButtonClick"/>
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Detours" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" fx:id="detours_button" onAction="#detoursButtonClick"/>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </GridPane>
+         </top></BorderPane>
       <columnConstraints>
          <ColumnConstraints />
          <ColumnConstraints />
