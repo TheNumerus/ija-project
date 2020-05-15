@@ -104,6 +104,9 @@ public class MapPane extends Pane {
 
     //region line highlights
 
+    /**
+     * deletes all routes highlights
+     */
     public void clearRoute(){
         for (EdgeRoute routeEdge : routes) {
             removeNode(routeEdge);
@@ -111,6 +114,11 @@ public class MapPane extends Pane {
         routes.clear();
     }
 
+
+    /**
+     * deletes specific routes highlights
+     * @param routes routes to delete from map
+     */
     public void clearRoute(List<EdgeRoute> routes){
         this.routes.removeAll(routes);
         for(EdgeRoute line: routes){
@@ -118,11 +126,24 @@ public class MapPane extends Pane {
         }
     }
 
+
+    // generates default route highlight color
+
+    /**
+     * generates default route highlight color and generates route
+     * @param nodes list of points on the map, which to highlight route between
+     */
     public void showRoute(List<project.map.Node> nodes){
         Color defaultColor = new Color(255, 213, 3);
         showRoute(nodes, defaultColor);
     }
 
+
+    /**
+     * generates new highlights by given nodes and adds them to map
+     * @param nodes list of points on the map, which to highlight route between
+     * @param color color to use to highlight
+     */
     public void showRoute(List<project.map.Node> nodes, Color color){
         if (nodes == null) {
             return;
