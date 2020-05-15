@@ -4,7 +4,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.Label?>
 
-<fx:root type="Group" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.EdgeRoute">
+<fx:root type="Group" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.EdgeRoute">
     <Line fx:id="line" styleClass="edgeroute"/>
     <Label fx:id="name" textAlignment="CENTER"/>
 </fx:root>

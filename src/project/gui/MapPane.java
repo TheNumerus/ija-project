@@ -8,10 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
-import project.EdgeLine;
-import project.EdgeRoute;
 import project.Pair;
-import project.StopImg;
 import project.map.*;
 
 import java.awt.*;

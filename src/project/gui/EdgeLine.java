@@ -1,4 +1,4 @@
-package project;
+package project.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Group;

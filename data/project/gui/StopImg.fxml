@@ -5,9 +5,9 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 
-<fx:root type="Group" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.StopImg">
+<fx:root type="Group" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.StopImg">
     <ImageView fx:id="image" fitHeight="20.0" fitWidth="20.0">
-         <Image url="@busStop.png" />
+         <Image url="@../busStop.png" />
       </ImageView>
     <Label fx:id="name" layoutY="-20" mouseTransparent="true" textAlignment="CENTER">
       <effect>
