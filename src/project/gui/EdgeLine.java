@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
+import project.Controller;
 import project.map.Edge;
 import javafx.fxml.FXMLLoader;
 import project.map.Street;
@@ -29,7 +30,9 @@ public class EdgeLine extends Group {
     @FXML
     private Label name;
 
-    public EdgeLine(Edge e, Street s, Consumer<Boolean> onClose) {
+    private Controller controller;
+
+    public EdgeLine(Edge e, Street s, Consumer<Boolean> onClose, Controller controller) {
         // load ui elements
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
                 "EdgeLine.fxml"));
@@ -42,6 +45,7 @@ public class EdgeLine extends Group {
             throw new RuntimeException(exception);
         }
 
+        this.controller = controller;
         closed = false;
         this.onClose = onClose;
 
@@ -90,14 +94,16 @@ public class EdgeLine extends Group {
     }
 
     private void mouseClicked(MouseEvent mouseEvent) {
-        line.getStyleClass().clear();
-        if (closed) {
-            line.getStyleClass().add("edgeline_hover");
-        } else {
-            line.getStyleClass().add("edgeline_closedhover");
+        if(controller.currentMode == Controller.EditMode.CLOSURES){
+            line.getStyleClass().clear();
+            if (closed) {
+                line.getStyleClass().add("edgeline_hover");
+            } else {
+                line.getStyleClass().add("edgeline_closedhover");
+            }
+            closed = !closed;
+            onClose.accept(closed);
         }
-        closed = !closed;
-        onClose.accept(closed);
     }
 
     private void mouseExited(MouseEvent mouseEvent) {

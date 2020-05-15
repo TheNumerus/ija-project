@@ -34,13 +34,13 @@ public class Controller {
 
     private InternalClock clock;
 
-    enum EditMode{
+    public enum EditMode{
         CLOSURES,
         SPEEDADJUSTMENTS,
         DETOURS
     }
 
-    private EditMode currentMode = EditMode.CLOSURES;
+    public EditMode currentMode = EditMode.CLOSURES;
 
     public void initialize() {
         clock = new InternalClock(this::tick);
@@ -59,9 +59,12 @@ public class Controller {
 
     // sets the environment for new map
     private void loadMap() {
+        MapPane.getController(this);
         MapPane.clearMap();
         MapPane.renderMapBase(map);
         MapPane.resetView();
+        clock.resetSpeed();
+        clock.resetTime();
         clock.setPaused(false);
         playPause_button.setDisable(false);
     }

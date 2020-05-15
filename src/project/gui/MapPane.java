@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import project.Controller;
 import project.Pair;
 import project.map.*;
 
@@ -23,6 +24,8 @@ import java.util.stream.Collectors;
 public class MapPane extends Pane {
     @FXML
     private Group MapTransform;
+
+    public Controller controller;
 
     private final Pair<Double, Double> DragStart = new Pair<>(0.0, 0.0);
     private final Pair<Double, Double> OrigTransform = new Pair<>(0.0, 0.0);
@@ -42,6 +45,11 @@ public class MapPane extends Pane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+
+    public void getController(Controller controller){
+        this.controller = controller;
     }
 
     /**
@@ -186,7 +194,7 @@ public class MapPane extends Pane {
                         map.closures.remove(new Pair<>(e.start, e.end));
                     }
                     map.recomputeRoutes();
-                });
+                }, controller);
                 addNode(el);
 
                 if(e.start.stop != null){
