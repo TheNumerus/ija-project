@@ -56,3 +56,23 @@ Line, Polyline, EdgeLine {
 .edgeline_closedhover {
     -fx-stroke: #d08770;
 }
+
+Spinner, Spinner .increment-arrow-button, Spinner .decrement-arrow-button {
+    -fx-body-color: #434c5e;
+    -fx-border: none;
+    -fx-stroke-width: 0;
+    -fx-background-color: #434c5e;
+}
+
+Spinner .increment-arrow, Spinner .decrement-arrow {
+    -fx-background-color: #FFFFFF;
+}
+
+Spinner .increment-arrow-button:hover, Spinner .decrement-arrow-button:hover {
+    -fx-background-color: #4c566a;
+}
+
+Spinner .text-field{
+    -fx-border: none;
+    -fx-background-color: #434c5e;
+}

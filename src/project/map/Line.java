@@ -99,12 +99,24 @@ public class Line {
         if (vehicleCount >= 10) {
             return;
         }
-        if (lastVehicleSend > (delay * 1000)) {
-            new Vehicle(this, m);
-            lastVehicleSend = 0;
-            vehicleCount++;
-        } else {
-            lastVehicleSend += delta.getNano() / 1000000;
+
+        long milis = delta.toMillis();
+        long mili_delay = (long)(delay * 1000);
+
+        while (milis > 0) {
+            if ((milis + lastVehicleSend) >= mili_delay) {
+                long rest = (lastVehicleSend + milis) - mili_delay;
+                new Vehicle(this, m);
+                lastVehicleSend = 0;
+                vehicleCount++;
+                if (vehicleCount >= 10) {
+                    return;
+                }
+                milis -= rest;
+            } else {
+                lastVehicleSend += milis;
+                milis = 0;
+            }
         }
     }
 }

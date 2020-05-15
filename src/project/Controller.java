@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.stage.FileChooser;
 
 import project.gui.MapPane;
@@ -14,6 +15,8 @@ import java.io.File;
 import java.time.Duration;
 
 public class Controller {
+    @FXML
+    public Spinner<Integer> JumpSpinner;
     @FXML
     private Label time;
     @FXML
@@ -126,5 +129,11 @@ public class Controller {
 
     public void resetView(ActionEvent actionEvent) {
         MapPane.resetView();
+    }
+
+    public void onJumpButtonPressed(ActionEvent actionEvent) {
+        if (map != null) {
+            clock.jumpForward(Duration.ofSeconds(JumpSpinner.getValue()));
+        }
     }
 }

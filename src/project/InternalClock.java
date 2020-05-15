@@ -19,12 +19,13 @@ public class InternalClock {
     private double speed = speeds[speedIndex];
 
     private final Timer t;
+    private final BiConsumer<Duration, Duration> tick;
 
     /**
      * Constructor
-     * @param c Tick function
+     * @param tick Tick function
      */
-    public InternalClock(BiConsumer<Duration, Duration> c) {
+    public InternalClock(BiConsumer<Duration, Duration> tick) {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
@@ -32,10 +33,11 @@ public class InternalClock {
                     long mili = (long) (20.0 * speed);
                     Duration delta = Duration.ofMillis(mili);
                     time = time.plus(delta);
-                    Platform.runLater(() -> c.accept(time, delta));
+                    Platform.runLater(() -> tick.accept(time, delta));
                 }
             }
         };
+        this.tick = tick;
         t = new Timer();
         t.scheduleAtFixedRate(task, 0, 20);
     }
@@ -110,5 +112,21 @@ public class InternalClock {
             speed = speeds[speedIndex];
         }
         return speed;
+    }
+
+    /**
+     * Jumps into future by speciied ammout
+     *
+     * Will not send event if deltaSecs is zero
+     * @param deltaSecs time to jump
+     * @return new time
+     */
+    public Duration jumpForward(Duration deltaSecs) {
+        if (deltaSecs.isZero()) {
+            return time;
+        }
+        time = time.plus(deltaSecs);
+        tick.accept(time, deltaSecs);
+        return time;
     }
 }
