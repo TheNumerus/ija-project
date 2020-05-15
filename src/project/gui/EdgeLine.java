@@ -134,6 +134,12 @@ public class EdgeLine extends Group {
                 }
                 el.selected = !el.selected;
             }
+            if(selected){
+                controller.speedAdjustments.scrollbar.setDisable(false);
+            }
+            else{
+                controller.speedAdjustments.scrollbar.setDisable(true);
+            }
         }
     }
 

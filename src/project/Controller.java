@@ -2,13 +2,18 @@ package project;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 import project.gui.MapPane;
+import project.gui.SpeedAdjustments;
 import project.map.*;
 
 import javax.swing.*;
@@ -21,6 +26,8 @@ public class Controller {
     @FXML
     private Label time;
     @FXML
+    private Pane UICenter;
+    @FXML
     private MapPane MapPane;
     public Button speedUp_button;
     public Button slowDown_button;
@@ -30,7 +37,9 @@ public class Controller {
     public Button detours_button;
     public Label speed;
 
+
     public Map map;
+    public SpeedAdjustments speedAdjustments;
 
     private InternalClock clock;
 
@@ -45,6 +54,7 @@ public class Controller {
     public void initialize() {
         clock = new InternalClock(this::tick);
         clock.setPaused(true);
+        this.speedAdjustments = new SpeedAdjustments();
     }
 
     public void close() {
@@ -125,6 +135,8 @@ public class Controller {
         this.detours_button.setDisable(false);
 
         this.currentMode = EditMode.CLOSURES;
+
+        this.UICenter.getChildren().clear();
     }
 
     // disables clicked button and enables others.
@@ -135,6 +147,9 @@ public class Controller {
         this.detours_button.setDisable(false);
 
         this.currentMode = EditMode.SPEEDADJUSTMENTS;
+
+        this.UICenter.getChildren().clear();
+        this.UICenter.getChildren().add(this.speedAdjustments);
     }
 
     // disables clicked button and enables others.
@@ -145,6 +160,8 @@ public class Controller {
         this.detours_button.setDisable(true);
 
         this.currentMode = EditMode.DETOURS;
+
+        this.UICenter.getChildren().clear();
     }
 
 
