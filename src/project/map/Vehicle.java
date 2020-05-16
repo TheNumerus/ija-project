@@ -46,7 +46,7 @@ public class Vehicle {
             double delta_y = currentTarget.y - y;
             double distance_to_next_node = Math.sqrt(Math.pow(delta_x, 2.0) + Math.pow(delta_y, 2.0));
 
-            double speed = maxSpeed;// * currentStreet.multiplier;
+            double speed = maxSpeed * currentStreet.costMultiplier;
 
             double time_to_next_node = distance_to_next_node / speed;
             if (time_to_next_node > milis) {
@@ -77,13 +77,13 @@ public class Vehicle {
     }
 
     public void recomputeRoute(boolean isOnTarget) {
-        //Node target = line.getNodes().get(line.getNodes().indexOf(lastStop) + 1);
         List<Node> route = line.anyRoute(map, currentTarget,lastStop);
         if (route == null) {
             return;
         }
         if (isOnTarget) {
             currentTarget = route.get(1);
+            currentStreet = map.getStreetByNodes(route.get(0), route.get(1));
         } else {
             currentTarget = route.get(0);
         }

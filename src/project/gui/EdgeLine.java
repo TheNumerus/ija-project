@@ -136,6 +136,7 @@ public class EdgeLine extends Group {
         }
         else if(controller.currentMode == EditMode.SPEEDADJUSTMENTS){
             mapPane.highlightStreet(onStreet);
+            controller.setStreetSelect(onStreet);
         }
     }
 

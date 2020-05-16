@@ -80,6 +80,16 @@ public class Map {
         return false;
     }
 
+    public Street getStreetByNodes(Node n, Node n1) {
+        for (Street s: streets) {
+            List<Node> nodes = s.listNodes();
+            if (nodes.contains(n) && nodes.contains(n1)) {
+                return s;
+            }
+        }
+        return null;
+    }
+
     public void onTick(Duration delta) {
         for (Line l: lines) {
             l.tick(delta, this);

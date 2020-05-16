@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
@@ -20,6 +21,8 @@ public class Controller {
     @FXML
     public Spinner<Integer> JumpSpinner;
     @FXML
+    public BorderPane Sidebar;
+    @FXML
     private Label time;
     @FXML
     private Pane UICenter;
@@ -32,6 +35,8 @@ public class Controller {
     public Button speedAdjustments_button;
     public Button detours_button;
     public Label speed;
+
+    private Street selectedStreet;
 
 
     public Map map;
@@ -132,7 +137,7 @@ public class Controller {
 
         this.currentMode = EditMode.CLOSURES;
 
-        this.UICenter.getChildren().clear();
+        Sidebar.setCenter(null);
         MapPane.editModeChanged(currentMode);
     }
 
@@ -149,8 +154,7 @@ public class Controller {
 
         this.currentMode = EditMode.SPEEDADJUSTMENTS;
 
-        this.UICenter.getChildren().clear();
-        this.UICenter.getChildren().add(this.speedAdjustments);
+        Sidebar.setCenter(speedAdjustments);
         MapPane.editModeChanged(currentMode);
     }
 
@@ -167,7 +171,7 @@ public class Controller {
 
         this.currentMode = EditMode.DETOURS;
 
-        this.UICenter.getChildren().clear();
+        Sidebar.setCenter(null);
         MapPane.editModeChanged(currentMode);
     }
 
@@ -227,6 +231,13 @@ public class Controller {
     public void onJumpButtonPressed(ActionEvent actionEvent) {
         if (map != null) {
             clock.jumpForward(Duration.ofSeconds(JumpSpinner.getValue()));
+        }
+    }
+
+    public void setStreetSelect(Street onStreet) {
+        selectedStreet = onStreet;
+        if (currentMode == EditMode.SPEEDADJUSTMENTS) {
+            speedAdjustments.setStreet(onStreet);
         }
     }
 }
