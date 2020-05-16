@@ -3,10 +3,13 @@ package project.map;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data class for street
+ */
 public class Street {
     public String name;
     public double costMultiplier;
-    private List<Node> nodes;
+    private final List<Node> nodes;
     private boolean oneWay;
 
 
@@ -17,10 +20,18 @@ public class Street {
         oneWay = false;
     }
 
+    /**
+     * Lists all nodes in street
+     * @return nodes
+     */
     public List<Node> listNodes() {
         return nodes;
     }
 
+    /**
+     * Lists all edges in street
+     * @return edges
+     */
     public List<Edge> getEdges() {
         List<Edge> edges = new ArrayList<>();
         for (int i = 0; i < nodes.size() - 1; i++) {
@@ -29,7 +40,19 @@ public class Street {
         return edges;
     }
 
+    /**
+     * Gets one way flag
+     *
+     * Curently not used in any way
+     * @return one way flag
+     */
     public boolean getOneWay() { return oneWay; }
 
+    /**
+     * Sets one way flag
+     *
+     * Curently not used in any way
+     * @param oneWay new one way flag
+     */
     public void setOneWay(boolean oneWay) { this.oneWay = oneWay; }
 }

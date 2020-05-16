@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import project.Controller;
+import project.EditMode;
 import project.Pair;
 import project.map.*;
 
@@ -135,9 +136,6 @@ public class MapPane extends Pane {
         }
     }
 
-
-    // generates default route highlight color
-
     /**
      * generates default route highlight color and generates route
      * @param nodes list of points on the map, which to highlight route between
@@ -181,6 +179,18 @@ public class MapPane extends Pane {
         stops.forEach(Node::toFront);
     }
 
+    public void highlightStreet(Street onStreet) {
+        // get all edgelines
+        List<EdgeLine> streetEdges = MapTransform.getChildren().stream().filter(c ->
+            c instanceof EdgeLine
+        ).map(c -> ((EdgeLine)c)).collect(Collectors.toList());
+        // disable highlight
+        streetEdges.forEach(n -> n.setHighlight(false));
+
+        //now add highlight only to some edges
+        streetEdges.stream().filter(c -> c.getOnStreet().equals(onStreet)).forEach(c -> c.setHighlight(true));
+    }
+
     //endregion
     //region public methods
 
@@ -198,7 +208,7 @@ public class MapPane extends Pane {
                         map.closures.remove(new Pair<>(e.start, e.end));
                     }
                     map.recomputeRoutes();
-                }, controller);
+                }, controller, this);
                 addNode(el);
 
                 if(e.start.stop != null){
@@ -256,5 +266,10 @@ public class MapPane extends Pane {
         // now center
         MapTransform.setTranslateX(-center_x + (width - b.getWidth()) / 2);
         MapTransform.setTranslateY(-center_y + (height - b.getHeight()) / 2);
+    }
+
+    public void editModeChanged(EditMode newEditMode) {
+        // remove all highlights on mode change
+        highlightStreet(null);
     }
 }

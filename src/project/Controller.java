@@ -6,12 +6,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 import project.gui.MapPane;
+import project.gui.SpeedAdjustments;
 import project.map.*;
 
-import javax.swing.*;
 import java.io.File;
 import java.time.Duration;
 
@@ -20,6 +21,8 @@ public class Controller {
     public Spinner<Integer> JumpSpinner;
     @FXML
     private Label time;
+    @FXML
+    private Pane UICenter;
     @FXML
     private MapPane MapPane;
     public Button speedUp_button;
@@ -30,15 +33,11 @@ public class Controller {
     public Button detours_button;
     public Label speed;
 
+
     public Map map;
+    public SpeedAdjustments speedAdjustments;
 
     private InternalClock clock;
-
-    public enum EditMode{
-        CLOSURES,
-        SPEEDADJUSTMENTS,
-        DETOURS
-    }
 
     public EditMode currentMode = EditMode.CLOSURES;
 
@@ -46,6 +45,7 @@ public class Controller {
         clock = new InternalClock(this::tick);
         clock.setPaused(true);
         MapPane.setController(this);
+        this.speedAdjustments = new SpeedAdjustments();
     }
 
     public void close() {
@@ -119,35 +119,56 @@ public class Controller {
         this.time.setText("00:00:00");
     }
 
-    // disables clicked button and enables others.
-    // sets current mode to clicked button mode.
-
+    /**
+     * Disables clicked button and enables others.
+     *
+     * Sets current mode to clicked button mode.
+     * @param actionEvent event
+     */
     public void closuresButtonClick(ActionEvent actionEvent){
         this.closures_button.setDisable(true);
         this.speedAdjustments_button.setDisable(false);
         this.detours_button.setDisable(false);
 
         this.currentMode = EditMode.CLOSURES;
+
+        this.UICenter.getChildren().clear();
+        MapPane.editModeChanged(currentMode);
     }
 
-    // disables clicked button and enables others.
-    // sets current mode to clicked button mode.
+    /**
+     * Disables clicked button and enables others.
+     *
+     * Sets current mode to clicked button mode.
+     * @param actionEvent event
+     */
     public void speedAdjustmentsButtonClick(ActionEvent actionEvent){
         this.closures_button.setDisable(false);
         this.speedAdjustments_button.setDisable(true);
         this.detours_button.setDisable(false);
 
         this.currentMode = EditMode.SPEEDADJUSTMENTS;
+
+        this.UICenter.getChildren().clear();
+        this.UICenter.getChildren().add(this.speedAdjustments);
+        MapPane.editModeChanged(currentMode);
     }
 
-    // disables clicked button and enables others.
-    // sets current mode to clicked button mode.
+    /**
+     * Disables clicked button and enables others.
+     *
+     * Sets current mode to clicked button mode.
+     * @param actionEvent event
+     */
     public void detoursButtonClick(ActionEvent actionEvent){
         this.closures_button.setDisable(false);
         this.speedAdjustments_button.setDisable(false);
         this.detours_button.setDisable(true);
 
         this.currentMode = EditMode.DETOURS;
+
+        this.UICenter.getChildren().clear();
+        MapPane.editModeChanged(currentMode);
     }
 
 
