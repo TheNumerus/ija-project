@@ -10,6 +10,9 @@ import project.map.Map;
 
 import java.io.File;
 
+/**
+ * main class opening and initializing main window
+ */
 public class Main extends Application {
 
     @Override
@@ -32,10 +35,19 @@ public class Main extends Application {
         loadDefaultMap("novigrad.json", c);
     }
 
+    /**
+     * launches application with arguments
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * loads default map data
+     * @param mapName name of default map
+     * @param c controller data
+     */
     public void loadDefaultMap(String mapName, Controller c){
         String path = System.getProperty("user.dir");
         File file = new File(path + "/input/" + mapName);

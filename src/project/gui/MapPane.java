@@ -34,6 +34,9 @@ public class MapPane extends Pane {
     private final List<VehicleUI> vehicles = new ArrayList<>();
     private final List<EdgeRoute> routes = new ArrayList<>();
 
+    /**
+     * constructor
+     */
     public MapPane() {
         // load ui elements
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -82,6 +85,10 @@ public class MapPane extends Pane {
 
     //region event handlers
 
+    /**
+     * stores coordinates of where mouse was pressed for moving with the map
+     * @param event action event
+     */
     public void onMousePressed(MouseEvent event) {
         DragStart.setX(event.getSceneX());
         DragStart.setY(event.getSceneY());
@@ -89,6 +96,10 @@ public class MapPane extends Pane {
         OrigTransform.setY(MapTransform.getTranslateY());
     }
 
+    /**
+     * moves with mapPane accordingly to dragging
+     * @param event action event
+     */
     public void onMouseDragged(MouseEvent event) {
         double delta_x = event.getSceneX() - DragStart.getX();
         double delta_y = event.getSceneY() - DragStart.getY();
@@ -97,6 +108,10 @@ public class MapPane extends Pane {
         event.consume();
     }
 
+    /**
+     * zooms in/out
+     * @param event action event
+     */
     public void onScroll(ScrollEvent event) {
         double val = event.getDeltaY() / 400.0;
         double new_zoom = Double.max(MapTransform.getScaleX() + val, 0.1);
@@ -104,9 +119,15 @@ public class MapPane extends Pane {
         MapTransform.setScaleY(new_zoom);
     }
 
+    /**
+     * cancels all selections
+     * @param event action event
+     */
     public void onMouseClicked(MouseEvent event){
         if(event.getTarget().equals(this)) {
             clearRoute();
+            highlightStreet(null);
+            controller.busUnClicked();
         }
     }
 
@@ -179,6 +200,10 @@ public class MapPane extends Pane {
         stops.forEach(Node::toFront);
     }
 
+    /**
+     * highlights street
+     * @param onStreet street to highlight
+     */
     public void highlightStreet(Street onStreet) {
         // get all edgelines
         List<EdgeLine> streetEdges = MapTransform.getChildren().stream().filter(c ->
@@ -270,6 +295,10 @@ public class MapPane extends Pane {
         MapTransform.setTranslateY(-center_y + (height - b.getHeight()) / 2);
     }
 
+    /**
+     * removing highlights, if mode is changed
+     * @param newEditMode mode that was switched to
+     */
     public void editModeChanged(EditMode newEditMode) {
         // remove all highlights on mode change
         highlightStreet(null);

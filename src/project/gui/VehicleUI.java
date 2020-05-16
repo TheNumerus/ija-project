@@ -8,6 +8,9 @@ import project.Controller;
 import project.map.Vehicle;
 import java.io.IOException;
 
+/**
+ * class representing vehicle on map
+ */
 public class VehicleUI extends Circle {
 
     private final Controller controller;
@@ -16,6 +19,11 @@ public class VehicleUI extends Circle {
     @FXML
     Circle circle;
 
+    /**
+     * constructor of vehicle
+     * @param v vehicle, that is represented
+     * @param c controller data
+     */
     public VehicleUI(Vehicle v, Controller c) {
         // load ui elements
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -34,10 +42,17 @@ public class VehicleUI extends Circle {
         controller = c;
     }
 
+    /**
+     * returns vehicle, that is represented
+     * @return vehicle
+     */
     public Vehicle getVehicle() {
         return vehicle;
     }
 
+    /**
+     * sets new position
+     */
     public void newPos() {
         setTranslateX(vehicle.getX());
         setTranslateY(vehicle.getY());

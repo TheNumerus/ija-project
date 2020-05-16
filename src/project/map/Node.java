@@ -9,8 +9,19 @@ import java.util.List;
  * Node is pair of coordinates and 0-1 stop
  */
 public class Node {
+    /**
+     * x coordinate of this node
+     */
     public double x;
+    /**
+     * y coordinate of this node
+     */
     public double y;
+    /**
+     * stop on this node
+     *
+     * if this node is not a stop, this variable will remain null
+     */
     public Stop stop;
 
     /**

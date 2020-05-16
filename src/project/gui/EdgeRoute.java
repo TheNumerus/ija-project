@@ -7,14 +7,32 @@ import javafx.fxml.FXMLLoader;
 import project.map.Node;
 import java.io.IOException;
 
+/**
+ * Class for interacting with map
+ *
+ * Renders line between two nodes.
+ */
+
 public class EdgeRoute extends Group {
     @FXML
     private Line line;
 
+    /**
+     * starting node
+     */
     public Node node1;
+    /**
+     * ending node
+     */
     public Node node2;
 
 
+    /**
+     * contructor
+     * @param node1 starting node
+     * @param node2 ending node
+     * @param hexColor color of the line in hex format
+     */
     public EdgeRoute(Node node1, Node node2, String hexColor){
         // load ui elements
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(

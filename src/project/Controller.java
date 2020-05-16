@@ -20,8 +20,14 @@ import java.time.Duration;
 
 public class Controller {
     @FXML
+    /**
+     * TODO: doplnit, idk.
+     */
     public Spinner<Integer> JumpSpinner;
     @FXML
+    /**
+     * GUI sidebar with informations and controls
+     */
     public BorderPane Sidebar;
     @FXML
     private Label time;
@@ -29,25 +35,62 @@ public class Controller {
     private Pane UICenter;
     @FXML
     private MapPane MapPane;
+    /**
+     * button to speed up the simulation
+     */
     public Button speedUp_button;
+    /**
+     * button to slow down the simulation
+     */
     public Button slowDown_button;
+    /**
+     * button to pause/play the simulation
+     */
     public Button playPause_button;
+    /**
+     * button to switch into closures mode
+     */
     public Button closures_button;
+    /**
+     * button to switch into speed adjustments mode
+     */
     public Button speedAdjustments_button;
+    /**
+     * button to switch into detours mode
+     */
     public Button detours_button;
+    /**
+     * label showing current speed of the simulation
+     */
     public Label speed;
 
     private Street selectedStreet;
 
 
+    /**
+     * map data
+     */
     public Map map;
+    /**
+     * speed adjustments panel
+     */
     public SpeedAdjustments speedAdjustments;
+    /**
+     * bus details panel
+     */
     public BusDetails busDetails;
 
     private InternalClock clock;
 
+    /**
+     * current selected mode
+     */
     public EditMode currentMode = EditMode.CLOSURES;
 
+    /**
+     * initialize method
+     * resets and initializes everything
+     */
     public void initialize() {
         clock = new InternalClock(this::tick);
         clock.setPaused(true);
@@ -56,10 +99,18 @@ public class Controller {
         this.busDetails = new BusDetails();
     }
 
+    /**
+     * stops the clock
+     */
     public void close() {
         clock.cancel();
     }
 
+    /**
+     * tick of the internal clock
+     * @param time time to set the simulation to
+     * @param delta TODO:doplnit, idk.
+     */
     public void tick(Duration time, Duration delta) {
         setTime(time);
         map.onTick(delta);
@@ -67,6 +118,11 @@ public class Controller {
     }
 
     // sets the environment for new map
+
+    /**
+     * sets the environment for new map
+     * resets everything
+     */
     public void loadMap() {
         MapPane.clearMap();
         MapPane.renderMapBase(map);
@@ -182,6 +238,13 @@ public class Controller {
     // speeds up the simulation speed.
     // disables button, if the simulation speed is on maximum
     // enables slow down button.
+
+    /**
+     * speeds up the simulation speed
+     * disables button, if the simulation speed is on maximum
+     * enables slow down button
+     * @param actionEvent action event
+     */
     public void speedUp(ActionEvent actionEvent){
         double currentSpeed = clock.speedUp();
         slowDown_button.setDisable(false);
@@ -194,6 +257,13 @@ public class Controller {
     // slows down the simulation speed.
     // disables button, if the simulation speed is on minimum.
     // enables speed up button
+
+    /**
+     * slows down the simulation speed
+     * disables button, if the simulation speed is on minimum
+     * enables speed up button
+     * @param actionEvent action event
+     */
     public void slowDown(ActionEvent actionEvent){
         double currentSpeed = clock.speedDown();
         speedUp_button.setDisable(false);
@@ -205,6 +275,12 @@ public class Controller {
 
     // resets the simulation speed to default.
     // enables speedUp and slowDown buttons.
+
+    /**
+     * resets the simulation speed to default
+     * enables speedUp and slowDown buttons
+     * @param actionEvent action event
+     */
     public void resetSpeed(ActionEvent actionEvent){
         clock.resetSpeed();
         speedUp_button.setDisable(false);
@@ -214,6 +290,12 @@ public class Controller {
 
     // stops the simulation clock
     // changes between simulation states
+
+    /**
+     * stops/restores the simulation clock
+     * changes between simulation states
+     * @param actionEvent action event
+     */
     public void playPause(ActionEvent actionEvent){
         if(clock.isPaused()){
             clock.setPaused(false);
@@ -227,16 +309,29 @@ public class Controller {
 
 
     // resets the view to default (X and Y axes and scroll)
+
+    /**
+     * resets the view to default (X and Y axes and scroll)
+     * @param actionEvent action event
+     */
     public void resetView(ActionEvent actionEvent) {
         MapPane.resetView();
     }
 
+    /**
+     * jumps forward in simulation time, accordingly to given value
+     * @param actionEvent
+     */
     public void onJumpButtonPressed(ActionEvent actionEvent) {
         if (map != null) {
             clock.jumpForward(Duration.ofSeconds(JumpSpinner.getValue()));
         }
     }
 
+    /**
+     * sets street to selected
+     * @param onStreet street to set to be selected
+     */
     public void setStreetSelect(Street onStreet) {
         selectedStreet = onStreet;
         if (currentMode == EditMode.SPEEDADJUSTMENTS) {
@@ -244,8 +339,24 @@ public class Controller {
         }
     }
 
+    /**
+     * shows vehicle informations after clicked on it
+     * @param v vehicle
+     */
     public void busClicked(Vehicle v) {
         busDetails.updateInfo(v.getLineNumber());
         Sidebar.setCenter(busDetails);
+    }
+
+    /**
+     * sets sidebar center back to speedAdjustments panel
+     */
+    public void busUnClicked(){
+        if(currentMode == EditMode.SPEEDADJUSTMENTS) {
+            Sidebar.setCenter(speedAdjustments);
+        }
+        else{
+            Sidebar.setCenter(null);
+        }
     }
 }

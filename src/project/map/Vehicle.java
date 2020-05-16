@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
  * Data class for vehicles
  */
 public class Vehicle {
+
     private final Line line;
     private final Map map;
     private double x;
@@ -18,8 +19,8 @@ public class Vehicle {
 
     //stops
     private long timeOnStopLeft = 0;
-    private boolean waiting = false;
 
+    private boolean waiting = false;
     private boolean stopped = false;
 
     private Duration delay = Duration.ZERO;
@@ -103,6 +104,7 @@ public class Vehicle {
             }
         }
     }
+
 
     private boolean recomputeRoute(boolean isOnTarget) {
         List<Node> route = line.anyRoute(map, currentTarget,lastStop);

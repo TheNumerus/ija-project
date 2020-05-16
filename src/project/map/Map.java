@@ -32,6 +32,11 @@ public class Map {
      */
     public List<Vehicle> vehicles;
 
+
+    /**
+     * constructor of map
+     * initializes all required variables
+     */
     public Map() {
         streets = new ArrayList<>();
         stops = new ArrayList<>();
@@ -41,7 +46,7 @@ public class Map {
     }
 
     /**
-     * A* pathfinding between two routes
+     * A pathfinding between two routes
      * @param start start node
      * @param finish finish node
      * @return route, null if route does not exist
