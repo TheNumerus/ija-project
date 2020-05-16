@@ -45,6 +45,7 @@ public class Controller {
     public void initialize() {
         clock = new InternalClock(this::tick);
         clock.setPaused(true);
+        MapPane.setController(this);
     }
 
     public void close() {
@@ -59,7 +60,6 @@ public class Controller {
 
     // sets the environment for new map
     private void loadMap() {
-        MapPane.getController(this);
         MapPane.clearMap();
         MapPane.renderMapBase(map);
         MapPane.resetView();
@@ -69,10 +69,13 @@ public class Controller {
         playPause_button.setDisable(false);
     }
 
-
-    // after Load Data button, file chooser is opened.
-    // loads .json file and loads map
-    // shows popup alert, if the map file is not valid.
+    /**
+     * After Load Data button, file chooser is opened.
+     * Loads .json file and then loads map.
+     * Shows popup alert, if the map file is not valid.
+     *
+     * @param actionEvent button event
+     */
     public void loadDataButtonClick(ActionEvent actionEvent) {
         final FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open resource file");

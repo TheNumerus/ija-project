@@ -1,7 +1,5 @@
 package project.map;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +10,7 @@ public class Street {
     private boolean oneWay;
 
 
-    public Street(@NotNull String name, List<Node> nodes) {
+    public Street(String name, List<Node> nodes) {
         this.nodes = nodes;
         this.name = name;
         costMultiplier = 1.0;

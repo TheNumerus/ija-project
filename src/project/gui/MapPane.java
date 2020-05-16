@@ -25,7 +25,7 @@ public class MapPane extends Pane {
     @FXML
     private Group MapTransform;
 
-    public Controller controller;
+    private Controller controller;
 
     private final Pair<Double, Double> DragStart = new Pair<>(0.0, 0.0);
     private final Pair<Double, Double> OrigTransform = new Pair<>(0.0, 0.0);
@@ -48,7 +48,11 @@ public class MapPane extends Pane {
     }
 
 
-    public void getController(Controller controller){
+    /**
+     * Sets parent window controller
+     * @param controller controller to set
+     */
+    public void setController(Controller controller){
         this.controller = controller;
     }
 
