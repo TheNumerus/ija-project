@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
+import project.gui.BusDetails;
 import project.gui.MapPane;
 import project.gui.SpeedAdjustments;
 import project.map.*;
@@ -41,6 +42,7 @@ public class Controller {
 
     public Map map;
     public SpeedAdjustments speedAdjustments;
+    public BusDetails busDetails;
 
     private InternalClock clock;
 
@@ -51,6 +53,7 @@ public class Controller {
         clock.setPaused(true);
         MapPane.setController(this);
         this.speedAdjustments = new SpeedAdjustments();
+        this.busDetails = new BusDetails();
     }
 
     public void close() {
@@ -64,7 +67,7 @@ public class Controller {
     }
 
     // sets the environment for new map
-    private void loadMap() {
+    public void loadMap() {
         MapPane.clearMap();
         MapPane.renderMapBase(map);
         MapPane.resetView();

@@ -130,4 +130,10 @@ public class Vehicle {
         y = start.y;
         recomputeRoute(true);
     }
+
+    /**
+     * returns number of this line
+     * @return number of this line
+     */
+    public int getLineNumber(){return this.line.getNumber();}
 }

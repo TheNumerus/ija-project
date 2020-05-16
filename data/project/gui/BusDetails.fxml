@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<fx:root maxWidth="1.7976931348623157E308" spacing="10.0" type="VBox" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.BusDetails">
+    <children>
+        <Label fx:id="streetLabel" text="Street Name" GridPane.columnSpan="2">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+        <Label text="Line:" GridPane.rowIndex="1" />
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</fx:root>

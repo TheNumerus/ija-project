@@ -230,7 +230,7 @@ public class MapPane extends Pane {
             if (filtered.size() > 0) {
                 filtered.get(0).newPos();
             } else {
-                VehicleUI vui = new VehicleUI(v);
+                VehicleUI vui = new VehicleUI(v, controller);
                 addNode(vui);
                 vehicles.add(vui);
                 vui.newPos();

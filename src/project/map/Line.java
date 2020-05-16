@@ -162,4 +162,10 @@ public class Line {
             }
         }
     }
+
+    /**
+     * returns line of this line
+     * @return number of this line
+     */
+    public int getNumber(){return this.number;}
 }
