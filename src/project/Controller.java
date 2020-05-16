@@ -243,4 +243,9 @@ public class Controller {
             speedAdjustments.setStreet(onStreet);
         }
     }
+
+    public void busClicked(Vehicle v) {
+        busDetails.updateInfo(v.getLineNumber());
+        Sidebar.setCenter(busDetails);
+    }
 }

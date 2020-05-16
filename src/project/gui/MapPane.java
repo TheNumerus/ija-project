@@ -244,6 +244,8 @@ public class MapPane extends Pane {
      * Map will be centered and scaled to view afterwards
      */
     public void resetView() {
+        MapTransform.setTranslateX(0);
+        MapTransform.setTranslateY(0);
         // get pane size
         double width = getWidth();
         double height = getHeight();

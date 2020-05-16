@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.*?>
 <?import javafx.scene.shape.Circle?>
 
-<fx:root type="Group" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.gui.VehicleUI">
-    <Circle fx:id="circle" onMouseClicked="#mouseClicked"/>
+<fx:root type="Circle" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="project.gui.VehicleUI" onMouseClicked="#mouseClicked">
 </fx:root>
