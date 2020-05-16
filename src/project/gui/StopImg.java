@@ -52,9 +52,9 @@ public class StopImg extends Group {
 
         image.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent ->{
             for(Line line : map.lines) {
-                if(line.stops.contains(this.node)){
+                if(line.getNodes().contains(this.node)){
                     Color color = new Color((line.number * 47) % 255, (line.number * 7) % 255, (line.number * 11) % 255);
-                    pane.showRoute(line.getCurrentRoute(), color);
+                    pane.showRoute(line.getDefaultRoute(), color);
                 }
             }
         });

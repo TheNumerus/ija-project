@@ -3,9 +3,12 @@ package project.map;
 import java.time.Duration;
 import java.util.List;
 
+/**
+ * Data class for vehicles
+ */
 public class Vehicle {
-    private Line line;
-    private Map map;
+    private final Line line;
+    private final Map map;
     private double x;
     private double y;
     private Node currentTarget;
@@ -20,6 +23,13 @@ public class Vehicle {
 
     private static final double maxSpeed = 0.02;
 
+    /**
+     * Vehicle constructor
+     *
+     * Vehicle will start on first stop on provided line
+     * @param line line
+     * @param map map data
+     */
     public Vehicle(Line line, Map map) {
         this.line = line;
         this.map = map;
@@ -28,6 +38,10 @@ public class Vehicle {
         map.vehicles.add(this);
     }
 
+    /**
+     * Tick function for bus simulation
+     * @param delta time since last update
+     */
     public void move(Duration delta) {
         long milis = delta.toMillis();
         while(milis != 0) {
@@ -76,7 +90,7 @@ public class Vehicle {
         }
     }
 
-    public void recomputeRoute(boolean isOnTarget) {
+    private void recomputeRoute(boolean isOnTarget) {
         List<Node> route = line.anyRoute(map, currentTarget,lastStop);
         if (route == null) {
             return;
@@ -89,14 +103,25 @@ public class Vehicle {
         }
     }
 
+    /**
+     * Returns x coordinate of vehicle
+     * @return x
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * Returns y coordiante of vehicle
+     * @return y
+     */
     public double getY() {
         return y;
     }
 
+    /**
+     * Resets vehicle
+     */
     public void resetVehicle() {
         Node start = line.getNodes().get(0);
         lastStop = start;

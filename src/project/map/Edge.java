@@ -1,5 +1,10 @@
 package project.map;
 
+/**
+ * Data class for edges between two nodes
+ *
+ * Mostly used as a helper for rendering
+ */
 public class Edge {
     public Node start;
     public Node end;

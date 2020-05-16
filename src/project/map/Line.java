@@ -1,16 +1,24 @@
 package project.map;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Data class for bus lines
+ */
 public class Line {
+    /**
+     * Line number, used mainly for color coding lines
+     */
     public int number;
+    /**
+     * Delay between two buses, in seconds
+     */
     public double delay;
-    public final List<Node> stops;
-    private List<Node> currentRoute;
+    private final List<Node> stops;
+    private final List<Node> defaultRoute;
     private int lastVehicleSend = 0;
     private int vehicleCount = 0;
 
@@ -18,17 +26,30 @@ public class Line {
         this.delay = delay;
         this.number = number;
         this.stops = stops;
-        currentRoute = findRoute(m);
+        defaultRoute = findRoute(m);
     }
 
+    /**
+     * Returns list of all stops in this line
+     * @return list of stops
+     */
     public List<Stop> getStops() {
         return stops.stream().map(s -> s.stop).collect(Collectors.toList());
     }
 
+    /**
+     * Returns list of all nodes containing stops
+     * @return list of nodes
+     */
     public List<Node> getNodes() {
         return stops;
     }
 
+    /**
+     * Tries to find route beteween first and last stop
+     * @param m map with node info
+     * @return list with route nodes, null if route cannot be found
+     */
     public List<Node> findRoute(Map m) {
         Node start = stops.get(0);
         Node end = stops.get(1);
@@ -58,6 +79,13 @@ public class Line {
         return route;
     }
 
+    /**
+     * Tries to find any route, even if final stop cannot be reached
+     * @param m map info
+     * @param current starting node
+     * @param lastStop last stop which was reached
+     * @return rotue, null if nothing could be found
+     */
     public List<Node> anyRoute(Map m, Node current, Node lastStop) {
         Node start = current;
         Node end = stops.get(stops.indexOf(lastStop) + 1);
@@ -87,14 +115,29 @@ public class Line {
         return route;
     }
 
-    public List<Node> getCurrentRoute() {
-        return currentRoute;
+    /**
+     * Returns default route, with no closures applied
+     * @return route
+     */
+    public List<Node> getDefaultRoute() {
+        return defaultRoute;
     }
 
+    /**
+     * Checks if two stops are in sequence
+     * @param current first stop
+     * @param next second stop
+     * @return result
+     */
     public boolean isNextStop(Node current, Node next) {
         return stops.indexOf(next) - stops.indexOf(current) == 1;
     }
 
+    /**
+     * Tick function for sending vehicles
+     * @param delta time delta
+     * @param m map data
+     */
     public void tick(Duration delta, Map m) {
         if (vehicleCount >= 10) {
             return;

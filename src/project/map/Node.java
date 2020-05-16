@@ -3,17 +3,33 @@ package project.map;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <h2>Data class for node</h2>
+ *
+ * Node is pair of coordinates and 0-1 stop
+ */
 public class Node {
     public double x;
     public double y;
     public Stop stop;
 
+    /**
+     * Constructor for cases with no stop
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     public Node(double x, double y) {
         this.x = x;
         this.y = y;
         stop = null;
     }
 
+    /**
+     * Constructor for cases with stop
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param stop stop
+     */
     public Node(double x, double y, Stop stop) {
         this.x = x;
         this.y = y;
@@ -29,6 +45,11 @@ public class Node {
         return x == other.x && y == other.y;
     }
 
+    /**
+     * Method for finding neighbouring nodes
+     * @param m map data
+     * @return list of neighbours
+     */
     public List<Node> neighbours(Map m) {
         List<Node> neighbours = new ArrayList<>();
         for (Street s: m.streets) {
@@ -46,6 +67,11 @@ public class Node {
         return neighbours;
     }
 
+    /**
+     * Computes distance between nodes
+     * @param other other node
+     * @return distance
+     */
     public Double getCost(Node other) {
         return Math.sqrt(Math.pow(x - other.x, 2) + Math.pow(y - other.y, 2));
     }
