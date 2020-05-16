@@ -89,6 +89,16 @@ public class Map {
     }
 
     /**
+     * Helper method for pathfinding
+     * @param n node
+     * @param n1 other node
+     * @return true if route can be created
+     */
+    public boolean routeExists(Node n, Node n1) {
+        return getRoute(n, n1) != null;
+    }
+
+    /**
      * Method for recomputing nodes
      */
     public void recomputeRoutes() {

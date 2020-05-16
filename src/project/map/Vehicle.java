@@ -2,6 +2,7 @@ package project.map;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Data class for vehicles
@@ -18,6 +19,8 @@ public class Vehicle {
     //stops
     private long timeOnStopLeft = 0;
     private boolean waiting = false;
+
+    private boolean stopped = false;
 
     private Duration delay = Duration.ZERO;
 
@@ -43,6 +46,13 @@ public class Vehicle {
      * @param delta time since last update
      */
     public void move(Duration delta) {
+        //check if any route can be made
+        if (stopped) {
+            if (!recomputeRoute(true)) {
+                stopped = false;
+            }
+        }
+
         long milis = delta.toMillis();
         while(milis != 0) {
             if (waiting) {
@@ -85,15 +95,19 @@ public class Vehicle {
                     continue;
                 }
 
-                recomputeRoute(true);
+                // should stop
+                if (recomputeRoute(true)) {
+                    stopped = true;
+                    return;
+                }
             }
         }
     }
 
-    private void recomputeRoute(boolean isOnTarget) {
+    private boolean recomputeRoute(boolean isOnTarget) {
         List<Node> route = line.anyRoute(map, currentTarget,lastStop);
         if (route == null) {
-            return;
+            return true;
         }
         if (isOnTarget) {
             currentTarget = route.get(1);
@@ -101,6 +115,7 @@ public class Vehicle {
         } else {
             currentTarget = route.get(0);
         }
+        return false;
     }
 
     /**
@@ -128,6 +143,8 @@ public class Vehicle {
         currentTarget = start;
         x = start.x;
         y = start.y;
+        stopped = false;
+        currentStreet = map.streets.stream().filter( (s) -> s.listNodes().contains(start)).collect(Collectors.toList()).get(0);
         recomputeRoute(true);
     }
 

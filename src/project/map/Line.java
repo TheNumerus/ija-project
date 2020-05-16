@@ -84,33 +84,75 @@ public class Line {
      * @param m map info
      * @param current starting node
      * @param lastStop last stop which was reached
-     * @return rotue, null if nothing could be found
+     * @return rotue, null if nothing could be found or already in finish
      */
     public List<Node> anyRoute(Map m, Node current, Node lastStop) {
+        Node lastStopOnLine = stops.get(stops.size() - 1);
+
         Node start = current;
+
+        // alraedy in finish
+        if (lastStop.equals(lastStopOnLine)) {
+            return null;
+        }
+
         Node end = stops.get(stops.indexOf(lastStop) + 1);
 
+        // already in finish
+        if (start == end) {
+            return null;
+        }
+
+        // first find if route can be found to any of stops ahead
         List<Node> route = new ArrayList<>();
-        while(!start.equals(stops.get(stops.size() - 1))) {
+
+        Node furthestStop = null;
+
+        for(Node s: stops) {
+            if(m.routeExists(start, s)) {
+                furthestStop = s;
+            }
+        }
+
+        // no route can be made, stop vehicle
+        if (furthestStop == null) {
+            return null;
+        }
+
+        if (start.equals(furthestStop)) {
+            return null;
+        }
+
+        // go back?
+        if (stops.indexOf(lastStop) >= stops.indexOf(furthestStop)) {
+            return m.getRoute(start, furthestStop);
+        }
+
+
+        // now go to furthest stop we can
+        do {
+            // advance one stop
             List<Node> part = m.getRoute(start, end);
             if (part == null) {
-                // is last
-                if (end.equals(stops.get(stops.size() - 1))) {
-                    return null;
+                // return what we got so far
+                if (end.equals(lastStopOnLine)) {
+                    return route;
                 }
+                //skip one stop
                 end = stops.get(stops.indexOf(end) + 1);
             } else {
-                // is last
-                if (end.equals(stops.get(stops.size() - 1))) {
+                if (end.equals(lastStopOnLine)) {
+                    // is last
                     route.addAll(part);
                     return route;
                 } else {
+                    // advance one stop
                     start = end;
                     end = stops.get(stops.indexOf(end) + 1);
-                    route.addAll(part.subList(0, part.size() - 1));
+                    route.addAll(part);
                 }
             }
-        }
+        } while (!start.equals(lastStopOnLine));
 
         return route;
     }
