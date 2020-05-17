@@ -32,8 +32,6 @@ public class VehicleUI extends Circle {
     private final Vehicle vehicle;
     private boolean selected;
 
-    //private List<Node> nodes;
-
     @FXML
     Circle circle;
 
@@ -51,11 +49,6 @@ public class VehicleUI extends Circle {
         mapPane = m;
 
         selected = false;
-
-        /*nodes = new ArrayList<Node>();
-        for(Pair<Node, Duration> route : vehicle.routeDataProperty.getValue().defaultRoute){
-            nodes.add(route.getX());
-        }*/
     }
 
     /**
