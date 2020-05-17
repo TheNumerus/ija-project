@@ -30,7 +30,6 @@ public class VehicleUI extends Circle {
     private final Controller controller;
     private final Vehicle vehicle;
     private boolean selected;
-    private final ChangeListener<List<Node>> changeListener;
 
     @FXML
     Circle circle;
@@ -50,7 +49,6 @@ public class VehicleUI extends Circle {
         mapPane = m;
 
         selected = false;
-        this.changeListener = (observable, oldValue, newValue) -> showRoute(newValue);
     }
 
     /**
@@ -89,8 +87,7 @@ public class VehicleUI extends Circle {
         circle.setStroke(Paint.valueOf("#d000ff"));
         selected = true;
 
-        showRoute(vehicle.routeDataProperty.getValue().currentRoute);
-        //mapPane.showRoute(vehicle.routeDataProperty.getValue().currentRoute);
+        mapPane.showRoute(vehicle.routeDataProperty.getValue().currentRoute);
     }
 
     /**
@@ -100,9 +97,5 @@ public class VehicleUI extends Circle {
         circle.setStroke(Paint.valueOf("#000000"));
         selected = false;
         mapPane.clearRoute();
-    }
-
-    private void showRoute(List<Node> nodes){
-        mapPane.showRoute(nodes);
     }
 }
