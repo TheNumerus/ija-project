@@ -106,9 +106,10 @@ public class Line {
      * @param m map info
      * @param current starting node
      * @param lastStop last stop which was reached
+     * @param stopsSkipped in-out list with skipped stops
      * @return pair of route and next stop, null if nothing could be found or already in finish
      */
-    public Pair<List<Node>, Node> anyRoute(Map m, Node current, Node lastStop) {
+    public Pair<List<Node>, Node> anyRoute(Map m, Node current, Node lastStop, List<Node> stopsSkipped) {
         Node lastStopOnLine = stops.get(stops.size() - 1);
 
         Node start = current;
@@ -162,6 +163,7 @@ public class Line {
                     return new Pair<>(route, nextStop);
                 }
                 //skip one stop
+                stopsSkipped.add(end);
                 end = stops.get(stops.indexOf(end) + 1);
                 nextStop = end;
             } else {

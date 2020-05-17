@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import project.Pair;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,11 +24,10 @@ public class Vehicle {
 
     //stops
     private long timeOnStopLeft = 0;
+    private final List<Node> skippedStops = new ArrayList<>();
 
     private boolean waiting = false;
     private boolean stopped = false;
-
-    private Duration delay = Duration.ZERO;
 
     private static final double maxSpeed = 0.02;
 
@@ -120,13 +120,14 @@ public class Vehicle {
 
 
     private boolean recomputeRoute() {
-        Pair<List<Node>, Node> route = line.anyRoute(map, currentTarget,lastStop);
+        Pair<List<Node>, Node> route = line.anyRoute(map, currentTarget,lastStop, skippedStops);
         if (route == null) {
             return true;
         }
         currentTarget = route.getX().get(1);
         currentStreet = map.getStreetByNodes(route.getX().get(0), route.getX().get(1));
         RouteData rd = new RouteData(routeDataProperty.get());
+        rd.skippedStops = skippedStops;
         rd.nextStop = route.getY();
         routeDataProperty.set(rd);
         return false;
@@ -160,6 +161,7 @@ public class Vehicle {
         stopped = false;
         currentStreet = map.streets.stream().filter( (s) -> s.listNodes().contains(start)).collect(Collectors.toList()).get(0);
         timeOnRoad = Duration.ZERO;
+        skippedStops.clear();
 
         RouteData rd = new RouteData();
         rd.defaultRoute = line.getDefaultTimeData(maxSpeed);
