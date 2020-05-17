@@ -10,10 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
-import project.gui.BusDetails;
-import project.gui.DetoursControl;
-import project.gui.MapPane;
-import project.gui.SpeedAdjustments;
+import project.gui.*;
 import project.map.*;
 
 import java.io.File;
@@ -44,6 +41,8 @@ public class Controller {
     private Button detours_button;
     @FXML
     private Label speed;
+
+    private VehicleUI currentSelectedVehicle;
 
     private Street selectedStreet;
 
@@ -315,7 +314,12 @@ public class Controller {
      * shows vehicle informations after clicked on it
      * @param v vehicle
      */
-    public void busClicked(Vehicle v) {
+    public void busClicked(Vehicle v, VehicleUI ui) {
+        if(currentSelectedVehicle != null){
+            currentSelectedVehicle.unSelect();
+        }
+        currentSelectedVehicle = ui;
+        currentSelectedVehicle.select();
         busDetails.setVehicle(v);
         busDetails.updateInfo(v.routeDataProperty.getValue());
         Sidebar.setCenter(busDetails);
@@ -325,6 +329,10 @@ public class Controller {
      * sets sidebar center back to speedAdjustments panel
      */
     public void busUnClicked(){
+        if(currentSelectedVehicle != null) {
+            currentSelectedVehicle.unSelect();
+        }
+
         if(currentMode == EditMode.SPEEDADJUSTMENTS) {
             Sidebar.setCenter(speedAdjustments);
         }
