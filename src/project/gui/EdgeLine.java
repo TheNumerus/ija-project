@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 import project.Controller;
 import project.EditMode;
+import project.Loader;
 import project.map.Edge;
 import javafx.fxml.FXMLLoader;
 import project.map.Street;
@@ -39,22 +40,12 @@ public class EdgeLine extends Group {
      * constructor
      * @param e which edge does this represent
      * @param s which street is this edgeline on
-     * @param onClose //TODO: doplnit, idk.
+     * @param onClose function called on street close
      * @param controller controller data
      * @param mapPane MapPane data to put this on
      */
     public EdgeLine(Edge e, Street s, Consumer<Boolean> onClose, Controller controller, MapPane mapPane) {
-        // load ui elements
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "EdgeLine.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setControllerFactory(theClass -> this);
-
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        Loader.loadFXMLDef(getClass().getResource("EdgeLine.fxml"), this);
 
         this.controller = controller;
         closed = false;

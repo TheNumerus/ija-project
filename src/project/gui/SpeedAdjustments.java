@@ -5,24 +5,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
+import project.Loader;
 import project.map.Street;
-
-import java.io.IOException;
 
 /**
  * Class for modifying street values
  */
 public class SpeedAdjustments extends VBox {
+
     @FXML
-    /**
-     * label displaying name of the street
-     */
-    public Label streetLabel;
+    private Label streetLabel;
     @FXML
-    /**
-     * label displaying speed of the street
-     */
-    public Label speedLabel;
+    private Label speedLabel;
     @FXML
     private Slider slider;
 
@@ -33,18 +27,7 @@ public class SpeedAdjustments extends VBox {
      * contructor of speed adjustments panel
      */
     public SpeedAdjustments() {
-        // load ui elements
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "SpeedAdjustments.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setControllerFactory(theClass -> this);
-
-        try {
-            fxmlLoader.load();
-        } catch (
-                IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        Loader.loadFXMLDef(getClass().getResource("SpeedAdjustments.fxml"), this);
         setDisable(true);
 
         slider.valueProperty().addListener((observable, newVal, oldVal) -> onValueChange(newVal.doubleValue()));

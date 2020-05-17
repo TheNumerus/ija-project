@@ -46,7 +46,7 @@ public class Map {
     }
 
     /**
-     * A pathfinding between two routes
+     * A* pathfinding between two routes
      * @param start start node
      * @param finish finish node
      * @return route, null if route does not exist
@@ -144,6 +144,19 @@ public class Map {
             }
         }
         return null;
+    }
+
+    /**
+     * Computes total route distance
+     * @param route route to compute
+     * @return total distance
+     */
+    public double getRouteDistance(List<Node> route) {
+        double distance = 0;
+        for (int i = 0; i + 1 < route.size(); i++) {
+            distance += route.get(i).getCost(route.get(i + 1));
+        }
+        return distance;
     }
 
     /**

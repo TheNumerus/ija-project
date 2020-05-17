@@ -13,8 +13,8 @@ public class Pair<T, R> {
 
     /**
      * Creates new {@link Class}
-     * @param x
-     * @param y
+     * @param x first parameter
+     * @param y second parameter
      */
     public Pair(T x, R y) {
         this.x = x;

@@ -58,7 +58,8 @@ public class Line {
     }
 
     /**
-     * Tries to find route beteween first and last stop
+     * Tries to find route beteween first and last stop.
+     * Should only be used on start for computing default route.
      * @param m map with node info
      * @return list with route nodes, null if route cannot be found
      */

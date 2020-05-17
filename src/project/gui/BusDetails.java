@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
+import project.Loader;
 import project.map.Street;
 
 import java.io.IOException;
@@ -14,15 +15,17 @@ import java.io.IOException;
  */
 public class BusDetails extends VBox {
 
-    @FXML
+
     /**
      * label displaying bus name
      */
-    public Label busName;
     @FXML
+    public Label busName;
+
     /**
      * label displaying line name
      */
+    @FXML
     public Label lineName;
 
 
@@ -30,18 +33,7 @@ public class BusDetails extends VBox {
      * constructor of BusDetails panel
      */
     public BusDetails(){
-        // load ui elements
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "BusDetails.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setControllerFactory(theClass -> this);
-
-        try {
-            fxmlLoader.load();
-        } catch (
-                IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        Loader.loadFXMLDef(getClass().getResource("BusDetails.fxml"), this);
     }
 
     /**

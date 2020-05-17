@@ -1,6 +1,8 @@
 package project;
 
 import com.google.gson.*;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import project.map.*;
 
 import java.io.File;
@@ -9,14 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.net.URL;
 
 /**
  * Helper class for loading data
  */
 public class Loader {
+    // this class should be static anyway
+    private Loader() {}
+
     /**
-     * Loads map from file
-     *
+     * Loads map from file.
      * Might return null if map is invalid
      * @param file input file
      * @return map
@@ -102,5 +107,25 @@ public class Loader {
         }
 
         return map;
+    }
+
+    /**
+     * Loads fxml gui definition and assigns controller.
+     * Will terminate program if given invalid URL.
+     * @param fxml fxml location
+     * @param o controller object
+     */
+    public static void loadFXMLDef(URL fxml, Object o) {
+        // load ui elements
+        FXMLLoader fxmlLoader = new FXMLLoader(fxml);
+        fxmlLoader.setRoot(o);
+        fxmlLoader.setControllerFactory(theClass -> o);
+
+        try {
+            fxmlLoader.load();
+        } catch (Exception e) {
+            System.err.println("FXML file for '" + o.getClass().getCanonicalName() + "' could not be found.");
+            Platform.exit();
+        }
     }
 }

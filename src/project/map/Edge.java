@@ -23,7 +23,7 @@ public class Edge {
      * Contstructor of Edge
      * @param start starting point of edge
      * @param end ending point of edge
-     * @param costMult //TODO: doplnit, idk.
+     * @param costMult cost multiplier
      */
     public Edge(Node start, Node end, double costMult) {
         if (start.equals(end)) {

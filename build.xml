@@ -10,6 +10,7 @@
     </path>
     <target name="init">
         <mkdir dir="${build}"/>
+        <mkdir dir="doc"/>
     </target>
     <target name="compile" depends="init">
         <javac includeantruntime="false" srcdir="${src}" destdir="${build}" source="8" target="8">
@@ -17,5 +18,8 @@
                 <path refid="external.classpath"/>
             </classpath>
         </javac>
+    </target>
+    <target name="doc" depends="init">
+        <javadoc sourcepath="src" destdir="doc" package="project"/>
     </target>
 </project>

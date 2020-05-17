@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.shape.Line;
 import javafx.fxml.FXMLLoader;
+import project.Loader;
 import project.map.Node;
 import java.io.IOException;
 
@@ -34,17 +35,7 @@ public class EdgeRoute extends Group {
      * @param hexColor color of the line in hex format
      */
     public EdgeRoute(Node node1, Node node2, String hexColor){
-        // load ui elements
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "EdgeRoute.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setControllerFactory(theClass -> this);
-
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        Loader.loadFXMLDef(getClass().getResource("EdgeRoute.fxml"), this);
 
         // line coordinates
         line.setStartX(node1.x);

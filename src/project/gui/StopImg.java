@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXMLLoader;
-import project.gui.MapPane;
+import project.Loader;
 import project.map.Line;
 import project.map.Map;
 import project.map.Node;
@@ -14,6 +14,9 @@ import project.map.Node;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * Class for interacting with stops
+ */
 public class StopImg extends Group {
 
     @FXML
@@ -31,18 +34,8 @@ public class StopImg extends Group {
      * @param pane pane data
      */
     public StopImg(Node node, Map map, MapPane pane){
+        Loader.loadFXMLDef(getClass().getResource("StopImg.fxml"), this);
         this.node = node;
-        // load ui elements
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "StopImg.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setControllerFactory(theClass -> this);
-
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
 
         name.setVisible(false);
 

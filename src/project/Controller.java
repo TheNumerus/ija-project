@@ -20,49 +20,27 @@ import java.time.Duration;
 
 public class Controller {
     @FXML
-    /**
-     * TODO: doplnit, idk.
-     */
-    public Spinner<Integer> JumpSpinner;
+    private Spinner<Integer> JumpSpinner;
     @FXML
-    /**
-     * GUI sidebar with informations and controls
-     */
-    public BorderPane Sidebar;
+    private BorderPane Sidebar;
     @FXML
     private Label time;
     @FXML
-    private Pane UICenter;
-    @FXML
     private MapPane MapPane;
-    /**
-     * button to speed up the simulation
-     */
-    public Button speedUp_button;
-    /**
-     * button to slow down the simulation
-     */
-    public Button slowDown_button;
-    /**
-     * button to pause/play the simulation
-     */
-    public Button playPause_button;
-    /**
-     * button to switch into closures mode
-     */
-    public Button closures_button;
-    /**
-     * button to switch into speed adjustments mode
-     */
-    public Button speedAdjustments_button;
-    /**
-     * button to switch into detours mode
-     */
-    public Button detours_button;
-    /**
-     * label showing current speed of the simulation
-     */
-    public Label speed;
+    @FXML
+    private Button speedUp_button;
+    @FXML
+    private Button slowDown_button;
+    @FXML
+    private Button playPause_button;
+    @FXML
+    private Button closures_button;
+    @FXML
+    private Button speedAdjustments_button;
+    @FXML
+    private Button detours_button;
+    @FXML
+    private Label speed;
 
     private Street selectedStreet;
 
@@ -109,7 +87,7 @@ public class Controller {
     /**
      * tick of the internal clock
      * @param time time to set the simulation to
-     * @param delta TODO:doplnit, idk.
+     * @param delta time sicne last tick
      */
     public void tick(Duration time, Duration delta) {
         setTime(time);
@@ -206,6 +184,7 @@ public class Controller {
      * Sets current mode to clicked button mode.
      * @param actionEvent event
      */
+    @FXML
     public void speedAdjustmentsButtonClick(ActionEvent actionEvent){
         this.closures_button.setDisable(false);
         this.speedAdjustments_button.setDisable(true);
@@ -223,6 +202,7 @@ public class Controller {
      * Sets current mode to clicked button mode.
      * @param actionEvent event
      */
+    @FXML
     public void detoursButtonClick(ActionEvent actionEvent){
         this.closures_button.setDisable(false);
         this.speedAdjustments_button.setDisable(false);
@@ -234,17 +214,13 @@ public class Controller {
         MapPane.editModeChanged(currentMode);
     }
 
-
-    // speeds up the simulation speed.
-    // disables button, if the simulation speed is on maximum
-    // enables slow down button.
-
     /**
      * speeds up the simulation speed
      * disables button, if the simulation speed is on maximum
      * enables slow down button
      * @param actionEvent action event
      */
+    @FXML
     public void speedUp(ActionEvent actionEvent){
         double currentSpeed = clock.speedUp();
         slowDown_button.setDisable(false);
@@ -254,16 +230,13 @@ public class Controller {
         speed.setText(currentSpeed + "x");
     }
 
-    // slows down the simulation speed.
-    // disables button, if the simulation speed is on minimum.
-    // enables speed up button
-
     /**
      * slows down the simulation speed
      * disables button, if the simulation speed is on minimum
      * enables speed up button
      * @param actionEvent action event
      */
+    @FXML
     public void slowDown(ActionEvent actionEvent){
         double currentSpeed = clock.speedDown();
         speedUp_button.setDisable(false);
@@ -273,14 +246,12 @@ public class Controller {
         speed.setText(currentSpeed + "x");
     }
 
-    // resets the simulation speed to default.
-    // enables speedUp and slowDown buttons.
-
     /**
      * resets the simulation speed to default
      * enables speedUp and slowDown buttons
      * @param actionEvent action event
      */
+    @FXML
     public void resetSpeed(ActionEvent actionEvent){
         clock.resetSpeed();
         speedUp_button.setDisable(false);
@@ -288,14 +259,12 @@ public class Controller {
         speed.setText("1.0x");
     }
 
-    // stops the simulation clock
-    // changes between simulation states
-
     /**
      * stops/restores the simulation clock
      * changes between simulation states
      * @param actionEvent action event
      */
+    @FXML
     public void playPause(ActionEvent actionEvent){
         if(clock.isPaused()){
             clock.setPaused(false);
@@ -307,22 +276,17 @@ public class Controller {
         }
     }
 
-
-    // resets the view to default (X and Y axes and scroll)
-
     /**
      * resets the view to default (X and Y axes and scroll)
      * @param actionEvent action event
      */
+    @FXML
     public void resetView(ActionEvent actionEvent) {
         MapPane.resetView();
     }
 
-    /**
-     * jumps forward in simulation time, accordingly to given value
-     * @param actionEvent
-     */
-    public void onJumpButtonPressed(ActionEvent actionEvent) {
+    @FXML
+    private void onJumpButtonPressed(ActionEvent actionEvent) {
         if (map != null) {
             clock.jumpForward(Duration.ofSeconds(JumpSpinner.getValue()));
         }

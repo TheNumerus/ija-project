@@ -5,14 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import project.Controller;
+import project.Loader;
 import project.map.Vehicle;
 import java.io.IOException;
 
 /**
- * class representing vehicle on map
+ * Class representing vehicle on map
  */
 public class VehicleUI extends Circle {
-
     private final Controller controller;
     private final Vehicle vehicle;
 
@@ -25,17 +25,7 @@ public class VehicleUI extends Circle {
      * @param c controller data
      */
     public VehicleUI(Vehicle v, Controller c) {
-        // load ui elements
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "VehicleUI.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setControllerFactory(theClass -> this);
-
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        Loader.loadFXMLDef(getClass().getResource("VehicleUI.fxml"), this);
 
         setRadius(10.0);
         vehicle = v;

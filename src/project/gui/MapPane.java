@@ -10,6 +10,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import project.Controller;
 import project.EditMode;
+import project.Loader;
 import project.Pair;
 import project.map.*;
 
@@ -38,17 +39,7 @@ public class MapPane extends Pane {
      * constructor
      */
     public MapPane() {
-        // load ui elements
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-                "MapPane.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setControllerFactory(theClass -> this);
-
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        Loader.loadFXMLDef(getClass().getResource("MapPane.fxml"), this);
     }
 
 
