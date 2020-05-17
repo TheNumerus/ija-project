@@ -110,6 +110,7 @@ public class EdgeLine extends Group {
     /**
      * Sets highlight effect or removes it
      * @param highlight do effect
+     * @param asClosure should the edge be red
      */
     public void setHighlight(boolean highlight, boolean asClosure) {
         line.getStyleClass().clear();

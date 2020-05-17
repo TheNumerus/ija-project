@@ -18,10 +18,6 @@ import project.Loader;
 import project.Pair;
 import project.map.Node;
 import project.map.Vehicle;
-import java.io.IOException;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class representing vehicle on map
@@ -39,6 +35,7 @@ public class VehicleUI extends Circle {
      * constructor of vehicle
      * @param v vehicle, that is represented
      * @param c controller data
+     * @param m mappane
      */
     public VehicleUI(Vehicle v, Controller c, MapPane m) {
         Loader.loadFXMLDef(getClass().getResource("VehicleUI.fxml"), this);

@@ -109,6 +109,7 @@ public class Map {
      * A* pathfinding in edge list
      * @param start start node
      * @param finish finish node
+     * @param edges edges to search
      * @return route, null if route does not exist
      */
     public List<Node> getRouteInList(Node start, Node finish, List<Edge> edges) {
@@ -372,6 +373,7 @@ public class Map {
     /**
      * Adds detour to map
      * @param listObjectPair pair of edges of closure and detour
+     * @return was successful
      */
     public boolean addDetour(Pair<List<Edge>, List<Edge>> listObjectPair) {
         List<Edge> edges = listObjectPair.getX();
