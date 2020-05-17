@@ -163,7 +163,9 @@ public class Line {
                     return new Pair<>(route, nextStop);
                 }
                 //skip one stop
-                stopsSkipped.add(end);
+                if (!stopsSkipped.contains(end)) {
+                    stopsSkipped.add(end);
+                }
                 end = stops.get(stops.indexOf(end) + 1);
                 nextStop = end;
             } else {

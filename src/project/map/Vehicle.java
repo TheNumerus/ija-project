@@ -111,6 +111,7 @@ public class Vehicle {
 
                 // should stop
                 if (recomputeRoute()) {
+                    resetVehicle();
                     stopped = true;
                     return;
                 }

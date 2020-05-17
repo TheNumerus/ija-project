@@ -120,7 +120,7 @@ public class MapPane extends Pane {
      * @param event action event
      */
     public void onMouseClicked(MouseEvent event){
-        if(event.getTarget().equals(this) && !dragging) {
+        if(event.getTarget().equals(this) && !dragging && controller.currentMode != EditMode.DETOURS) {
             clearRoute();
             highlightStreet(null);
             controller.busUnClicked();
@@ -206,10 +206,23 @@ public class MapPane extends Pane {
             c instanceof EdgeLine
         ).map(c -> ((EdgeLine)c)).collect(Collectors.toList());
         // disable highlight
-        streetEdges.forEach(n -> n.setHighlight(false));
+        streetEdges.forEach(n -> n.setHighlight(false, false));
 
         //now add highlight only to some edges
-        streetEdges.stream().filter(c -> c.getOnStreet().equals(onStreet)).forEach(c -> c.setHighlight(true));
+        streetEdges.stream().filter(c -> c.getOnStreet().equals(onStreet)).forEach(c -> c.setHighlight(true, false));
+    }
+
+    public void highlightSegment(List<Edge> edges, boolean highlightAsClosure, boolean clear) {
+        // get all edgelines
+        List<EdgeLine> streetEdges = MapTransform.getChildren().stream().filter(c ->
+                c instanceof EdgeLine
+        ).map(c -> ((EdgeLine)c)).collect(Collectors.toList());
+        if (clear) {
+            // disable highlight
+            streetEdges.forEach(n -> n.setHighlight(false, false));
+        }
+
+        streetEdges.stream().filter(e -> edges.contains(e.getEdge())).forEach(e -> e.setHighlight(true, highlightAsClosure));
     }
 
     //endregion
