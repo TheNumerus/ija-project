@@ -1,6 +1,5 @@
 package project.map;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import project.Pair;
 
@@ -33,7 +32,7 @@ public class Vehicle {
     private static final double maxSpeed = 0.02;
 
     // route ui
-    public ObjectProperty<RouteData> routeDataProperty;
+    public final SimpleObjectProperty<RouteData> routeDataProperty;
 
     /**
      * Vehicle constructor
@@ -57,7 +56,10 @@ public class Vehicle {
      */
     public void move(Duration delta) {
         timeOnRoad = timeOnRoad.plus(delta);
-        routeDataProperty.get().currentRouteTime = timeOnRoad;
+        // i hate java with a passion
+        RouteData rd = new RouteData(routeDataProperty.getValue());
+        rd.currentRouteTime = timeOnRoad;
+        routeDataProperty.setValue(rd);
         //check if any route can be made
         if (stopped) {
             if (!recomputeRoute()) {
@@ -124,7 +126,9 @@ public class Vehicle {
         }
         currentTarget = route.getX().get(1);
         currentStreet = map.getStreetByNodes(route.getX().get(0), route.getX().get(1));
-        routeDataProperty.get().nextStop = route.getY();
+        RouteData rd = new RouteData(routeDataProperty.get());
+        rd.nextStop = route.getY();
+        routeDataProperty.set(rd);
         return false;
     }
 

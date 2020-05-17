@@ -15,4 +15,12 @@ public class RouteData {
     public RouteData() {
 
     }
+
+    public RouteData(RouteData other) {
+        defaultRoute = other.defaultRoute;
+        nextStop = other.nextStop;
+        currentRouteTime = other.currentRouteTime;
+        skippedStops = other.skippedStops;
+        line = other.line;
+    }
 }
