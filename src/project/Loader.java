@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import project.map.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,8 @@ public class Loader {
                 jsonString.append(scanner.nextLine());
             }
         }
-        catch (IOException e){
-            e.printStackTrace();
+        catch (Exception e){
+            return null;
         }
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();

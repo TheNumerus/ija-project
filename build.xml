@@ -11,6 +11,9 @@
     <target name="init">
         <mkdir dir="${build}"/>
         <mkdir dir="doc"/>
+        <exec dir="lib" executable="bash">
+            <arg value="./get-libs.sh"/>
+        </exec>
     </target>
     <target name="compile" depends="init">
         <javac includeantruntime="false" srcdir="${src}" destdir="${build}" source="8" target="8">
@@ -18,6 +21,15 @@
                 <path refid="external.classpath"/>
             </classpath>
         </javac>
+        <copy todir="build/">
+            <fileset dir="data" includes="**"/>
+        </copy>
+        <jar destfile="dest/ija-app.jar" basedir="build">
+            <zipgroupfileset dir="lib" includes="*.jar"/>
+            <manifest>
+                <attribute name="Main-Class" value="project.Main"/>
+            </manifest>
+        </jar>
     </target>
     <target name="doc" depends="init">
         <javadoc sourcepath="src" destdir="doc" package="project"/>

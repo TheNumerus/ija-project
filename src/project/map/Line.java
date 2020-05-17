@@ -164,7 +164,7 @@ public class Line {
         // now go to furthest stop we can
         do {
             // advance one stop
-            List<Node> part = m.getRoute(start, end);
+            List<Node> part = m.getDetouredRoute(start, end);
             if (part == null) {
                 // return what we got so far
                 if (end.equals(lastStopOnLine)) {

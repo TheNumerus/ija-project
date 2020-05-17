@@ -85,6 +85,68 @@ public class Node {
     }
 
     /**
+     * Method for finding neighbouring nodes
+     * @param edges list to search in
+     * @return list of neighbours
+     */
+    public List<Node> neighbours_in_list(List<Edge> edges) {
+        List<Node> neighbours = new ArrayList<>();
+        for (Edge edge: edges) {
+            if (edge.start.equals(this)) {
+                neighbours.add(edge.end);
+            }
+            if (edge.end.equals(this)) {
+                neighbours.add(edge.start);
+            }
+        }
+        return neighbours;
+    }
+
+    /**
+     * Method for finding neighbouring nodes, no matter if closed
+     * @param m map data
+     * @return list of neighbours
+     */
+    public List<Node> neighbours_unclosed(Map m) {
+        List<Node> neighbours = new ArrayList<>();
+        for (Street s: m.streets) {
+            List<Node> nodes = s.listNodes();
+            if (nodes.contains(this)) {
+                int i = nodes.indexOf(this);
+                if (i != 0) {
+                    neighbours.add(nodes.get(i - 1));
+                }
+                if (i != nodes.size() - 1) {
+                    neighbours.add(nodes.get(i + 1));
+                }
+            }
+        }
+        return neighbours;
+    }
+
+    /**
+     * Method for finding neighbouring nodes, no matter if closed
+     * @param m map data
+     * @return list of neighbours
+     */
+    public List<Node> neighbours_disregard_detour(Map m) {
+        List<Node> neighbours = new ArrayList<>();
+        for (Street s: m.streets) {
+            List<Node> nodes = s.listNodes();
+            if (nodes.contains(this)) {
+                int i = nodes.indexOf(this);
+                if (i != 0 && (!m.isEdgeClosed(this, nodes.get(i - 1)) || (m.isEdgeClosed(this, nodes.get(i - 1)) && m.isEdgeDetoured(this, nodes.get(i - 1))))) {
+                    neighbours.add(nodes.get(i - 1));
+                }
+                if (i != nodes.size() - 1 && (!m.isEdgeClosed(this, nodes.get(i + 1)) || (m.isEdgeClosed(this, nodes.get(i + 1)) && m.isEdgeDetoured(this, nodes.get(i + 1))))) {
+                    neighbours.add(nodes.get(i + 1));
+                }
+            }
+        }
+        return neighbours;
+    }
+
+    /**
      * Computes distance between nodes
      * @param other other node
      * @return distance

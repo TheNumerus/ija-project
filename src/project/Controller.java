@@ -190,6 +190,7 @@ public class Controller {
 
         Sidebar.setCenter(null);
         MapPane.editModeChanged(currentMode);
+        detoursControl.resetState();
     }
 
     /**
@@ -208,6 +209,7 @@ public class Controller {
 
         Sidebar.setCenter(speedAdjustments);
         MapPane.editModeChanged(currentMode);
+        detoursControl.resetState();
     }
 
     /**
@@ -320,6 +322,7 @@ public class Controller {
     /**
      * shows vehicle informations after clicked on it
      * @param v vehicle
+     * @param ui ui object of vehicle
      */
     public void busClicked(Vehicle v, VehicleUI ui) {
         if(currentSelectedVehicle != null){
