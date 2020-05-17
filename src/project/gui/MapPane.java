@@ -1,3 +1,10 @@
+/*
+soubor: project.gui.MapPane.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: soubor je třída, ovládajicí prvky vytvořené v souboru MapPane.fxml
+        obsahuje metody na ovládaní zobrazení mapy, zvýrazňování ulic a tras, vykreslování dopravních prostředků
+ */
+
 package project.gui;
 
 import javafx.fxml.FXML;
@@ -264,7 +271,7 @@ public class MapPane extends Pane {
             if (filtered.size() > 0) {
                 filtered.get(0).newPos();
             } else {
-                VehicleUI vui = new VehicleUI(v, controller);
+                VehicleUI vui = new VehicleUI(v, controller, this);
                 addNode(vui);
                 vehicles.add(vui);
                 vui.newPos();

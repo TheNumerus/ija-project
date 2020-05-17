@@ -1,3 +1,10 @@
+/*
+soubor: project.gui.DetoursControl.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: soubor je třída, ovládajicí prvky vytvořené v souboru DetoursControl.fxml
+        obsahuje tlačítka, používané k ovládaní simulace
+ */
+
 package project.gui;
 
 import javafx.event.ActionEvent;

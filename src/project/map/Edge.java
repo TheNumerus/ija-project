@@ -1,3 +1,9 @@
+/*
+soubor: project.map.Edge.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: nastavuje pozici ulice
+ */
+
 package project.map;
 
 import java.util.Objects;

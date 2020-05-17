@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+soubor: VehicleUI.fxml
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: Soubor vytváří černý kruh, reprezentující vozidlo na mapě
+-->
+
+
 <?import javafx.scene.shape.Circle?>
 
 <fx:root type="Circle" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"

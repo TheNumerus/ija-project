@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+soubor: BusDetails.fxml
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: Soubor vytváří rozložení a nastavení grafického rozhraní pro zobrazení informací o aktuálně označeném autobusu v postranním panelu
+-->
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>

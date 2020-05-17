@@ -1,3 +1,9 @@
+/*
+soubor: project.Main.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: třída Main, spouštějící hlavní okno a načítaní defaultní mapy
+ */
+
 package project;
 
 import javafx.application.Application;

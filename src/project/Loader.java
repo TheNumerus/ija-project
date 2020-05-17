@@ -1,3 +1,9 @@
+/*
+soubor: project.Loader.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: stará se o načítání různých souborů (.json - soubor obsahující mapu, .fxml)
+ */
+
 package project;
 
 import com.google.gson.*;

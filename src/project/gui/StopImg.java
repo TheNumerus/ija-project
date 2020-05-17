@@ -1,3 +1,10 @@
+/*
+soubor: project.gui.StopImg.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: soubor je třída, ovládajicí prvky vytvořené v souboru StopImg.fxml
+        vytváří a nastavuje pozici obrázku, reprezentující zastávku
+ */
+
 package project.gui;
 
 import javafx.fxml.FXML;

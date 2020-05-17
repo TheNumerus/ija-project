@@ -1,3 +1,10 @@
+/*
+soubor: project.map.Vehicle.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: reprezentuje vozidlo na mapě
+        stará se o jeho vytváření, pohyb po mapě a hledání dostupné cesty
+ */
+
 package project.map;
 
 import javafx.beans.property.SimpleObjectProperty;

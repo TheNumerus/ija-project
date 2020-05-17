@@ -1,3 +1,9 @@
+/*
+soubor: project.map.RouteData.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: uchovává aktuální informace o lince
+ */
+
 package project.map;
 
 import project.Pair;
