@@ -8,7 +8,6 @@ popis: soubor je třída, ovládajicí prvky vytvořené v souboru MapPane.fxml
 package project.gui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -22,7 +21,6 @@ import project.Pair;
 import project.map.*;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -233,6 +231,23 @@ public class MapPane extends Pane {
         streetEdges.stream().filter(e -> edges.contains(e.getEdge())).forEach(e -> e.setHighlight(true, highlightAsClosure));
     }
 
+    public void unHighlightSegment(List<Edge> segment) {
+        // get all edgelines
+        List<EdgeLine> streetEdges = MapTransform.getChildren().stream().filter(c ->
+                c instanceof EdgeLine
+        ).map(c -> ((EdgeLine)c)).collect(Collectors.toList());
+
+        streetEdges.stream().filter(e -> segment.contains(e.getEdge())).forEach(e -> e.setHighlight(false, false));
+    }
+
+    public void updateEdgeLineState() {
+        List<EdgeLine> streetEdges = MapTransform.getChildren().stream().filter(c ->
+                c instanceof EdgeLine
+        ).map(c -> ((EdgeLine)c)).collect(Collectors.toList());
+
+        streetEdges.forEach(s -> s.setClosed(controller.map.isEdgeClosed(s.getEdge().start, s.getEdge().end)));
+    }
+
     //endregion
     //region public methods
 
@@ -247,8 +262,15 @@ public class MapPane extends Pane {
                     if (closed) {
                         map.closures.add(new Pair<>(e.start, e.end));
                     } else {
+                        for (Pair<List<project.map.Node>, ?> detour: map.detours) {
+                            if (detour.getX().contains(e.start) && detour.getX().contains(e.end)) {
+                                return true;
+                            }
+                        }
+                        map.detours.removeIf(detour -> detour.getX().contains(e.start) && detour.getX().contains(e.end));
                         map.closures.remove(new Pair<>(e.start, e.end));
                     }
+                    return closed;
                 }, controller, this);
                 addNode(el);
 

@@ -190,6 +190,7 @@ public class Controller {
 
         Sidebar.setCenter(null);
         MapPane.editModeChanged(currentMode);
+        detoursControl.resetState();
     }
 
     /**
@@ -208,6 +209,7 @@ public class Controller {
 
         Sidebar.setCenter(speedAdjustments);
         MapPane.editModeChanged(currentMode);
+        detoursControl.resetState();
     }
 
     /**

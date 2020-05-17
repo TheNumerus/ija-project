@@ -16,6 +16,7 @@ import project.Pair;
 import project.map.Edge;
 import project.map.Map;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetoursControl extends VBox {
@@ -40,6 +41,9 @@ public class DetoursControl extends VBox {
 
     private List<Edge> activeSegment;
 
+    private final List<List<Edge>> detourSegments = new ArrayList<>();
+    private final List<Edge> detour = new ArrayList<>();
+
     public DetoursSelectState selectState = DetoursSelectState.NONE;
 
     public DetoursControl(Map map){
@@ -55,14 +59,29 @@ public class DetoursControl extends VBox {
         this.mapPane = mapPane;
     }
 
+    /**
+     * Method called then user selects some edge
+     * @param segment list of edges
+     */
     public void segmentSelected(List<Edge> segment) {
         switch (selectState) {
         case NONE:
+            detourSegments.clear();
+            detour.clear();
+            break;
         case CLOSURE_SELECTED:
             break;
         case SELECTING_DETOUR_ROUTE:
             // TODO check for validity
-            mapPane.highlightSegment(segment, false, false);
+            if (!detourSegments.contains(segment)) {
+                mapPane.highlightSegment(segment, false, false);
+                detourSegments.add(segment);
+                detour.addAll(segment);
+            } else {
+                mapPane.unHighlightSegment(segment);
+                detourSegments.remove(segment);
+                detour.removeAll(segment);
+            }
             break;
         case SELECTING_CLOSURES:
             activeSegment = segment;
@@ -98,17 +117,37 @@ public class DetoursControl extends VBox {
         Apply.setDisable(true);
 
         // TODO add detour to map only if valid
-        map.addDetour(new Pair<>(activeSegment, null));
+        map.addDetour(new Pair<>(activeSegment, detour));
 
         // TODO hide only if valid detour
         SelectDetourSegments.setDisable(true);
         SelectClosedSegments.setDisable(false);
         mapPane.highlightStreet(null);
+        mapPane.updateEdgeLineState();
+
+        detourSegments.clear();
+        detour.clear();
     }
 
     @FXML
     private void RemoveButtonClick(ActionEvent actionEvent) {
         selectState = DetoursSelectState.NONE;
-        // TODO remove detour
+        map.removeDetour(activeSegment);
+        mapPane.highlightStreet(null);
+        mapPane.updateEdgeLineState();
+    }
+
+    /**
+     * Resets state of this class
+     */
+    public void resetState() {
+        selectState = DetoursSelectState.NONE;
+        detour.clear();
+        detourSegments.clear();
+        activeSegment = null;
+        SelectClosedSegments.setDisable(false);
+        SelectDetourSegments.setDisable(true);
+        Apply.setDisable(true);
+        RemoveDetour.setDisable(true);
     }
 }

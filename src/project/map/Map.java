@@ -231,23 +231,50 @@ public class Map {
         }
     }
 
+    /**
+     * Adds detour to map
+     * @param listObjectPair pair of edges of closure and detour
+     */
     public void addDetour(Pair<List<Edge>, List<Edge>> listObjectPair) {
         List<Edge> edges = listObjectPair.getX();
 
         List<Node> nodes = new ArrayList<>();
         for (Edge e: edges) {
             nodes.add(e.start);
+            Pair<Node, Node> closure = new Pair<>(e.start, e.end);
+            if (!closures.contains(closure)) {
+                closures.add(closure);
+            }
         }
         nodes.add(edges.get(edges.size() - 1).end);
 
-        /*List<Edge> detourEdges = listObjectPair.getY();
+
+        List<Edge> detourEdges = listObjectPair.getY();
 
         List<Node> detour = new ArrayList<>();
         for (Edge e: detourEdges) {
-            nodes.add(e.start);
+            detour.add(e.start);
+            closures.remove(new Pair<>(e.start, e.end));
         }
-        detour.add(detourEdges.get(detourEdges.size() - 1).end);*/
+        detour.add(detourEdges.get(detourEdges.size() - 1).end);
 
-        detours.add(new Pair<>(nodes, null));
+        // TODO sort detours
+
+        detours.add(new Pair<>(nodes, detour));
+    }
+
+    /**
+     * Removes closure based on segment
+     * @param activeSegment segment to search by
+     */
+    public void removeDetour(List<Edge> activeSegment) {
+        List<Node> nodes = new ArrayList<>();
+        for (Edge e: activeSegment) {
+            nodes.add(e.start);
+            closures.remove(new Pair<>(e.start, e.end));
+        }
+        nodes.add(activeSegment.get(activeSegment.size() - 1).end);
+
+        detours.removeIf(detour -> detour.getX().equals(nodes));
     }
 }

@@ -21,7 +21,7 @@ import javafx.fxml.FXMLLoader;
 import project.map.Street;
 
 import java.io.IOException;
-import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * Class for interacting with map
@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 public class EdgeLine extends Group {
     private boolean closed;
     private boolean selected;
-    private final Consumer<Boolean> onClose;
+    private final Predicate<Boolean> onClose;
     private final Street onStreet;
     private final Controller controller;
     private final MapPane mapPane;
@@ -53,7 +53,7 @@ public class EdgeLine extends Group {
      * @param controller controller data
      * @param mapPane MapPane data to put this on
      */
-    public EdgeLine(Edge e, Street s, Consumer<Boolean> onClose, Controller controller, MapPane mapPane) {
+    public EdgeLine(Edge e, Street s, Predicate<Boolean> onClose, Controller controller, MapPane mapPane) {
         Loader.loadFXMLDef(getClass().getResource("EdgeLine.fxml"), this);
 
         this.controller = controller;
@@ -125,6 +125,18 @@ public class EdgeLine extends Group {
     }
 
     /**
+     * Sets the closed status and updated highlight
+     * @param closed state
+     */
+    public void setClosed(boolean closed) {
+        this.closed = closed;
+        line.getStyleClass().clear();
+        if (closed) {
+            line.getStyleClass().add("edgeline_closed");
+        }
+    }
+
+    /**
      * Returns edge associated with this object
      * @return edge
      */
@@ -147,13 +159,13 @@ public class EdgeLine extends Group {
     private void mouseClicked(MouseEvent mouseEvent) {
         if(controller.currentMode == EditMode.CLOSURES){
             line.getStyleClass().clear();
-            if (closed) {
+            closed = !closed;
+            closed = onClose.test(closed);
+            if (!closed) {
                 line.getStyleClass().add("edgeline_hover");
             } else {
                 line.getStyleClass().add("edgeline_closedhover");
             }
-            closed = !closed;
-            onClose.accept(closed);
         }
         else if(controller.currentMode == EditMode.SPEEDADJUSTMENTS){
             mapPane.highlightStreet(onStreet);
