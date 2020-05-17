@@ -19,6 +19,7 @@ public class Vehicle {
     private Node currentTarget;
     private Node lastStop;
     private Street currentStreet;
+    private Duration timeOnRoad = Duration.ZERO;
 
     //stops
     private long timeOnStopLeft = 0;
@@ -54,6 +55,8 @@ public class Vehicle {
      * @param delta time since last update
      */
     public void move(Duration delta) {
+        timeOnRoad = timeOnRoad.plus(delta);
+        routeDataProperty.get().currentRouteTime = timeOnRoad;
         //check if any route can be made
         if (stopped) {
             if (!recomputeRoute()) {
@@ -150,9 +153,11 @@ public class Vehicle {
         y = start.y;
         stopped = false;
         currentStreet = map.streets.stream().filter( (s) -> s.listNodes().contains(start)).collect(Collectors.toList()).get(0);
+        timeOnRoad = Duration.ZERO;
 
         RouteData rd = new RouteData();
         rd.defaultRoute = line.getDefaultTimeData(maxSpeed);
+        rd.currentRouteTime = Duration.ZERO;
 
         routeDataProperty.setValue(rd);
         recomputeRoute();
