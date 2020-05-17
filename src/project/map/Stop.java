@@ -1,3 +1,10 @@
+/*
+soubor: project.map.Stop.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: obsahuje jméno zastávky
+        je součástí třídy Node.java
+ */
+
 package project.map;
 
 import java.util.Objects;

@@ -1,3 +1,9 @@
+/*
+soubor: project.map.Node.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: reprezentuje uzel na mapě, který může být i zastávkou
+ */
+
 package project.map;
 
 import java.util.ArrayList;

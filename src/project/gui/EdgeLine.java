@@ -1,3 +1,10 @@
+/*
+soubor: project.gui.EdgeLine.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: soubor je třída, ovládajicí prvky vytvořené v souboru EdgeLine.fxml
+        nastavuje umístění čáry, zobrazování popisku, zváraznění a zpracovává vyvolané eventy
+ */
+
 package project.gui;
 
 import javafx.fxml.FXML;

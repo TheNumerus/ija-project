@@ -1,3 +1,9 @@
+/*
+soubor: project.InternalClock.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: stará se o obsluhu vnitřních hodit simulace (spouštění, pozastavování, zrychlování, zpomalování, ...)
+ */
+
 package project;
 
 import javafx.application.Platform;

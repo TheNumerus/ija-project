@@ -1,3 +1,9 @@
+/*
+soubor: project.map.Map.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: obsahuje veškeré prvky, vyskytující se na mapě (uzly, ulice, zastávky, vozidla, uzavírky, ...) a obsluhuje je.
+ */
+
 package project.map;
 
 import project.Pair;

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+soubor: SpeedAdjustments.fxml
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis:
+    Soubor vytváří rozložení a nastavení grafického rozhraní pro ovládací prvky, které se zobrazí po označení ulice
+-->
+
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>

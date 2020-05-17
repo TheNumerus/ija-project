@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+soubor: EdgeRoute.fxml
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis:
+    Soubor vytváří barevnou čáru s popisem pro zobrazení trasy autobusů a projíždějicí zastávky
+-->
+
+
 <?import javafx.scene.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.control.Label?>

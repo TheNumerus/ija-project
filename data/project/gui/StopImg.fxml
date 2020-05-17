@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+soubor: StopImg.fxml
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: Soubor vytváří obrázek s popiskem pro zobrazení zastávek na mapě
+-->
+
+
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>

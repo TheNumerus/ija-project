@@ -1,3 +1,10 @@
+/*
+soubor: project.Controller.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: třída, starájicí se o obsluhu veškerých eventů, při kterých dojde ke stisknutí tlačítka v hlavním okně
+        stará se také o načítaní map
+ */
+
 package project;
 
 import javafx.event.ActionEvent;

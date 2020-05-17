@@ -1,3 +1,9 @@
+/*
+soubor: project.map.Street.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: reprezentuje ulici a její informace
+ */
+
 package project.map;
 
 import java.util.ArrayList;

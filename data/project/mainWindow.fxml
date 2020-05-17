@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+soubor: mainWindow.fxml
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis:
+    Soubor vytváří plochy a ovládací prvky pro primární okno, ve kterém běží celá simulace
+-->
+
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>

@@ -1,3 +1,10 @@
+/*
+soubor: project.gui.EdgeRoute.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: soubor je třída, ovládajicí prvky vytvořené v souboru EdgeRoute.fxml
+        nastavuje barvu a pozici čáry, reprezentující trasu
+ */
+
 package project.gui;
 
 import javafx.fxml.FXML;

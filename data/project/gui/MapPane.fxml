@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+soubor: MapPane.fxml
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis:
+    Soubor vytváří plochu, na kterou budou umístěny veškeré aktivní prvky simulace
+-->
+
 <?import javafx.scene.*?>
 <?import javafx.scene.layout.*?>
 

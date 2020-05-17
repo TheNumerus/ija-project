@@ -1,3 +1,10 @@
+/*
+soubor: project.gui.VehicleUI.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: soubor je třída, ovládajicí prvky vytvořené v souboru VehicleUI.fxml
+        nastavuje pozici kroužku, reprezentujícího vozidlo a stará se o označování tohoto vozidla
+ */
+
 package project.gui;
 
 import javafx.fxml.FXML;
@@ -8,16 +15,24 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import project.Controller;
 import project.Loader;
+import project.Pair;
+import project.map.Node;
 import project.map.Vehicle;
 import java.io.IOException;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class representing vehicle on map
  */
 public class VehicleUI extends Circle {
+    private final MapPane mapPane;
     private final Controller controller;
     private final Vehicle vehicle;
     private boolean selected;
+
+    //private List<Node> nodes;
 
     @FXML
     Circle circle;
@@ -27,13 +42,20 @@ public class VehicleUI extends Circle {
      * @param v vehicle, that is represented
      * @param c controller data
      */
-    public VehicleUI(Vehicle v, Controller c) {
+    public VehicleUI(Vehicle v, Controller c, MapPane m) {
         Loader.loadFXMLDef(getClass().getResource("VehicleUI.fxml"), this);
 
         setRadius(10.0);
         vehicle = v;
         controller = c;
+        mapPane = m;
+
         selected = false;
+
+        /*nodes = new ArrayList<Node>();
+        for(Pair<Node, Duration> route : vehicle.routeDataProperty.getValue().defaultRoute){
+            nodes.add(route.getX());
+        }*/
     }
 
     /**
@@ -55,11 +77,9 @@ public class VehicleUI extends Circle {
     @FXML
     private void mouseClicked(MouseEvent mouseEvent){
         if(selected) {
-            //unSelect();
             controller.busUnClicked();
         }
         else{
-            //select();
             controller.busClicked(vehicle, this);
         }
     }
@@ -71,6 +91,8 @@ public class VehicleUI extends Circle {
         circle.setStrokeWidth(2);
         circle.setStroke(Paint.valueOf("#d000ff"));
         selected = true;
+
+        //mapPane.showRoute(nodes);
     }
 
     /**
@@ -79,5 +101,6 @@ public class VehicleUI extends Circle {
     public void unSelect(){
         circle.setStroke(Paint.valueOf("#000000"));
         selected = false;
+        mapPane.clearRoute();
     }
 }

@@ -1,3 +1,10 @@
+/*
+soubor: project.gui.BusDetails.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: soubor je třída, ovládajicí prvky vytvořené v souboru BusDetails.fxml
+        dostává informace o stavu vozidla a aktualizuje zobrazující se informace
+ */
+
 package project.gui;
 
 import javafx.beans.property.ObjectProperty;

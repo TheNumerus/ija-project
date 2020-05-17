@@ -1,3 +1,10 @@
+/*
+soubor: project.gui.SpeedAdjustments.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: soubor je třída, ovládajicí prvky vytvořené v souboru SpeedAdjustments.fxml
+        stará se o zobrazení informací o ulici a úpravu její rychlosti
+ */
+
 package project.gui;
 
 import javafx.fxml.FXMLLoader;

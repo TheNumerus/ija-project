@@ -1,3 +1,9 @@
+/*
+soubor: project.Pair.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: vytváří typ pair, obsahující dvě různé hodnoty
+ */
+
 package project;
 
 import java.util.Objects;

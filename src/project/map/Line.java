@@ -1,3 +1,11 @@
+/*
+soubor: project.map.Line.java
+autoři: Petr Volf (xvolfp00) a David Rubý (xrubyd00)
+popis: reprezentuje linku autobusu.
+        stará se o hledání tras pro tuto linku
+ */
+
+
 package project.map;
 
 import project.Pair;
