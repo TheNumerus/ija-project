@@ -1,6 +1,7 @@
 package project.map;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 
 import java.time.Duration;
 import java.util.List;
@@ -42,6 +43,7 @@ public class Vehicle {
     public Vehicle(Line line, Map map) {
         this.line = line;
         this.map = map;
+        routeDataProperty = new SimpleObjectProperty<>();
 
         resetVehicle();
         map.vehicles.add(this);
@@ -149,9 +151,9 @@ public class Vehicle {
         stopped = false;
         currentStreet = map.streets.stream().filter( (s) -> s.listNodes().contains(start)).collect(Collectors.toList()).get(0);
 
+        RouteData rd = new RouteData();
 
-
-        routeDataProperty.setValue(new RouteData());
+        routeDataProperty.setValue(rd);
         recomputeRoute();
     }
 
