@@ -170,7 +170,7 @@ public class Map {
                 int index = streetEdges.indexOf(e);
                 // search backward
                 for (int i = index - 1; i >=0; i--) {
-                    if (streetEdges.get(i).end.neighbours(this).size() <= 2) {
+                    if (streetEdges.get(i).end.neighbours_unclosed(this).size() <= 2) {
                         edges.add(streetEdges.get(i));
                         continue;
                     }
@@ -178,7 +178,7 @@ public class Map {
                 }
                 // search forward
                 for (int i = index + 1; i < streetEdges.size(); i++) {
-                    if (streetEdges.get(i).start.neighbours(this).size() <= 2) {
+                    if (streetEdges.get(i).start.neighbours_unclosed(this).size() <= 2) {
                         edges.add(streetEdges.get(i));
                         continue;
                     }

@@ -207,6 +207,7 @@ public class MapPane extends Pane {
         ).map(c -> ((EdgeLine)c)).collect(Collectors.toList());
         // disable highlight
         streetEdges.forEach(n -> n.setHighlight(false, false));
+        streetEdges.stream().filter( e -> controller.map.isEdgeClosed(e.getEdge().start, e.getEdge().end)).forEach(e -> e.setHighlight(true, true));
 
         //now add highlight only to some edges
         streetEdges.stream().filter(c -> c.getOnStreet().equals(onStreet)).forEach(c -> c.setHighlight(true, false));

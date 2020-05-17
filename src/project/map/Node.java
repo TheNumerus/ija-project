@@ -79,6 +79,28 @@ public class Node {
     }
 
     /**
+     * Method for finding neighbouring nodes, no matter if closed
+     * @param m map data
+     * @return list of neighbours
+     */
+    public List<Node> neighbours_unclosed(Map m) {
+        List<Node> neighbours = new ArrayList<>();
+        for (Street s: m.streets) {
+            List<Node> nodes = s.listNodes();
+            if (nodes.contains(this)) {
+                int i = nodes.indexOf(this);
+                if (i != 0) {
+                    neighbours.add(nodes.get(i - 1));
+                }
+                if (i != nodes.size() - 1) {
+                    neighbours.add(nodes.get(i + 1));
+                }
+            }
+        }
+        return neighbours;
+    }
+
+    /**
      * Computes distance between nodes
      * @param other other node
      * @return distance

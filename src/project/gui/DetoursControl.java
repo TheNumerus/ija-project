@@ -96,6 +96,7 @@ public class DetoursControl extends VBox {
         // TODO hide only if valid detour
         SelectDetourSegments.setDisable(true);
         SelectClosedSegments.setDisable(false);
+        mapPane.highlightStreet(null);
     }
 
     @FXML
