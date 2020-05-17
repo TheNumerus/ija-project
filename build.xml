@@ -18,6 +18,15 @@
                 <path refid="external.classpath"/>
             </classpath>
         </javac>
+        <copy todir="build/">
+            <fileset dir="data" includes="**"/>
+        </copy>
+        <jar destfile="dest/ija-app.jar" basedir="build">
+            <zipgroupfileset dir="lib" includes="*.jar"/>
+            <manifest>
+                <attribute name="Main-Class" value="project.Main"/>
+            </manifest>
+        </jar>
     </target>
     <target name="doc" depends="init">
         <javadoc sourcepath="src" destdir="doc" package="project"/>
