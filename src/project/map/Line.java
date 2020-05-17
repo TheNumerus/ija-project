@@ -106,9 +106,9 @@ public class Line {
      * @param m map info
      * @param current starting node
      * @param lastStop last stop which was reached
-     * @return rotue, null if nothing could be found or already in finish
+     * @return pair of route and next stop, null if nothing could be found or already in finish
      */
-    public List<Node> anyRoute(Map m, Node current, Node lastStop) {
+    public Pair<List<Node>, Node> anyRoute(Map m, Node current, Node lastStop) {
         Node lastStopOnLine = stops.get(stops.size() - 1);
 
         Node start = current;
@@ -147,9 +147,10 @@ public class Line {
 
         // go back?
         if (stops.indexOf(lastStop) >= stops.indexOf(furthestStop)) {
-            return m.getRoute(start, furthestStop);
+            return new Pair<>(m.getRoute(start, furthestStop), furthestStop);
         }
 
+        Node nextStop = end;
 
         // now go to furthest stop we can
         do {
@@ -158,15 +159,16 @@ public class Line {
             if (part == null) {
                 // return what we got so far
                 if (end.equals(lastStopOnLine)) {
-                    return route;
+                    return new Pair<>(route, nextStop);
                 }
                 //skip one stop
                 end = stops.get(stops.indexOf(end) + 1);
+                nextStop = end;
             } else {
                 if (end.equals(lastStopOnLine)) {
                     // is last
                     route.addAll(part);
-                    return route;
+                    return new Pair<>(route, nextStop);
                 } else {
                     // advance one stop
                     start = end;
@@ -176,7 +178,7 @@ public class Line {
             }
         } while (!start.equals(lastStopOnLine));
 
-        return route;
+        return new Pair<>(route, nextStop);
     }
 
     /**

@@ -10,8 +10,9 @@ public class RouteData {
     public Node nextStop;
     public Duration currentRouteTime = Duration.ZERO;
     public List<Node> skippedStops;
+    public Line line;
 
     public RouteData() {
-        
+
     }
 }

@@ -2,6 +2,7 @@ package project.map;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import project.Pair;
 
 import java.time.Duration;
 import java.util.List;
@@ -117,12 +118,13 @@ public class Vehicle {
 
 
     private boolean recomputeRoute() {
-        List<Node> route = line.anyRoute(map, currentTarget,lastStop);
+        Pair<List<Node>, Node> route = line.anyRoute(map, currentTarget,lastStop);
         if (route == null) {
             return true;
         }
-        currentTarget = route.get(1);
-        currentStreet = map.getStreetByNodes(route.get(0), route.get(1));
+        currentTarget = route.getX().get(1);
+        currentStreet = map.getStreetByNodes(route.getX().get(0), route.getX().get(1));
+        routeDataProperty.get().nextStop = route.getY();
         return false;
     }
 
@@ -158,6 +160,8 @@ public class Vehicle {
         RouteData rd = new RouteData();
         rd.defaultRoute = line.getDefaultTimeData(maxSpeed);
         rd.currentRouteTime = Duration.ZERO;
+        rd.nextStop = line.getNodes().get(1);
+        rd.line = line;
 
         routeDataProperty.setValue(rd);
         recomputeRoute();
