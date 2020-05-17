@@ -92,7 +92,7 @@ public class VehicleUI extends Circle {
         circle.setStroke(Paint.valueOf("#d000ff"));
         selected = true;
 
-        //mapPane.showRoute(nodes);
+        mapPane.showRoute(vehicle.routeDataProperty.getValue().currentRoute);
     }
 
     /**
