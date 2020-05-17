@@ -40,6 +40,8 @@ public class BusDetails extends VBox {
     private Label Terminus;
     @FXML
     private Label SkippedStops;
+    @FXML
+    private Label Stops;
 
 
     /**
@@ -81,10 +83,23 @@ public class BusDetails extends VBox {
 
         // skipped stops
         String skipped = "Skipped stops:\n";
-        /*for(Node stop : currentRouteData.skippedStops){
+        for(Node stop : currentRouteData.skippedStops){
             skipped += stop.stop.name + "\n";
-        }*/
+        }
         this.SkippedStops.setText(skipped);
+
+        // all stops
+        String stops = "Stops: \n";
+        for(Pair<Node, Duration> node: currentRouteData.defaultRoute){
+            if(currentRouteData.skippedStops.contains(node.getX())){
+                stops += node.getX().stop.name + "(skipped)\n";
+            }
+            else{
+                stops += node.getX().stop.name + "\n";
+            }
+        }
+        this.Stops.setText(stops);
+
 
     }
 

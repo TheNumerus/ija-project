@@ -3,6 +3,8 @@ package project.gui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import project.Controller;
 import project.Loader;
@@ -15,6 +17,7 @@ import java.io.IOException;
 public class VehicleUI extends Circle {
     private final Controller controller;
     private final Vehicle vehicle;
+    private boolean selected;
 
     @FXML
     Circle circle;
@@ -30,6 +33,7 @@ public class VehicleUI extends Circle {
         setRadius(10.0);
         vehicle = v;
         controller = c;
+        selected = false;
     }
 
     /**
@@ -50,6 +54,30 @@ public class VehicleUI extends Circle {
 
     @FXML
     private void mouseClicked(MouseEvent mouseEvent){
-        controller.busClicked(vehicle);
+        if(selected) {
+            //unSelect();
+            controller.busUnClicked();
+        }
+        else{
+            //select();
+            controller.busClicked(vehicle, this);
+        }
+    }
+
+    /**
+     * selects bus
+     */
+    public void select(){
+        circle.setStrokeWidth(2);
+        circle.setStroke(Paint.valueOf("#d000ff"));
+        selected = true;
+    }
+
+    /**
+     * unselects bus
+     */
+    public void unSelect(){
+        circle.setStroke(Paint.valueOf("#000000"));
+        selected = false;
     }
 }
