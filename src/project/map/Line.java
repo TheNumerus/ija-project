@@ -17,11 +17,23 @@ public class Line {
      * Delay between two buses, in seconds
      */
     public double delay;
+
     private final List<Node> stops;
+
     private final List<Node> defaultRoute;
+
     private int lastVehicleSend = 0;
+
     private int vehicleCount = 0;
 
+
+    /**
+     * constructor of Line
+     * @param number number of this line
+     * @param delay delay value between two buses
+     * @param stops liset of stops on this line
+     * @param m parent map
+     */
     public Line(int number, double delay, List<Node> stops, Map m) {
         this.delay = delay;
         this.number = number;

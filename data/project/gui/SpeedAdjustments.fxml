@@ -12,7 +12,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label text="Target speed:" GridPane.rowIndex="1" />
+      <Label text="Target speed: 1.0x" GridPane.rowIndex="1" fx:id="speedLabel"/>
       <Slider fx:id="slider" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" maxWidth="1.7976931348623157E308" min="0.1" minWidth="-Infinity" minorTickCount="0" showTickLabels="true" showTickMarks="true" value="0.1" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="slider"/>
    </children>
    <padding>

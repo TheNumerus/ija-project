@@ -15,11 +15,20 @@ import java.io.IOException;
 public class BusDetails extends VBox {
 
     @FXML
+    /**
+     * label displaying bus name
+     */
     public Label busName;
     @FXML
+    /**
+     * label displaying line name
+     */
     public Label lineName;
 
 
+    /**
+     * constructor of BusDetails panel
+     */
     public BusDetails(){
         // load ui elements
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
@@ -35,6 +44,10 @@ public class BusDetails extends VBox {
         }
     }
 
+    /**
+     * updates line number label
+     * @param lineNumber number of ne line
+     */
     public void updateInfo(int lineNumber){
         this.lineName.setText(Integer.toString(lineNumber));
     }

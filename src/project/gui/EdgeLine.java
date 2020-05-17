@@ -23,7 +23,7 @@ import java.util.function.Consumer;
  */
 public class EdgeLine extends Group {
     private boolean closed;
-    public boolean selected;
+    private boolean selected;
     private final Consumer<Boolean> onClose;
     private final Street onStreet;
     private final Controller controller;
@@ -35,6 +35,14 @@ public class EdgeLine extends Group {
     @FXML
     private Label name;
 
+    /**
+     * constructor
+     * @param e which edge does this represent
+     * @param s which street is this edgeline on
+     * @param onClose //TODO: doplnit, idk.
+     * @param controller controller data
+     * @param mapPane MapPane data to put this on
+     */
     public EdgeLine(Edge e, Street s, Consumer<Boolean> onClose, Controller controller, MapPane mapPane) {
         // load ui elements
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(

@@ -6,10 +6,25 @@ package project.map;
  * Mostly used as a helper for rendering
  */
 public class Edge {
+    /**
+     * starting point of this edge
+     */
     public Node start;
+    /**
+     * ending point of this edge
+     */
     public Node end;
+    /**
+     * cost of this edge
+     */
     public double cost;
 
+    /**
+     * Contstructor of Edge
+     * @param start starting point of edge
+     * @param end ending point of edge
+     * @param costMult //TODO: doplnit, idk.
+     */
     public Edge(Node start, Node end, double costMult) {
         if (start.equals(end)) {
             throw new IllegalArgumentException("start cannot be the same as end");
