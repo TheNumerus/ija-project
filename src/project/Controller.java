@@ -22,6 +22,8 @@ import project.map.*;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
     @FXML
@@ -84,7 +86,8 @@ public class Controller {
         MapPane.setController(this);
         this.speedAdjustments = new SpeedAdjustments();
         this.busDetails = new BusDetails();
-        this.detoursControl = new DetoursControl();
+        this.detoursControl = new DetoursControl(map);
+        detoursControl.setMapPane(MapPane);
     }
 
     /**
@@ -119,6 +122,7 @@ public class Controller {
         clock.resetTime();
         clock.setPaused(false);
         playPause_button.setDisable(false);
+        detoursControl.setMap(map);
     }
 
     /**
@@ -347,5 +351,7 @@ public class Controller {
         }
     }
 
-
+    public void setDetourSegmentSelect(Edge e) {
+        detoursControl.segmentSelected(map.getSegmentFromEdge(e));
+    }
 }

@@ -16,8 +16,9 @@ popis:
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
    <children>
-      <Button fx:id="SelectClosedSegments" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Select closed segments" onAction="#SelectClosedSegmentsButtonClick"/>
-      <Button fx:id="SelectDetourSegments" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Select detour segments" onAction="#SelectDetourSegmentsButtonClick"/>
-      <Button fx:id="Apply" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Apply" onAction="#ApplyButtonClick"/>
+        <Button fx:id="SelectClosedSegments" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Select closed segment" onAction="#SelectClosedSegmentsButtonClick"/>
+        <Button fx:id="SelectDetourSegments" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Select detour segments" onAction="#SelectDetourSegmentsButtonClick"/>
+        <Button fx:id="Apply" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Apply" onAction="#ApplyButtonClick"/>
+        <Button fx:id="RemoveDetour" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Remove Detour" onAction="#RemoveButtonClick"/>
    </children>
 </fx:root>

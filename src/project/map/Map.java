@@ -38,6 +38,11 @@ public class Map {
      */
     public List<Vehicle> vehicles;
 
+    /**
+     * Detours list
+     */
+    public List<Pair<List<Node>, List<Node>>> detours;
+
 
     /**
      * constructor of map
@@ -49,6 +54,7 @@ public class Map {
         lines = new ArrayList<>();
         closures = new ArrayList<>();
         vehicles = new ArrayList<>();
+        detours = new ArrayList<>();
     }
 
     /**
@@ -154,6 +160,65 @@ public class Map {
     }
 
     /**
+     * Returns segment of street between crossroads
+     * @param e start edge
+     * @return segment
+     */
+    public List<Edge> getSegmentFromEdge(Edge e) {
+        // find street
+        List<Edge> edges = new ArrayList<>();
+
+        edges.add(e);
+
+        for (Street s: streets) {
+            List<Edge> streetEdges = s.getEdges();
+            if (streetEdges.contains(e)) {
+                int index = streetEdges.indexOf(e);
+                // search backward
+                for (int i = index - 1; i >=0; i--) {
+                    if (streetEdges.get(i).end.neighbours(this).size() <= 2) {
+                        edges.add(streetEdges.get(i));
+                        continue;
+                    }
+                    break;
+                }
+                // search forward
+                for (int i = index + 1; i < streetEdges.size(); i++) {
+                    if (streetEdges.get(i).start.neighbours(this).size() <= 2) {
+                        edges.add(streetEdges.get(i));
+                        continue;
+                    }
+                    break;
+                }
+
+                edges.sort(Comparator.comparingInt(streetEdges::indexOf));
+            }
+        }
+
+        return edges;
+    }
+
+    /**
+     * Returns if segment is closed and has detour
+     * @param segment segment to check
+     * @return closed
+     */
+    public boolean isSegmentClosed(List<Edge> segment) {
+        List<Node> nodes = new ArrayList<>();
+        for (Edge e: segment) {
+            nodes.add(e.start);
+        }
+        nodes.add(segment.get(segment.size() - 1).end);
+
+        for(Pair<List<Node>, List<Node>> detour: detours) {
+            if (detour.getX().equals(nodes)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Update method for vehicles and lines
      * @param delta delta time since last update
      */
@@ -164,5 +229,25 @@ public class Map {
         for (Vehicle v: vehicles) {
             v.move(delta);
         }
+    }
+
+    public void addDetour(Pair<List<Edge>, List<Edge>> listObjectPair) {
+        List<Edge> edges = listObjectPair.getX();
+
+        List<Node> nodes = new ArrayList<>();
+        for (Edge e: edges) {
+            nodes.add(e.start);
+        }
+        nodes.add(edges.get(edges.size() - 1).end);
+
+        /*List<Edge> detourEdges = listObjectPair.getY();
+
+        List<Node> detour = new ArrayList<>();
+        for (Edge e: detourEdges) {
+            nodes.add(e.start);
+        }
+        detour.add(detourEdges.get(detourEdges.size() - 1).end);*/
+
+        detours.add(new Pair<>(nodes, null));
     }
 }

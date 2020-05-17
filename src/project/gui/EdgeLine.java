@@ -37,6 +37,8 @@ public class EdgeLine extends Group {
     private final Controller controller;
     private final MapPane mapPane;
 
+    private final Edge e;
+
     @FXML
     private Line line;
 
@@ -60,6 +62,7 @@ public class EdgeLine extends Group {
         this.onClose = onClose;
         this.onStreet = s;
         this.mapPane = mapPane;
+        this.e = e;
 
         // line coordinates
         line.setStartX(e.start.x);
@@ -108,13 +111,25 @@ public class EdgeLine extends Group {
      * Sets highlight effect or removes it
      * @param highlight do effect
      */
-    public void setHighlight(boolean highlight) {
+    public void setHighlight(boolean highlight, boolean asClosure) {
         line.getStyleClass().clear();
         if (highlight) {
-            line.getStyleClass().add("edgeline_hover");
+            if (asClosure) {
+                line.getStyleClass().add("edgeline_closed");
+            } else {
+                line.getStyleClass().add("edgeline_hover");
+            }
         } else if (closed) {
             line.getStyleClass().add("edgeline_closed");
         }
+    }
+
+    /**
+     * Returns edge associated with this object
+     * @return edge
+     */
+    public Edge getEdge() {
+        return e;
     }
 
     private void mouseEntered(MouseEvent mouseEvent) {
@@ -143,6 +158,8 @@ public class EdgeLine extends Group {
         else if(controller.currentMode == EditMode.SPEEDADJUSTMENTS){
             mapPane.highlightStreet(onStreet);
             controller.setStreetSelect(onStreet);
+        } else if (controller.currentMode == EditMode.DETOURS) {
+            controller.setDetourSegmentSelect(e);
         }
     }
 

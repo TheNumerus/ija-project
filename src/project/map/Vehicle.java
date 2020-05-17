@@ -118,6 +118,7 @@ public class Vehicle {
 
                 // should stop
                 if (recomputeRoute()) {
+                    resetVehicle();
                     stopped = true;
                     return;
                 }
@@ -134,6 +135,7 @@ public class Vehicle {
         currentTarget = route.getX().get(1);
         currentStreet = map.getStreetByNodes(route.getX().get(0), route.getX().get(1));
         RouteData rd = new RouteData(routeDataProperty.get());
+        rd.currentRoute = route.getX();
         rd.skippedStops = skippedStops;
         rd.nextStop = route.getY();
         routeDataProperty.set(rd);

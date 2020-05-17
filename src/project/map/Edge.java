@@ -6,6 +6,8 @@ popis: nastavuje pozici ulice
 
 package project.map;
 
+import java.util.Objects;
+
 /**
  * Data class for edges between two nodes
  *
@@ -38,5 +40,19 @@ public class Edge {
         this.start = start;
         this.end = end;
         this.cost = Math.sqrt(Math.pow(start.x - end.x, 2)  + Math.pow(start.y - end.y, 2)) * costMult;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Edge edge = (Edge) o;
+        return Objects.equals(start, edge.start) &&
+                Objects.equals(end, edge.end);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(start, end);
     }
 }
