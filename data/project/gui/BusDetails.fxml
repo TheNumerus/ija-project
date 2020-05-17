@@ -13,6 +13,13 @@
             </font>
         </Label>
         <Label fx:id="lineName" text="Line:" GridPane.rowIndex="1" />
+      <Label fx:id="Delay" layoutX="20.0" layoutY="136.0" text="Delay:" />
+      <Separator prefWidth="200.0" />
+      <Label fx:id="Origin" layoutX="20.0" layoutY="52.0" text="Origin:" />
+      <Label fx:id="NextStop" layoutX="20.0" layoutY="80.0" text="Next Stop:" />
+      <Label fx:id="Terminus" layoutX="20.0" layoutY="108.0" text="Terminus:" />
+      <Separator prefWidth="200.0" />
+        <Label fx:id="SkippedStops" layoutX="20.0" layoutY="108.0" text="Skipped Stops:" />
     </children>
     <padding>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

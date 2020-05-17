@@ -308,7 +308,8 @@ public class Controller {
      * @param v vehicle
      */
     public void busClicked(Vehicle v) {
-        busDetails.updateInfo(v.getLineNumber());
+        busDetails.setVehicle(v);
+        busDetails.updateInfo(v.routeDataProperty.getValue());
         Sidebar.setCenter(busDetails);
     }
 
