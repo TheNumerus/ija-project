@@ -152,6 +152,7 @@ public class Vehicle {
         currentStreet = map.streets.stream().filter( (s) -> s.listNodes().contains(start)).collect(Collectors.toList()).get(0);
 
         RouteData rd = new RouteData();
+        rd.defaultRoute = line.getDefaultTimeData(maxSpeed);
 
         routeDataProperty.setValue(rd);
         recomputeRoute();

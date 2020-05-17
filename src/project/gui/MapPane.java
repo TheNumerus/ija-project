@@ -35,6 +35,8 @@ public class MapPane extends Pane {
     private final List<VehicleUI> vehicles = new ArrayList<>();
     private final List<EdgeRoute> routes = new ArrayList<>();
 
+    private boolean dragging = false;
+
     /**
      * constructor
      */
@@ -85,6 +87,8 @@ public class MapPane extends Pane {
         DragStart.setY(event.getSceneY());
         OrigTransform.setX(MapTransform.getTranslateX());
         OrigTransform.setY(MapTransform.getTranslateY());
+        dragging = false;
+        event.consume();
     }
 
     /**
@@ -92,6 +96,7 @@ public class MapPane extends Pane {
      * @param event action event
      */
     public void onMouseDragged(MouseEvent event) {
+        dragging = true;
         double delta_x = event.getSceneX() - DragStart.getX();
         double delta_y = event.getSceneY() - DragStart.getY();
         MapTransform.setTranslateX(delta_x + OrigTransform.getX());
@@ -115,7 +120,7 @@ public class MapPane extends Pane {
      * @param event action event
      */
     public void onMouseClicked(MouseEvent event){
-        if(event.getTarget().equals(this)) {
+        if(event.getTarget().equals(this) && !dragging) {
             clearRoute();
             highlightStreet(null);
             controller.busUnClicked();

@@ -235,8 +235,10 @@ public class Line {
 
     public List<Pair<Node, Duration>> getDefaultTimeData(double speed) {
         List<Pair<Node, Duration>> timeData = new ArrayList<>();
-        for(Pair<?, ?>  stop: defaultDistanceData) {
-
+        for(Pair<Node, Double>  stop: defaultDistanceData) {
+            Duration time = Duration.ofMillis((long)(stop.getY() * speed) + Math.max(defaultDistanceData.indexOf(stop) - 1, 0) * 5000);
+            Pair<Node, Duration> timeStop = new Pair<>(stop.getX(), time);
+            timeData.add(timeStop);
         }
 
         return timeData;
