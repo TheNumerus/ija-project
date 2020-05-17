@@ -9,12 +9,14 @@ package project.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import project.Loader;
 import project.Pair;
 import project.map.Edge;
 import project.map.Map;
+import project.map.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +76,9 @@ public class DetoursControl extends VBox {
         case SELECTING_DETOUR_ROUTE:
             // TODO check for validity
             if (!detourSegments.contains(segment)) {
+                if (map.isSegmentClosed(segment) || activeSegment.equals(segment)) {
+                    return;
+                }
                 mapPane.highlightSegment(segment, false, false);
                 detourSegments.add(segment);
                 detour.addAll(segment);
@@ -113,13 +118,15 @@ public class DetoursControl extends VBox {
 
     @FXML
     private void ApplyButtonClick(ActionEvent actionEvent){
+        if (!map.addDetour(new Pair<>(activeSegment, detour))) {
+            Alert a = new Alert(Alert.AlertType.ERROR, "Invalid detour path");
+            a.showAndWait();
+            return;
+        }
+
         selectState = DetoursSelectState.NONE;
         Apply.setDisable(true);
 
-        // TODO add detour to map only if valid
-        map.addDetour(new Pair<>(activeSegment, detour));
-
-        // TODO hide only if valid detour
         SelectDetourSegments.setDisable(true);
         SelectClosedSegments.setDisable(false);
         mapPane.highlightStreet(null);
