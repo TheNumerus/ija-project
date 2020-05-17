@@ -10,6 +10,7 @@ public class RouteData {
     public Node nextStop;
     public Duration currentRouteTime = Duration.ZERO;
     public List<Node> skippedStops;
+    public List<Node> currentRoute;
     public Line line;
 
     public RouteData() {
@@ -21,6 +22,7 @@ public class RouteData {
         nextStop = other.nextStop;
         currentRouteTime = other.currentRouteTime;
         skippedStops = other.skippedStops;
+        currentRoute = other.currentRoute;
         line = other.line;
     }
 }
