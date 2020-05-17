@@ -223,7 +223,6 @@ public class MapPane extends Pane {
                     } else {
                         map.closures.remove(new Pair<>(e.start, e.end));
                     }
-                    map.recomputeRoutes();
                 }, controller, this);
                 addNode(el);
 

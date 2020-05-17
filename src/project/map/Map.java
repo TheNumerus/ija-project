@@ -104,18 +104,6 @@ public class Map {
     }
 
     /**
-     * Method for recomputing nodes
-     */
-    public void recomputeRoutes() {
-        for (Line l: lines) {
-            l.findRoute(this);
-        }
-        for (Vehicle v: vehicles) {
-            //v.recomputeRoute(false);
-        }
-    }
-
-    /**
      * Method for finding if edge between two nodes is closed
      * @param n first node
      * @param n1 second node

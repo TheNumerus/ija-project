@@ -1,5 +1,7 @@
 package project.map;
 
+import project.Pair;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,8 @@ public class Line {
     private int lastVehicleSend = 0;
 
     private int vehicleCount = 0;
+
+    private List<Pair<Node, Double>> defaultDistanceData;
 
 
     /**
@@ -63,9 +67,11 @@ public class Line {
      * @param m map with node info
      * @return list with route nodes, null if route cannot be found
      */
-    public List<Node> findRoute(Map m) {
+    private List<Node> findRoute(Map m) {
         Node start = stops.get(0);
         Node end = stops.get(1);
+
+        defaultDistanceData = new ArrayList<>();
 
         List<Node> route = new ArrayList<>();
         while(!start.equals(stops.get(stops.size() - 1))) {
@@ -77,11 +83,14 @@ public class Line {
                 }
                 end = stops.get(stops.indexOf(end) + 1);
             } else {
+                double part_distance = m.getRouteDistance(part);
                 // is last
                 if (end.equals(stops.get(stops.size() - 1))) {
                     route.addAll(part);
+                    defaultDistanceData.add(new Pair<>(end, part_distance));
                     return route;
                 } else {
+                    defaultDistanceData.add(new Pair<>(start, part_distance));
                     start = end;
                     end = stops.get(stops.indexOf(end) + 1);
                     route.addAll(part.subList(0, part.size() - 1));
@@ -223,4 +232,13 @@ public class Line {
      * @return number of this line
      */
     public int getNumber(){return this.number;}
+
+    public List<Pair<Node, Duration>> getDefaultTimeData(double speed) {
+        List<Pair<Node, Duration>> timeData = new ArrayList<>();
+        for(Pair<?, ?>  stop: defaultDistanceData) {
+
+        }
+
+        return timeData;
+    }
 }

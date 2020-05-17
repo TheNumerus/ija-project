@@ -1,5 +1,7 @@
 package project.map;
 
+import javafx.beans.property.ObjectProperty;
+
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +29,9 @@ public class Vehicle {
 
     private static final double maxSpeed = 0.02;
 
+    // route ui
+    public ObjectProperty<RouteData> routeDataProperty;
+
     /**
      * Vehicle constructor
      *
@@ -49,7 +54,7 @@ public class Vehicle {
     public void move(Duration delta) {
         //check if any route can be made
         if (stopped) {
-            if (!recomputeRoute(true)) {
+            if (!recomputeRoute()) {
                 stopped = false;
             }
         }
@@ -97,7 +102,7 @@ public class Vehicle {
                 }
 
                 // should stop
-                if (recomputeRoute(true)) {
+                if (recomputeRoute()) {
                     stopped = true;
                     return;
                 }
@@ -106,17 +111,13 @@ public class Vehicle {
     }
 
 
-    private boolean recomputeRoute(boolean isOnTarget) {
+    private boolean recomputeRoute() {
         List<Node> route = line.anyRoute(map, currentTarget,lastStop);
         if (route == null) {
             return true;
         }
-        if (isOnTarget) {
-            currentTarget = route.get(1);
-            currentStreet = map.getStreetByNodes(route.get(0), route.get(1));
-        } else {
-            currentTarget = route.get(0);
-        }
+        currentTarget = route.get(1);
+        currentStreet = map.getStreetByNodes(route.get(0), route.get(1));
         return false;
     }
 
@@ -147,7 +148,11 @@ public class Vehicle {
         y = start.y;
         stopped = false;
         currentStreet = map.streets.stream().filter( (s) -> s.listNodes().contains(start)).collect(Collectors.toList()).get(0);
-        recomputeRoute(true);
+
+
+
+        routeDataProperty.setValue(new RouteData());
+        recomputeRoute();
     }
 
     /**
