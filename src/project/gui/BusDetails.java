@@ -26,46 +26,20 @@ public class BusDetails extends VBox {
     //private ObjectProperty<RouteData> currentVehicleData;
     private ChangeListener changeListener;
 
-    /**
-     * label displaying bus name
-     */
     @FXML
-    public Label busName;
-
-    /**
-     * label displaying line name
-     */
+    private Label busName;
     @FXML
-    public Label lineName;
-
-    /**
-     * Label displaying current delay
-     */
+    private Label lineName;
     @FXML
-    public Label Delay;
-
-    /**
-     * Label displaying origin stop
-     */
+    private Label Delay;
     @FXML
-    public Label Origin;
-
-    /**
-     * Label displaying next stop
-     */
+    private Label Origin;
     @FXML
-    public Label NextStop;
-
-    /**
-     * Label displaying the last stop
-     */
+    private Label NextStop;
     @FXML
-    public Label Terminus;
-
-    /**
-     * Label displaying skipped stops
-     */
-    @FXML Label SkippedStops;
+    private Label Terminus;
+    @FXML
+    private Label SkippedStops;
 
 
     /**

@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 import project.gui.BusDetails;
+import project.gui.DetoursControl;
 import project.gui.MapPane;
 import project.gui.SpeedAdjustments;
 import project.map.*;
@@ -58,6 +59,8 @@ public class Controller {
      */
     public BusDetails busDetails;
 
+    public DetoursControl detoursControl;
+
     private InternalClock clock;
 
     /**
@@ -75,6 +78,7 @@ public class Controller {
         MapPane.setController(this);
         this.speedAdjustments = new SpeedAdjustments();
         this.busDetails = new BusDetails();
+        this.detoursControl = new DetoursControl();
     }
 
     /**
@@ -210,7 +214,7 @@ public class Controller {
 
         this.currentMode = EditMode.DETOURS;
 
-        Sidebar.setCenter(null);
+        Sidebar.setCenter(this.detoursControl);
         MapPane.editModeChanged(currentMode);
     }
 
@@ -319,6 +323,9 @@ public class Controller {
     public void busUnClicked(){
         if(currentMode == EditMode.SPEEDADJUSTMENTS) {
             Sidebar.setCenter(speedAdjustments);
+        }
+        else if(currentMode == EditMode.DETOURS){
+            Sidebar.setCenter(detoursControl);
         }
         else{
             Sidebar.setCenter(null);
