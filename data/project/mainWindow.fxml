@@ -78,7 +78,7 @@ popis:
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="closures_button" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#closuresButtonClick" text="Closures" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+                  <Button fx:id="closures_button" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#closuresButtonClick" text="Closures and bus info" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                   <Button fx:id="speedAdjustments_button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#speedAdjustmentsButtonClick" text="Speed Adjustments" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                   <Button fx:id="detours_button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#detoursButtonClick" text="Detours" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                </children>
