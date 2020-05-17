@@ -24,7 +24,7 @@ import java.time.Duration;
 public class BusDetails extends VBox {
 
     //private ObjectProperty<RouteData> currentVehicleData;
-    private ChangeListener changeListener;
+    private final ChangeListener<RouteData> changeListener;
 
     /**
      * label displaying bus name
@@ -73,12 +73,7 @@ public class BusDetails extends VBox {
      */
     public BusDetails(){
         Loader.loadFXMLDef(getClass().getResource("BusDetails.fxml"), this);
-        this.changeListener = new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                updateInfo((RouteData)newValue);
-            }
-        };
+        this.changeListener = (observable, oldValue, newValue) -> updateInfo(newValue);
     }
 
 
@@ -120,8 +115,7 @@ public class BusDetails extends VBox {
     }
 
     public void setVehicle(Vehicle vehicle){
-        //this.currentVehicleData = vehicle.routeDataProperty;
-        vehicle.routeDataProperty.addListener(this.changeListener);
+        vehicle.routeDataProperty.addListener(changeListener);
     }
 
 }
